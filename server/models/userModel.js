@@ -60,7 +60,9 @@ const userSchema = mongoose.Schema({
 });
 
 //hacer coincidir la contraseña introducida por el usuario con la contraseña cifrada en la base de datos.
-
+userSchema.methods.matchPassword = async function (enteredPassword) {
+    return await bcrypt.compare(enteredPassword, this.password);
+}
 
 //encryptar la contraseña usando bcrypt
 
