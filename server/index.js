@@ -3,9 +3,13 @@ import dotenv from "dotenv";
 import { errorHandler } from "./middleware/errorMiddleware.js";
 import cors from "cors";
 import connectDB from "./config/db.js";
+import swaggerUi from "swagger-ui-express";
+import { specs } from "./config/swagger.js";
+
 
 // Import routes
 import authRoutes from "./routes/authRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
 
 // Load env vars
 dotenv.config();
@@ -18,6 +22,18 @@ const app = express();
 
 // Enhanced CORS configuration
 const allowedOrigins = [
+  process.env.CLIENT_URL,
+  process.env.ADMIN_URL,
+
+  //add production urls
+
+  // add localhost for development
+  "http://localhost:3000",
+  "http://localhost:5173",
+  "http://localhost:8081", //ios simulator
+  "http://10.0.2.2:8081 ", //android simulator
+  "http://10.0.2.2:8080 ", //android emulador direct access
+  //"http://192.168.1.100:8081", // replace with your local
 ];
 
 app.use(
@@ -51,8 +67,14 @@ app.use(express.urlencoded({ limit: "10mb", extended: true }));
 
 // Routes
 app.use("/api/auth", authRoutes);
+app.use("/api/users", userRoutes);
 
 // API Documentation
+app.use("/api/docs",swaggerUi.serve, swaggerUi.setup(specs,{
+  explorer: true,
+  customCss: `.swagger-ui .topbar { display: none }`,
+  customSiteTitle: "L&V Tienda E-commerce API Documentation",
+}));
 
 // Home route
 app.get("/", (req, res) => {

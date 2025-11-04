@@ -1,5 +1,6 @@
 import asyncHandler from "express-async-handler";
 import User from "../models/userModel.js";
+import generateToken from "../utils/generateToken.js";
 
 // registrar usuario
 const registerUser =  asyncHandler (async (req, res) => {
@@ -52,8 +53,36 @@ const loginUser = asyncHandler (async (req, res) => {
         });
     } else {
         res.status(400);
-        throw new Error ("Datos de invalidos");
+        throw new Error ("Contraseña o email incorrectos");
     }
 });
 
-export { registerUser, loginUser };
+// getUserProfile
+const getUserProfile = asyncHandler (async (req, res) => {
+    const user = await User.findById (req.user._id);
+
+    if (user) {
+        res.status(200).json ({
+            _id: user._id,
+            name: user.name,
+            email: user.email,
+            avatar: user.avatar,
+            role: user.role,
+            addresses: user.addresses || [],
+        });
+    } else {
+        console.error("User not found with ID:", req.user?._id);
+        res.status(404);
+        throw new Error ("Usuario no encontrado");
+    }
+});
+
+// Logout user
+const logoutUser = asyncHandler (async (req, res) => {
+    res.status(200).json({
+        success: true,
+        message: "Usuario desconectado exitosamente",
+    })
+});
+
+export { registerUser, loginUser, getUserProfile, logoutUser };
