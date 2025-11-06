@@ -71,7 +71,7 @@ const getUserProfile = asyncHandler (async (req, res) => {
             addresses: user.addresses || [],
         });
     } else {
-        console.error("User not found with ID:", req.user?._id);
+        console.error("Error al obtener el usuario:", req.user?._id);
         res.status(404);
         throw new Error ("Usuario no encontrado");
     }
