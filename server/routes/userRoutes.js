@@ -1,13 +1,21 @@
 import express from "express";
 import { protect, admin } from "../middleware/authMiddleware.js";
-import { getUsers } from "../controllers/userController.js";
+import { getUsers, createUser, getUserById, updateUser} from "../controllers/userController.js";
 
 const router = express.Router();
 
 // route
-router.route("/").get(protect, admin,getUsers);
+router
+.route("/")
+.get (protect,admin,getUsers)
+.post(protect,admin,createUser);
 
 // /:id route
+router
+.route("/:id")
+.get(protect, getUserById)
+.put(protect, updateUser) // remove admin middleware for self-update
+
 
 // /_id/addresses
 
