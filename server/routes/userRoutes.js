@@ -1,6 +1,6 @@
 import express from "express";
 import { protect, admin } from "../middleware/authMiddleware.js";
-import { getUsers, createUser, getUserById, updateUser} from "../controllers/userController.js";
+import { getUsers, createUser, getUserById, updateUser, deleteUser, addAddress, updateAddress, deleteAddress} from "../controllers/userController.js";
 
 const router = express.Router();
 
@@ -14,11 +14,15 @@ router
 router
 .route("/:id")
 .get(protect, getUserById)
-.put(protect, updateUser) // remove admin middleware for self-update
+.put(protect, updateUser) 
+.delete(protect, admin, deleteUser); // Removed admin middleware 
 
+router.route("/:id/addresses").post(protect, addAddress);
+router;
 
-// /_id/addresses
+router
+.route("/:id/addresses/:addressId")
+.put(protect, updateAddress)
+.delete(protect, deleteAddress);
 
-// /_id/addresses/:addressId
-
-export default router;
+export default router

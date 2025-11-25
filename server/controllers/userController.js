@@ -1,103 +1,262 @@
 import asyncHandler from "express-async-handler";
 import User from "../models/userModel.js";
 
-// get users
+// =========================
+// GET ALL USERS
+// =========================
 const getUsers = asyncHandler(async (req, res) => {
-    const users = await User.find({}).select("-password");
-    res.status(200).json({
-        success: true,
-        users
-    });
+  const users = await User.find({}).select("-password");
+  res.status(200).json({
+    success: true,
+    users,
+  });
 });
 
-// createUser
+// =========================
+// CREATE USER (ADMIN ONLY)
+// =========================
 const createUser = asyncHandler(async (req, res) => {
-    const { name, email, password, roles, addresses } = req.body;
-    const userExists = await User.findOne({ email });
+  const { name, email, password, role, addresses } = req.body;
 
-    if (userExists) {
-        res.status(400);
-        throw new Error("El usuario ya existe");
-    }
+  // validar email duplicado
+  const userExists = await User.findOne({ email });
+  if (userExists) {
+    res.status(400);
+    throw new Error("El usuario ya existe");
+  }
 
-    const user = await User.create({
-        name,
-        email,
-        password,
-        roles,
-        addresses: addresses || []
-    });
+  // crear usuario
+  const user = await User.create({
+    name,
+    email,
+    password,
+    role,
+    addresses: addresses || [],
+  });
 
-    if (user) {
-        //initialize emty cart
-        // await Cart.create ({ user : user._id, Items : [] });
-
-        res.status(201).json({
-            _id: user._id,
-            name: user.name,
-            email: user.email,
-            avatar: user.avatar,
-            roles: user.roles,
-            addresses: user.addresses
-
-        });
-
-    } else {
-        res.status(400);
-        throw new Error("Datos de usuario inválidos");
-    }
-
+  res.status(201).json({
+    _id: user._id,
+    name: user.name,
+    email: user.email,
+    avatar: user.avatar,
+    role: user.role,
+    addresses: user.addresses,
+  });
 });
 
-//getUserById
+// =========================
+// GET USER BY ID
+// =========================
 const getUserById = asyncHandler(async (req, res) => {
-    const user = await User.findById(req.params.id).select("-password");
-    
-    if (user) {
-        res.json(user);
-    } else {
-        res.status(404);
-        throw new Error("Usuario no encontrado");
-    }
+  const user = await User.findById(req.params.id).select("-password");
+
+  if (!user) {
+    res.status(404);
+    throw new Error("Usuario no encontrado");
+  }
+
+  res.json(user);
 });
 
-//updateUser
+// =========================
+// UPDATE USER
+// =========================
 const updateUser = asyncHandler(async (req, res) => {
-    const user = await User.findById(req.params.id);
+  const user = await User.findById(req.params.id);
 
-    if (!user) {
-        res.status(404);
-        throw new Error("Usuario no encontrado");   
-    }
-    //allow update by user themselves or admin
-    user.name = req.body.name || user.name;
+  if (!user) {
+    res.status(404);
+    throw new Error("Usuario no encontrado");
+  }
 
-    if(req.body.password){
-        user.password = req.body.password;
-    }
+  user.name = req.body.name || user.name;
+  user.email = req.body.email || user.email;
 
-    if(req.user.role){
-        user.role = req.body.role;
-    }
+  // Si manda password nueva, se encripta en el pre-save del modelo
+  if (req.body.password) {
+    user.password = req.body.password;
+  }
 
-    user.addresses = req.body.addresses || user.addresses;
+  // Solo admin puede cambiar roles
+  if (req.body.role && req.user.role === "admin") {
+    user.role = req.body.role;
+  }
 
-    // avatar 
-    const updatedUser = await user.save();
-    
-    res.json(200).json({
-        _id: updatedUser._id,
-        name: updatedUser.name,
-        email: updatedUser.email,
-        avatar: updatedUser.avatar,
-        roles: updatedUser.roles,
-        addresses: updatedUser.addresses
-    });
+  if (req.body.addresses) {
+    user.addresses = req.body.addresses;
+  }
+
+  const updatedUser = await user.save();
+
+  res.status(200).json({
+    _id: updatedUser._id,
+    name: updatedUser.name,
+    email: updatedUser.email,
+    avatar: updatedUser.avatar,
+    role: updatedUser.role,
+    addresses: updatedUser.addresses,
+  });
 });
 
-//deleteUser
+// =========================
+// DELETE USER
+// =========================
 const deleteUser = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id);
 
+  if (!user) {
+    res.status(404);
+    throw new Error("Usuario no encontrado");
+  }
+
+  await user.deleteOne();
+
+  res.json({
+    success: true,
+    message: "Usuario eliminado exitosamente",
+  });
 });
 
-export { getUsers, createUser, getUserById, updateUser };
+// =========================
+// ADD ADDRESS
+// =========================
+const addAddress = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id);
+
+  if (!user) {
+    res.status(404);
+    throw new Error("Usuario no encontrado");
+  }
+
+  // El dueño o admin
+  if (req.user._id.toString() !== user._id.toString() && req.user.role !== "admin") {
+    res.status(403);
+    throw new Error("No autorizado para modificar direcciones");
+  }
+
+  const { street, city, country, postalCode, phone, isDefault } = req.body;
+
+  if (!street || !city || !country || !postalCode || !phone) {
+    res.status(400);
+    throw new Error("Todos los campos son obligatorios");
+  }
+
+  // Si la nueva es default, quitar default a las demás
+  if (isDefault) {
+    user.addresses.forEach(addr => (addr.isDefault = false));
+  }
+
+  user.addresses.push({
+    street,
+    city,
+    country,
+    postalCode,
+    phone,
+    isDefault: isDefault || user.addresses.length === 0 ? true : false,
+  });
+
+  await user.save();
+
+  res.json({
+    success: true,
+    addresses: user.addresses,
+    message: "Dirección agregada exitosamente",
+  });
+});
+
+// =========================
+// UPDATE ADDRESS
+// =========================
+const updateAddress = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id);
+
+  if (!user) {
+    res.status(404);
+    throw new Error("Usuario no encontrado");
+  }
+
+  // Dueño o admin
+  if (req.user._id.toString() !== user._id.toString() && req.user.role !== "admin") {
+    res.status(403);
+    throw new Error("No autorizado para modificar direcciones");
+  }
+
+  const address = user.addresses.id(req.params.addressId);
+
+  if (!address) {
+    res.status(404);
+    throw new Error("Dirección no encontrada");
+  }
+
+  const { street, city, country, postalCode, phone, isDefault } = req.body;
+
+  if (street) address.street = street;
+  if (city) address.city = city;
+  if (country) address.country = country;
+  if (postalCode) address.postalCode = postalCode;
+  if (phone) address.phone = phone;
+
+  if (isDefault) {
+    user.addresses.forEach(addr => (addr.isDefault = false));
+    address.isDefault = true;
+  }
+
+  await user.save();
+
+  res.json({
+    success: true,
+    addresses: user.addresses,
+    message: "Dirección actualizada exitosamente",
+  });
+});
+
+// =========================
+// DELETE ADDRESS
+// =========================
+const deleteAddress = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id);
+
+  if (!user) {
+    res.status(404);
+    throw new Error("Usuario no encontrado");
+  }
+
+  if (req.user._id.toString() !== user._id.toString() && req.user.role !== "admin") {
+    res.status(403);
+    throw new Error("No autorizado para modificar direcciones");
+  }
+
+  const address = user.addresses.id(req.params.addressId);
+
+  if (!address) {
+    res.status(404);
+    throw new Error("Dirección no encontrada");
+  }
+
+  const wasDefault = address.isDefault;
+
+  user.addresses.pull(req.params.addressId);
+
+  if (wasDefault && user.addresses.length > 0) {
+    user.addresses[0].isDefault = true;
+  }
+
+  await user.save();
+
+  res.json({
+    success: true,
+    addresses: user.addresses,
+    message: "Dirección eliminada exitosamente",
+  });
+});
+
+export {
+  getUsers,
+  createUser,
+  getUserById,
+  updateUser,
+  deleteUser,
+  addAddress,
+  updateAddress,
+  deleteAddress,
+};

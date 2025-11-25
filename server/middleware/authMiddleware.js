@@ -1,46 +1,41 @@
-import jwt from 'jsonwebtoken';
-import asyncHandler from 'express-async-handler';
-import User from '../models/userModel.js';
+import jwt from "jsonwebtoken";
+import asyncHandler from "express-async-handler";
+import User from "../models/userModel.js";
 
-// Protect routes
 const protect = asyncHandler(async (req, res, next) => {
   let token;
 
   if (
     req.headers.authorization &&
-    req.headers.authorization.startsWith('Bearer')
+    req.headers.authorization.startsWith("Bearer")
   ) {
     try {
-      // Get token from header
-      token = req.headers.authorization.split(' ')[1];
+      token = req.headers.authorization.split(" ")[1];
 
-      // Verify token
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-      // Get user from the token
-      req.user = await User.findById(decoded.id).select('-password');
+      req.user = await User.findById(decoded.id).select("-password");
 
-      next();
+      return next();
     } catch (error) {
-      console.error(error);
+      console.error("Token error:", error);
       res.status(401);
-      throw new Error('No autorizado, token no valido');
+      throw new Error("No autorizado, token inválido o expirado");
     }
   }
 
   if (!token) {
     res.status(401);
-    throw new Error('No autorizado, no hay token');
+    throw new Error("No autorizado, no hay token");
   }
 });
 
-// Admin middleware
 const admin = (req, res, next) => {
-  if (req.user && req.user.role === 'admin') {
-    next();
+  if (req.user && req.user.role === "admin") {
+    return next();
   } else {
     res.status(403);
-    throw new Error('No autorizado como administrador');
+    throw new Error("No autorizado como administrador");
   }
 };
 
