@@ -136,7 +136,7 @@ const addAddress = asyncHandler(async (req, res) => {
 
   const { street, city, country, postalCode, phone, isDefault } = req.body;
 
-  if (!street || !city || !country || !postalCode || !phone) {
+  if (!street || !city || !country || !postalCode) {
     res.status(400);
     throw new Error("Todos los campos son obligatorios");
   }
@@ -151,7 +151,6 @@ const addAddress = asyncHandler(async (req, res) => {
     city,
     country,
     postalCode,
-    phone,
     isDefault: isDefault || user.addresses.length === 0 ? true : false,
   });
 
@@ -188,13 +187,12 @@ const updateAddress = asyncHandler(async (req, res) => {
     throw new Error("Dirección no encontrada");
   }
 
-  const { street, city, country, postalCode, phone, isDefault } = req.body;
+  const { street, city, country, postalCode, isDefault } = req.body;
 
   if (street) address.street = street;
   if (city) address.city = city;
   if (country) address.country = country;
   if (postalCode) address.postalCode = postalCode;
-  if (phone) address.phone = phone;
 
   if (isDefault) {
     user.addresses.forEach(addr => (addr.isDefault = false));

@@ -1,28 +1,40 @@
 import express from "express";
 import { protect, admin } from "../middleware/authMiddleware.js";
-import { getUsers, createUser, getUserById, updateUser, deleteUser, addAddress, updateAddress, deleteAddress} from "../controllers/userController.js";
+import { 
+  getUsers, 
+  createUser, 
+  getUserById, 
+  updateUser, 
+  deleteUser, 
+  addAddress, 
+  updateAddress, 
+  deleteAddress 
+} from "../controllers/userController.js";
 
 const router = express.Router();
 
-// route
+// /api/users/
 router
-.route("/")
-.get (protect,admin,getUsers)
-.post(protect,admin,createUser);
+  .route("/")
+  .get(protect, admin, getUsers)
+  .post(protect, admin, createUser);
 
-// /:id route
+// /api/users/:id
 router
-.route("/:id")
-.get(protect, getUserById)
-.put(protect, updateUser) 
-.delete(protect, admin, deleteUser); // Removed admin middleware 
+  .route("/:id")
+  .get(protect, getUserById)
+  .put(protect, updateUser)
+  .delete(protect, admin, deleteUser);
 
-router.route("/:id/addresses").post(protect, addAddress);
-router;
-
+// /api/users/:id/addresses
 router
-.route("/:id/addresses/:addressId")
-.put(protect, updateAddress)
-.delete(protect, deleteAddress);
+  .route("/:id/addresses")
+  .post(protect, addAddress);
 
-export default router
+// /api/users/:id/addresses/:addressId
+router
+  .route("/:id/addresses/:addressId")
+  .put(protect, updateAddress)
+  .delete(protect, deleteAddress); // si querés admin, cambiar: admin, deleteAddress
+
+export default router;

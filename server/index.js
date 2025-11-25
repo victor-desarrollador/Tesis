@@ -10,6 +10,7 @@ import { specs } from "./config/swagger.js";
 // Import routes
 import authRoutes from "./routes/authRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
+import productRoutes from "./routes/productRoutes.js";
 
 // Load env vars
 dotenv.config();
@@ -17,32 +18,27 @@ dotenv.config();
 // Connect to database
 connectDB();
 
-
 const app = express();
+
+// 🔧 CORRECCIÓN: definir PORT antes de usarlo abajo
+const PORT = process.env.PORT || 8000;
 
 // Enhanced CORS configuration
 const allowedOrigins = [
   process.env.CLIENT_URL,
   process.env.ADMIN_URL,
-
-  //add production urls
-
-  // add localhost for development
   "http://localhost:3000",
   "http://localhost:5173",
-  "http://localhost:8081", //ios simulator
-  "http://10.0.2.2:8081 ", //android simulator
-  "http://10.0.2.2:8080 ", //android emulador direct access
-  //"http://192.168.1.100:8081", // replace with your local
+  "http://localhost:8081",
+  "http://10.0.2.2:8081",
+  "http://10.0.2.2:8080"
 ];
 
 app.use(
   cors({
     origin: function (origin, callback) {
-      // Allow requests with no origin (like mobile apps or curl requests)
       if (!origin) return callback(null, true);
 
-      // In development, allow all origins for easier testing
       if (process.env.NODE_ENV === "development") {
         return callback(null, true);
       }
@@ -59,22 +55,24 @@ app.use(
   })
 );
 
-// Increase body size limit for JSON and URL-encoded payloads
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ limit: "10mb", extended: true }));
-
-// Debug middleware for order routes
 
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/products", productRoutes);
 
-// API Documentation
-app.use("/api/docs",swaggerUi.serve, swaggerUi.setup(specs,{
-  explorer: true,
-  customCss: `.swagger-ui .topbar { display: none }`,
-  customSiteTitle: "L&V Tienda E-commerce API Documentation",
-}));
+// 🔧 CORRECCIÓN: Swagger estaba montado en /api/docs, pero tu mensaje decía /api-docs
+app.use(
+  "/api-docs",
+  swaggerUi.serve,
+  swaggerUi.setup(specs, {
+    explorer: true,
+    customCss: `.swagger-ui .topbar { display: none }`,
+    customSiteTitle: "L&V Tienda E-commerce API Documentation",
+  })
+);
 
 // Home route
 app.get("/", (req, res) => {
@@ -111,7 +109,7 @@ app.get("/", (req, res) => {
       documentation: `Visit http://localhost:${PORT}/api-docs for API documentation`,
     },
     message:
-      "🚀 BabyShop API is running successfully! Remove this placeholder and start building your API endpoints.",
+      "🚀 BabyShop API is running successfully! Remove this placeholder and start building your API endpoints!",
   };
 
   res.json(projectInfo);
@@ -131,7 +129,6 @@ app.get("/health", (req, res) => {
 app.use(errorHandler);
 
 // Start server
-const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
   console.log(` API Server is running!`);
   console.log(`📍 Server URL: http://localhost:${PORT}`);
