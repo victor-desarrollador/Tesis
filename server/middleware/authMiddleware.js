@@ -5,10 +5,7 @@ import User from "../models/userModel.js";
 const protect = asyncHandler(async (req, res, next) => {
   let token;
 
-  if (
-    req.headers.authorization &&
-    req.headers.authorization.startsWith("Bearer")
-  ) {
+  if (req.headers.authorization?.startsWith("Bearer")) {
     token = req.headers.authorization.split(" ")[1];
 
     try {
@@ -25,7 +22,6 @@ const protect = asyncHandler(async (req, res, next) => {
     } catch (error) {
       console.error("Token error:", error);
 
-      // 🔧 Si expiró el token → mensaje más claro
       if (error.name === "TokenExpiredError") {
         res.status(401);
         throw new Error("Token expirado. Por favor inicia sesión nuevamente.");
@@ -36,8 +32,10 @@ const protect = asyncHandler(async (req, res, next) => {
     }
   }
 
-  res.status(401);
-  throw new Error("No autorizado, no hay token");
+  if (!token) {
+    res.status(401);
+    throw new Error("No autorizado, no hay token");
+  }
 });
 
 const admin = (req, res, next) => {

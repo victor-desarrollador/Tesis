@@ -4,30 +4,26 @@ import bcrypt from "bcryptjs";
 const addressSchema = mongoose.Schema({
   street: { type: String, required: true, trim: true },
   city: { type: String, required: true, trim: true },
+  state: { type: String, trim: true },
+  zipCode: { type: String, trim: true },
   country: { type: String, required: true, trim: true },
-  postalCode: { type: String, required: true, trim: true },
-  isDefault: { type: Boolean, default: false },
-});
-
-const cardItemSchema = mongoose.Schema({
-  productId: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
-  quantity: { type: Number, required: true, min: 1 },
 });
 
 const userSchema = mongoose.Schema(
   {
     name: { type: String, required: true, trim: true },
-    email: { type: String, required: true, unique: true, lowercase: true },
-    password: { type: String, required: true },
-    avatar: { type: String, default: "" },
+    email: { type: String, required: true, unique: true, lowercase: true, index: true },
+    password: { type: String, required: true, minlength: 8 },
     role: {
       type: String,
-      enum: ["user", "admin", "deliveryman"],
-      default: "user",
+      enum: ["cliente", "admin"],
+      default: "cliente",
     },
-    addresses: [addressSchema],
-    wishlist: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
-    cart: [cardItemSchema],
+    address: addressSchema, // Changed from array to single object as per requirements
+    phone: { type: String },
+    isVerified: { type: Boolean, default: false },
+    resetPasswordToken: String,
+    resetPasswordExpires: Date,
   },
   { timestamps: true }
 );
@@ -43,19 +39,6 @@ userSchema.pre("save", async function (next) {
 
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
-  next();
-});
-
-// Solo una dirección default
-userSchema.pre("save", function (next) {
-  if (this.addresses.length > 0) {
-    const defaults = this.addresses.filter((a) => a.isDefault);
-    if (defaults.length > 1) {
-      this.addresses.forEach((a, idx) => {
-        a.isDefault = idx === 0;
-      });
-    }
-  }
   next();
 });
 

@@ -1,6 +1,6 @@
-import asyncHandler from "../middleware/asyncHandler.js";
+import asyncHandler from "express-async-handler";
 import Brand from "../models/brandModel.js";
-import cloudinary from "../utils/cloudinary.js";
+import cloudinary from "../config/cloudinary.js"; 
 
 // @desc    Get all brands
 // @route   GET /api/brands
@@ -28,7 +28,6 @@ const getBrandById = asyncHandler(async (req, res) => {
 // @route   POST /api/brands
 // @access  Private/Admin
 const createBrand = asyncHandler(async (req, res) => {
-
     const { name, image } = req.body;
 
     if (!name) {
@@ -114,5 +113,3 @@ export {
     updateBrand,
     deleteBrand,
 };
-
-

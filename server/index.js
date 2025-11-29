@@ -1,16 +1,18 @@
 import express from "express";
 import dotenv from "dotenv";
-import { errorHandler } from "./middleware/errorMiddleware.js";
 import cors from "cors";
 import connectDB from "./config/db.js";
 import swaggerUi from "swagger-ui-express";
 import { specs } from "./config/swagger.js";
-
+import { errorHandler } from "./middleware/errorMiddleware.js";
 
 // Import routes
 import authRoutes from "./routes/authRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
+import brandRoutes from "./routes/brandRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
+import categoryRoutes from "./routes/categoryRoutes.js";
+
 
 // Load env vars
 dotenv.config();
@@ -19,8 +21,6 @@ dotenv.config();
 connectDB();
 
 const app = express();
-
-// 🔧 CORRECCIÓN: definir PORT antes de usarlo abajo
 const PORT = process.env.PORT || 8000;
 
 // Enhanced CORS configuration
@@ -37,6 +37,7 @@ const allowedOrigins = [
 app.use(
   cors({
     origin: function (origin, callback) {
+      // ✅ Permitir requests sin origin (mobile apps, Postman, etc)
       if (!origin) return callback(null, true);
 
       if (process.env.NODE_ENV === "development") {
@@ -55,15 +56,19 @@ app.use(
   })
 );
 
+// Body parser middleware
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ limit: "10mb", extended: true }));
 
-// Routes
+// API Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/brands", brandRoutes);
 app.use("/api/products", productRoutes);
+app.use("/api/categories", categoryRoutes);
 
-// 🔧 CORRECCIÓN: Swagger estaba montado en /api/docs, pero tu mensaje decía /api-docs
+
+// Swagger Documentation
 app.use(
   "/api-docs",
   swaggerUi.serve,
@@ -77,7 +82,7 @@ app.use(
 // Home route
 app.get("/", (req, res) => {
   const projectInfo = {
-    name: " L&V tienda E-commerce API",
+    name: "L&V tienda E-commerce API",
     version: "1.0.0",
     description: "Backend API server for L&V Tienda e-commerce platform",
     status: "Running",
@@ -86,7 +91,7 @@ app.get("/", (req, res) => {
     endpoints: {
       documentation: `/api-docs`,
       health: `/health`,
-      api: `/api/v1`,
+      api: `/api`,
     },
     features: [
       "🔐 JWT Authentication",
@@ -108,8 +113,7 @@ app.get("/", (req, res) => {
       production: "npm start",
       documentation: `Visit http://localhost:${PORT}/api-docs for API documentation`,
     },
-    message:
-      "🚀 BabyShop API is running successfully! Remove this placeholder and start building your API endpoints!",
+    message: "🚀 L&V API is running successfully!",
   };
 
   res.json(projectInfo);
@@ -125,22 +129,18 @@ app.get("/health", (req, res) => {
   });
 });
 
-// Error handler
+// Error handler (debe ir al final)
 app.use(errorHandler);
 
 // Start server
 app.listen(PORT, () => {
-  console.log(` API Server is running!`);
+  console.log(`✅ API Server is running!`);
   console.log(`📍 Server URL: http://localhost:${PORT}`);
-  console.log(
-    `🌐 Client URL: ${process.env.CLIENT_URL || "http://localhost:3000"}`
-  );
-  console.log(
-    `🖥️  Admin URL: ${process.env.ADMIN_URL || "http://localhost:5173"}`
-  );
+  console.log(`🌐 Client URL: ${process.env.CLIENT_URL || "http://localhost:3000"}`);
+  console.log(`🖥️  Admin URL: ${process.env.ADMIN_URL || "http://localhost:5173"}`);
   console.log(`📖 API Documentation: http://localhost:${PORT}/api-docs`);
   console.log(`❤️  Health Check: http://localhost:${PORT}/health`);
   console.log(`📋 Project Info: http://localhost:${PORT}`);
   console.log(`⚡ Environment: ${process.env.NODE_ENV || "development"}`);
-  console.log(`\n🛠️  Ready to start building your e-commerce API!`);
+  console.log(`\n🛠️  Ready to build your e-commerce API!`);
 });
