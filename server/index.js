@@ -13,6 +13,13 @@ import brandRoutes from "./routes/brandRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
 import categoryRoutes from "./routes/categoryRoutes.js";
 import bannerRoutes from "./routes/bannerRoutes.js";
+import statsRoutes from "./routes/statsRoutes.js";
+import orderRoutes from "./routes/orderRoutes.js";
+import wishlistRoutes from "./routes/wishlistRoutes.js";
+import cartRoutes from "./routes/cartRoutes.js";
+import analyticsRoutes from "./routes/analyticsRoutes.js";
+import paymentRoutes from "./routes/paymentRoutes.js";
+
 
 
 
@@ -69,11 +76,12 @@ app.use("/api/brands", brandRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/categories", categoryRoutes);
 app.use("/api/banners", bannerRoutes);
-//app.use("/api/orders", orderRoutes);
-//app.use("/api/wishlist", wishlistRoutes);
-//app.use("/api/cart", cartRoutes);
-//app.use("/api/analytics", analyticsRoutes);
-//app.use("/api/payments", paymentRoutes);
+app.use("/api/stats", statsRoutes);
+app.use("/api/orders", orderRoutes);
+app.use("/api/wishlist", wishlistRoutes);
+app.use("/api/cart", cartRoutes);
+app.use("/api/analytics", analyticsRoutes);
+app.use("/api/payments", paymentRoutes);
 
 
 // Swagger Documentation
