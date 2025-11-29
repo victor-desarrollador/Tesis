@@ -8,7 +8,7 @@ import Category from "../models/categoryModel.js";
  * 
  * Soporta paginación y filtros opcionales
  */
-const getAllCategories = asyncHandler(async (req, res) => {
+const getCategories = asyncHandler(async (req, res) => {
     const page = parseInt(req.query.page) || 1;
     const perPage = parseInt(req.query.perPage) || 20;
     const skip = (page - 1) * perPage;
@@ -146,7 +146,7 @@ const deleteCategory = asyncHandler(async (req, res) => {
 });
 
 export {
-    getAllCategories,
+    getCategories,
     getCategoryById,
     createCategory,
     updateCategory,
