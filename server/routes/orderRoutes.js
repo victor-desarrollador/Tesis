@@ -8,6 +8,8 @@ import {
   getAllOrdersAdmin,
 } from "../controllers/orderController.js";
 import { protect } from "../middleware/authMiddleware.js";
+import { createOrderValidation, updateOrderStatusValidation } from "../validators/orderValidator.js";
+import { validate } from "../validators/authValidator.js";
 
 const router = express.Router();
 
@@ -95,7 +97,7 @@ router.route("/admin").get(protect, getAllOrdersAdmin);
  *       401:
  *         description: Unauthorized
  */
-router.route("/").get(protect, getOrders).post(protect, createOrderFromCart);
+router.route("/").get(protect, getOrders).post(protect, createOrderValidation, validate, createOrderFromCart);
 
 /**
  * @swagger
@@ -186,7 +188,7 @@ router.route("/:id").get(protect, getOrderById).delete(protect, deleteOrder);
  *       404:
  *         description: Order not found
  */
-router.route("/:id/status").put(protect, updateOrderStatus);
+router.route("/:id/status").put(protect, updateOrderStatusValidation, validate, updateOrderStatus);
 
 /**
  * @swagger

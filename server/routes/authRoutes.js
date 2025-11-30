@@ -1,12 +1,13 @@
 import express from "express";
 import { registerUser, loginUser, getUserProfile, logoutUser } from "../controllers/authController.js";
 import { protect } from "../middleware/authMiddleware.js";
+import { registerValidation, loginValidation, validate } from "../validators/authValidator.js";
 
 
 const router = express.Router();
 
 
-router.post("/register", registerUser);
+router.post("/register", registerValidation, validate, registerUser);
 
 //login router
 /**
@@ -52,10 +53,10 @@ router.post("/register", registerUser);
  *       400:
  *         description: Invalid user credentials
  */
-router.post("/login", loginUser);
+router.post("/login", loginValidation, validate, loginUser);
 
 //profile
-router.get("/profile", protect,getUserProfile);
+router.get("/profile", protect, getUserProfile);
 
 //logout
 

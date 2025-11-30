@@ -1,6 +1,13 @@
 import express from "express";
 import { protect, admin } from "../middleware/authMiddleware.js";
 import {
+    createProductValidation,
+    updateProductValidation,
+    getProductsValidation,
+    createReviewValidation
+} from "../validators/productValidator.js";
+import { validate } from "../validators/authValidator.js";
+import {
     createProduct,
     getProducts,
     getProductById,
@@ -23,7 +30,7 @@ const router = express.Router();
  * @desc    Crear nuevo producto
  * @access  Private/Admin
  */
-router.route("/").get(getProducts).post(protect, admin, createProduct);
+router.route("/").get(getProductsValidation, validate, getProducts).post(protect, admin, createProductValidation, validate, createProduct);
 
 /**
  * @route   GET /api/products/featured
@@ -55,7 +62,7 @@ router.route("/slug/:slug").get(getProductBySlug);
 router
     .route("/:id")
     .get(getProductById)
-    .put(protect, admin, updateProduct)
+    .put(protect, admin, updateProductValidation, validate, updateProduct)
     .delete(protect, admin, deleteProduct);
 
 /**
@@ -63,7 +70,7 @@ router
  * @desc    Crear reseña de producto
  * @access  Private
  */
-router.route("/:id/reviews").post(protect, createProductReview);
+router.route("/:id/reviews").post(protect, createReviewValidation, validate, createProductReview);
 
 /**
  * @route   PATCH /api/products/:id/stock

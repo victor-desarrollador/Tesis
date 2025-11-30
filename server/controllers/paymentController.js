@@ -1,190 +1,337 @@
-import Stripe from "stripe";
+import { MercadoPagoConfig, Preference, Payment } from "mercadopago";
 import asyncHandler from "express-async-handler";
 import Order from "../models/orderModel.js";
 
-// Initialize Stripe with secret key
-const stripe = new Stripe(
-  process.env.STRIPE_SECRET_KEY || "your-stripe-secret-will-go-here"
-);
+/**
+ * Inicializar cliente de Mercado Pago
+ * Documentación: https://www.mercadopago.com.ar/developers/es/docs
+ */
+const client = new MercadoPagoConfig({
+  accessToken: process.env.MERCADOPAGO_ACCESS_TOKEN || "",
+  options: {
+    timeout: 5000,
+    idempotencyKey: "your-idempotency-key",
+  },
+});
 
-// @desc    Create payment intent
-// @route   POST /api/payments/create-intent
-// @access  Private
-export const createPaymentIntent = asyncHandler(async (req, res) => {
+const preference = new Preference(client);
+const payment = new Payment(client);
+
+/**
+ * @desc    Crear preferencia de pago de Mercado Pago
+ * @route   POST /api/payments/create-preference
+ * @access  Private
+ * 
+ * Crea una preferencia de pago y retorna el init_point para redirigir al usuario
+ * al Checkout Pro de Mercado Pago
+ */
+export const createPaymentPreference = asyncHandler(async (req, res) => {
   try {
-    console.log("💳 Payment intent request received");
-    console.log("📋 Request method:", req.method);
-    console.log("📋 Request headers:", req.headers);
-    console.log("📋 Request body:", req.body);
-    console.log("📋 Request body type:", typeof req.body);
-    console.log("📋 Content-Type:", req.headers["content-type"]);
-    console.log("📋 Raw body available:", !!req.rawBody);
+    console.log("💳 Creando preferencia de pago Mercado Pago");
+    const { orderId } = req.body;
 
-    if (!req.body) {
-      console.log("❌ Request body is missing - debugging info:");
-      console.log("📋 req.body:", req.body);
-      console.log("📋 req.body === null:", req.body === null);
-      console.log("📋 req.body === undefined:", req.body === undefined);
-      console.log("📋 Object.keys(req.body):", Object.keys(req.body || {}));
-
+    // Validar que se envió el orderId
+    if (!orderId) {
       return res.status(400).json({
         success: false,
-        message: "Request body is missing",
+        message: "Order ID es requerido",
       });
     }
 
-    const { orderId, amount, currency = "usd" } = req.body;
+    // Buscar la orden
+    const order = await Order.findById(orderId).populate("items.productId");
 
-    if (!orderId || !amount) {
-      return res.status(400).json({
-        success: false,
-        message: "Order ID and amount are required",
-      });
-    }
-
-    const order = await Order.findById(orderId);
     if (!order) {
       return res.status(404).json({
         success: false,
-        message: "Order not found",
+        message: "Orden no encontrada",
       });
     }
 
+    // Verificar que el usuario sea dueño de la orden
     if (!order.userId.equals(req.user._id)) {
       return res.status(403).json({
         success: false,
-        message: "Not authorized to pay for this order",
+        message: "No autorizado para pagar esta orden",
       });
     }
 
-    if (order.status === "paid" || order.isPaid) {
+    // Verificar que la orden no esté ya pagada
+    if (order.status === "paid" || order.paidAt) {
       return res.status(400).json({
         success: false,
-        message: "This order has already been paid",
+        message: "Esta orden ya ha sido pagada",
       });
     }
 
-    const amountInCents = Math.round(amount * 100);
+    // Construir items para Mercado Pago
+    const items = order.items.map((item) => ({
+      id: item.productId?._id?.toString() || "product",
+      title: item.name || "Producto",
+      description: `Producto de L&V Tienda`,
+      picture_url: item.image || "",
+      category_id: "baby_products",
+      quantity: item.quantity,
+      unit_price: Number(item.price),
+      currency_id: "ARS", // Pesos argentinos
+    }));
 
-    const paymentIntent = await stripe.paymentIntents.create({
-      amount: amountInCents,
-      currency: currency.toLowerCase(),
-      metadata: {
-        orderId: orderId.toString(), // Ensure string
-        userId: req.user._id.toString(), // Convert ObjectId to string
-        userEmail: req.user.email,
+    // Crear preferencia de pago
+    const preferenceData = {
+      items: items,
+      payer: {
+        name: req.user.name,
+        email: req.user.email,
       },
-      payment_method_types: ["card"],
-      description: `Payment for Baby Shop Order #${orderId
-        .slice(-8)
-        .toUpperCase()}`,
-    });
+      back_urls: {
+        success: `${process.env.CLIENT_URL}/payment/success`,
+        failure: `${process.env.CLIENT_URL}/payment/failure`,
+        pending: `${process.env.CLIENT_URL}/payment/pending`,
+      },
+      auto_return: "approved", // Retorno automático al aprobar
+      notification_url: `${process.env.PRODUCTION_SERVER_URL || "http://localhost:8000"}/api/payments/webhook`,
+      external_reference: orderId.toString(), // Referencia a nuestra orden
+      statement_descriptor: "L&V TIENDA BEBE",
+      metadata: {
+        order_id: orderId.toString(),
+        user_id: req.user._id.toString(),
+        user_email: req.user.email,
+      },
+      payment_methods: {
+        excluded_payment_methods: [], // Permitir todos los métodos
+        excluded_payment_types: [], // Permitir todos los tipos
+        installments: 12, // Hasta 12 cuotas
+      },
+    };
+
+    const response = await preference.create({ body: preferenceData });
+
+    console.log("✅ Preferencia creada:", response.id);
+
+    // Guardar el preference_id en la orden para referencia
+    order.paymentIntentId = response.id;
+    await order.save();
 
     res.status(200).json({
       success: true,
-      clientSecret: paymentIntent.client_secret,
-      paymentIntentId: paymentIntent.id,
-      message: "Payment intent created successfully",
+      preferenceId: response.id,
+      initPoint: response.init_point, // URL para redirigir al checkout
+      sandboxInitPoint: response.sandbox_init_point, // URL para testing
+      message: "Preferencia de pago creada exitosamente",
     });
   } catch (error) {
-    console.error("❌ Create payment intent error:", error);
+    console.error("❌ Error creando preferencia:", error);
     res.status(500).json({
       success: false,
-      message: error.message || "Failed to create payment intent",
+      message: error.message || "Error al crear preferencia de pago",
     });
   }
 });
 
-// @desc    Handle Stripe webhook (for production use)
-// @route   POST /api/payments/webhook
-// @access  Public (Stripe webhook)
-export const handleStripeWebhook = asyncHandler(async (req, res) => {
-  console.log("🎣 Webhook received");
+/**
+ * @desc    Obtener información de un pago
+ * @route   GET /api/payments/:paymentId
+ * @access  Private
+ */
+export const getPaymentInfo = asyncHandler(async (req, res) => {
+  try {
+    const { paymentId } = req.params;
 
-  // For development - skip signature verification completely
-  // In production, you'll need to set up proper raw body handling for webhooks
-  if (process.env.NODE_ENV === "production") {
-    const sig = req.headers["stripe-signature"];
-    const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
+    const paymentInfo = await payment.get({ id: paymentId });
 
-    if (!endpointSecret) {
-      console.error("❌ STRIPE_WEBHOOK_SECRET not configured");
-      return res.status(400).send("Webhook secret not configured");
-    }
+    res.json({
+      success: true,
+      payment: paymentInfo,
+    });
+  } catch (error) {
+    console.error("❌ Error obteniendo info de pago:", error);
+    res.status(500).json({
+      success: false,
+      message: error.message || "Error al obtener información del pago",
+    });
+  }
+});
 
-    try {
-      // This would need raw body in production
-      const event = stripe.webhooks.constructEvent(
-        req.body,
-        sig,
-        endpointSecret
-      );
-      // Handle the verified event...
-    } catch (err) {
-      console.error("❌ Webhook signature verification failed:", err.message);
-      return res.status(400).send(`Webhook Error: ${err.message}`);
-    }
-  } else {
-    // Development mode: simulate webhook events for testing
-    console.log("⚠️ Development mode: webhook signature verification disabled");
+/**
+ * @desc    Webhook de Mercado Pago
+ * @route   POST /api/payments/webhook
+ * @access  Public (Mercado Pago webhook)
+ * 
+ * Mercado Pago enviará notificaciones a este endpoint cuando cambie el estado de un pago
+ * Documentación: https://www.mercadopago.com.ar/developers/es/docs/your-integrations/notifications/webhooks
+ */
+export const handleMercadoPagoWebhook = asyncHandler(async (req, res) => {
+  try {
+    console.log("🎣 Webhook de Mercado Pago recibido");
+    console.log("📋 Headers:", req.headers);
+    console.log("📋 Body:", req.body);
+    console.log("📋 Query:", req.query);
 
-    // For now, just acknowledge the webhook
-    console.log("📋 Webhook body (development):", req.body);
+    // Mercado Pago envía la notificación en query params
+    const { type, data } = req.query;
 
-    // Handle common Stripe events even in development
-    if (req.body && req.body.type) {
-      const event = req.body;
+    // Responder inmediatamente a Mercado Pago (importante)
+    res.status(200).send("OK");
 
-      switch (event.type) {
-        case "payment_intent.succeeded":
-          const paymentIntent = event.data.object;
-          console.log(
-            "✅ Payment succeeded:",
-            paymentIntent.id,
-            paymentIntent.metadata,
-            event.type
-          );
+    // Procesar la notificación de forma asíncrona
+    if (type === "payment") {
+      const paymentId = data.id;
+      console.log(`💳 Procesando pago: ${paymentId}`);
 
-          // Update order status in database
-          const orderId = paymentIntent.metadata.orderId;
-          if (orderId) {
-            try {
-              const updatedOrder = await Order.findByIdAndUpdate(
-                orderId,
-                {
-                  status: "paid",
-                  isPaid: true,
-                  paidAt: new Date(),
-                  paymentIntentId: paymentIntent.id,
-                },
-                { new: true }
-              );
+      try {
+        // Obtener información del pago
+        const paymentInfo = await payment.get({ id: paymentId });
+        console.log("📋 Info del pago:", JSON.stringify(paymentInfo, null, 2));
 
-              if (updatedOrder) {
-                console.log("✅ Order status updated via webhook:", orderId);
-              } else {
-                console.log("⚠️ Order not found for update:", orderId);
-              }
-            } catch (error) {
-              console.error("❌ Failed to update order via webhook:", error);
-            }
-          }
-          break;
+        const orderId = paymentInfo.external_reference || paymentInfo.metadata?.order_id;
 
-        case "payment_intent.payment_failed":
-          console.log("❌ Payment failed:", event.data.object.id);
-          break;
+        if (!orderId) {
+          console.error("❌ No se encontró order_id en el pago");
+          return;
+        }
 
-        case "payment_intent.created":
-          console.log("💳 Payment intent created:", event.data.object.id);
-          break;
+        // Buscar la orden
+        const order = await Order.findById(orderId);
 
-        default:
-          console.log(`ℹ️ Unhandled event type: ${event.type}`);
+        if (!order) {
+          console.error(`❌ Orden no encontrada: ${orderId}`);
+          return;
+        }
+
+        // Actualizar orden según el estado del pago
+        switch (paymentInfo.status) {
+          case "approved":
+            console.log(`✅ Pago aprobado para orden: ${orderId}`);
+            order.status = "paid";
+            order.paidAt = new Date();
+            order.paymentIntentId = paymentId.toString();
+            order.stripeSessionId = paymentInfo.id.toString();
+            await order.save();
+            console.log(`✅ Orden actualizada a 'paid': ${orderId}`);
+            break;
+
+          case "pending":
+            console.log(`⏳ Pago pendiente para orden: ${orderId}`);
+            order.status = "pending";
+            await order.save();
+            break;
+
+          case "in_process":
+            console.log(`🔄 Pago en proceso para orden: ${orderId}`);
+            order.status = "pending";
+            await order.save();
+            break;
+
+          case "rejected":
+            console.log(`❌ Pago rechazado para orden: ${orderId}`);
+            order.status = "cancelled";
+            await order.save();
+            break;
+
+          case "cancelled":
+            console.log(`🚫 Pago cancelado para orden: ${orderId}`);
+            order.status = "cancelled";
+            await order.save();
+            break;
+
+          default:
+            console.log(`ℹ️ Estado de pago no manejado: ${paymentInfo.status}`);
+        }
+      } catch (error) {
+        console.error("❌ Error procesando webhook de pago:", error);
       }
+    } else {
+      console.log(`ℹ️ Tipo de notificación no manejado: ${type}`);
+    }
+  } catch (error) {
+    console.error("❌ Error en webhook:", error);
+    // Aún así respondemos OK para que Mercado Pago no reintente
+    if (!res.headersSent) {
+      res.status(200).send("OK");
     }
   }
+});
 
-  // Send success response
-  res.json({ received: true });
+/**
+ * @desc    Verificar estado de pago manualmente
+ * @route   POST /api/payments/verify
+ * @access  Private
+ * 
+ * Permite al usuario verificar manualmente el estado de su pago
+ * Útil si el webhook falla o para debugging
+ */
+export const verifyPaymentStatus = asyncHandler(async (req, res) => {
+  try {
+    const { orderId } = req.body;
+
+    if (!orderId) {
+      return res.status(400).json({
+        success: false,
+        message: "Order ID es requerido",
+      });
+    }
+
+    const order = await Order.findById(orderId);
+
+    if (!order) {
+      return res.status(404).json({
+        success: false,
+        message: "Orden no encontrada",
+      });
+    }
+
+    // Verificar que el usuario sea dueño de la orden o sea admin
+    if (!order.userId.equals(req.user._id) && req.user.role !== "admin") {
+      return res.status(403).json({
+        success: false,
+        message: "No autorizado para verificar esta orden",
+      });
+    }
+
+    // Si la orden ya está pagada, retornar el estado
+    if (order.status === "paid") {
+      return res.json({
+        success: true,
+        status: "paid",
+        message: "La orden ya está pagada",
+        order: order,
+      });
+    }
+
+    // Si hay un paymentIntentId, buscar el pago en Mercado Pago
+    if (order.paymentIntentId) {
+      try {
+        const paymentInfo = await payment.get({ id: order.paymentIntentId });
+
+        // Actualizar orden si el estado cambió
+        if (paymentInfo.status === "approved" && order.status !== "paid") {
+          order.status = "paid";
+          order.paidAt = new Date();
+          await order.save();
+        }
+
+        return res.json({
+          success: true,
+          status: paymentInfo.status,
+          paymentInfo: paymentInfo,
+          order: order,
+        });
+      } catch (error) {
+        console.error("Error obteniendo info de pago:", error);
+      }
+    }
+
+    res.json({
+      success: true,
+      status: order.status,
+      message: "Estado actual de la orden",
+      order: order,
+    });
+  } catch (error) {
+    console.error("❌ Error verificando estado:", error);
+    res.status(500).json({
+      success: false,
+      message: error.message || "Error al verificar estado del pago",
+    });
+  }
 });
