@@ -12,13 +12,13 @@ import Accounts from './pages/Accounts.tsx'
 import Users from './pages/Users.tsx'
 import Banners from './pages/Banners.tsx'
 import Categories from './pages/Categories.tsx'
-import Brands from './pages/Bands.tsx'
+import Brands from './pages/Brands.tsx'
 
 
 const router = createBrowserRouter([
   { path: '/login', element: <Login /> },
   { path: '/register', element: <Register /> },
-  
+
   { path: '/', element: <App />, children:[
     {
     index: true,

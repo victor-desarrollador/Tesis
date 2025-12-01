@@ -40,7 +40,7 @@ const Register = () => {
       name: "",
       email: "",
       password: "",
-      role: "user",
+      role: "cliente",
     },
   });
 
@@ -160,7 +160,7 @@ const Register = () => {
                       </FormLabel>
                       <FormControl>
                         <Input
-                          placeholder="User"
+                          placeholder="Cliente"
                           type="text"
                           disabled={true}
                           className="border-gray-300 bg-gray-100 text-gray-500 cursor-not-allowed"
