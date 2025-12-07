@@ -34,10 +34,15 @@ const useAuthStore = create<AuthState>()(
       login: async (credentials) => {
         try {
           const response = await api.post("/auth/login", credentials);
+          console.log("Login response:", response.data); // Debug
+
+          // El backend devuelve los datos del usuario directamente en el root
+          // { _id, name, email, avatar, role, addresses, token }
           if (response.data.token) {
+            const { token, ...userData } = response.data;
             set({
-              user: response.data,
-              token: response.data.token,
+              user: userData,
+              token: token,
               isAuthenticated: true,
             });
           }

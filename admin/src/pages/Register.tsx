@@ -15,7 +15,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { registerSchema } from "@/lib/validation";
-import useAuthStore from "@/store/useAuthStone";
+import useAuthStore from "@/store/useAuthStore";
 import { motion } from "motion/react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";

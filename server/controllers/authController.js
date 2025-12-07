@@ -4,7 +4,7 @@ import generateToken from "../utils/generateToken.js";
 
 // registrar usuario
 const registerUser = asyncHandler(async (req, res) => {
-    const { name, email, password, role } = req.body;
+    const { name, email, password, role, avatar } = req.body;
 
     const userExists = await User.findOne({ email });
     if (userExists) {
@@ -17,6 +17,7 @@ const registerUser = asyncHandler(async (req, res) => {
         email,
         password,
         role,
+        avatar: avatar || "",
         addresses: [], // ✅ Corrección del typo
     });
 

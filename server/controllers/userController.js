@@ -16,7 +16,8 @@ const getUsers = asyncHandler(async (req, res) => {
 // CREATE USER (ADMIN ONLY)
 // =========================
 const createUser = asyncHandler(async (req, res) => {
-  const { name, email, password, role, addresses } = req.body;
+  const { name, email, password, role, addresses, avatar } = req.body;
+
 
   // validar email duplicado
   const userExists = await User.findOne({ email });
@@ -31,8 +32,11 @@ const createUser = asyncHandler(async (req, res) => {
     email,
     password,
     role,
+    avatar: avatar || "",
     addresses: addresses || [],
   });
+
+
 
   res.status(201).json({
     _id: user._id,
@@ -75,6 +79,11 @@ const updateUser = asyncHandler(async (req, res) => {
   // Si manda password nueva, se encripta en el pre-save del modelo
   if (req.body.password) {
     user.password = req.body.password;
+  }
+
+  // Actualizar avatar si se proporciona
+  if (req.body.avatar !== undefined) {
+    user.avatar = req.body.avatar;
   }
 
   // Solo admin puede cambiar roles

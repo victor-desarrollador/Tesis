@@ -3,7 +3,7 @@ import { useNavigate, Link } from "react-router";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import useAuthStore from "@/store/useAuthStone";
+import useAuthStore from "@/store/useAuthStore";
 import { loginSchema } from "@/lib/validation";
 import { Button } from "@/components/ui/button";
 import {

@@ -1,4 +1,4 @@
-import useAuthStore from "@/store/useAuthStone";
+import useAuthStore from "@/store/useAuthStore";
 import { Button } from "./ui/button";
 import { Bell } from "lucide-react";
 

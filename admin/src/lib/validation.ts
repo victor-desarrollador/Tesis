@@ -29,7 +29,7 @@ export const userSchema = z.object({
       message: "La contraseña debe contener al menos una mayúscula, una minúscula y un número"
     })
     .optional(),
-  role: z.enum(["cliente", "admin"], {
+  role: z.enum(["cliente", "admin", "deliveryman"], {
     message: "Por favor seleccione un rol válido",
   }),
   avatar: z.string().optional(),
