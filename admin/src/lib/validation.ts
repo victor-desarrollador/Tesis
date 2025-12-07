@@ -10,7 +10,7 @@ export const registerSchema = z.object({
   email: z.string().email({ message: "Por favor ingrese una dirección de correo electrónico válida" }),
   password: z
     .string()
-    .min(8, { message: "La contraseña debe tener al menos 8 caracteres" })
+    .min(8, { message: "La contraseña debe tener al menos 8 caracteres y contener al menos una mayúscula, una minúscula y un número" })
     .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/, {
       message: "La contraseña debe contener al menos una mayúscula, una minúscula y un número"
     }),

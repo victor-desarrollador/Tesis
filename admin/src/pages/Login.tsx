@@ -46,11 +46,11 @@ export default function LoginPage() {
     setIsLoading(true);
     try {
       await login(data);
-      toast("Bienvenido al panel de control");
+      toast.success("¡Bienvenido al panel de control!");
       navigate("/dashboard");
     } catch (error) {
-      console.log("Failed to login", error);
-      toast("Credenciales invalidas");
+      console.log("Error al iniciar sesión", error);
+      toast.error("Credenciales inválidas. Por favor, intente nuevamente.");
     } finally {
       setIsLoading(false);
     }
@@ -72,10 +72,10 @@ export default function LoginPage() {
               transition={{ duration: 0.3 }}
             >
               <CardTitle className="text-3xl font-bold text-gray-800">
-                Iniciar sesión
+                Iniciar sesión
               </CardTitle>
               <CardDescription className="text-gray-500">
-                Ingrese sus credenciales para iniciar sesión
+                Ingrese sus credenciales para iniciar sesión
               </CardDescription>
             </motion.div>
           </CardHeader>
@@ -169,12 +169,12 @@ export default function LoginPage() {
                             d="M4 12a8 8 0 018-8v8H4z"
                           />
                         </svg>
-                        Iniciando sesión...
+                        Iniciando sesión...
                       </span>
                     ) : (
                       <span className="flex items-center gap-2">
                         <LogIn size={16} />
-                        Iniciar sesión
+                        Iniciar sesión
                       </span>
                     )}
                   </Button>

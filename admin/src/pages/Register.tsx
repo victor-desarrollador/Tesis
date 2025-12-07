@@ -48,11 +48,13 @@ const Register = () => {
     setIsLoading(true);
     try {
       await register(data);
-      navigate("/login");
-      toast.success("¡Se registro correctamente!");
+      toast.success("¡Registro exitoso! Ahora puedes iniciar sesión.");
+      setTimeout(() => {
+        navigate("/login");
+      }, 1000); // Espera 1 segundo para que se vea el toast
     } catch (error) {
       console.error("¡No se pudo registrar!", error);
-      toast.error("¡No se pudo registrar!");
+      toast.error("Error al registrar. Por favor, verifica tus datos.");
     } finally {
       setIsLoading(false);
     }
