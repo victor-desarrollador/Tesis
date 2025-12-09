@@ -44,8 +44,8 @@ const categorySchema = mongoose.Schema(
     },
     categoryType: {
       type: String,
-      enum: ['Featured', 'Hot categories', 'Top categories', 'Discount'],
-      default: 'Top categories',
+      enum: ['Destacados', 'Más vendidos', 'Categorías populares', 'Ofertas', 'Nuevos ingresos'],
+      default: 'Nuevos ingresos',
     },
   },
   { timestamps: true }

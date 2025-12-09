@@ -1,6 +1,7 @@
 import {
     AlertDialog,
     AlertDialogAction,
+    AlertDialogCancel,
     AlertDialogContent,
     AlertDialogDescription,
     AlertDialogFooter,
@@ -39,17 +40,18 @@ import type { Brand } from "@/lib/type";
 import { brandSchema } from "@/lib/validation";
 import useAuthStore from "@/store/useAuthStore";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AlertDialogCancel } from "@radix-ui/react-alert-dialog";
-import { Edit, Loader2, Plus, RefreshCw, Trash } from "lucide-react";
+import { Edit, Loader2, Plus, RefreshCw, Trash, Tag, ImageIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import { motion } from "framer-motion";
 import type z from "zod";
 
 type FormData = z.infer<typeof brandSchema>;
+
 const Brands = () => {
     const [brands, setBrands] = useState<Brand[]>([]);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [refreshing, setRefreshing] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
@@ -65,14 +67,15 @@ const Brands = () => {
         resolver: zodResolver(brandSchema),
         defaultValues: {
             name: "",
-            image: "", // Default to empty string for optional image
+            image: "",
         },
     });
+
     const formEdit = useForm<FormData>({
         resolver: zodResolver(brandSchema),
         defaultValues: {
             name: "",
-            image: "", // Default to empty string for optional image
+            image: "",
         },
     });
 
@@ -82,7 +85,7 @@ const Brands = () => {
             setBrands(response.data);
         } catch (error) {
             console.log("Error al cargar marcas", error);
-            toast("Error al cargar marcas");
+            toast.error("Error al cargar marcas");
         } finally {
             setLoading(false);
         }
@@ -96,13 +99,13 @@ const Brands = () => {
         setFormLoading(true);
         try {
             await axiosPrivate.post("/brands", data);
-            toast("Marca creada exitosamente");
+            toast.success("Marca creada exitosamente");
             formAdd.reset();
             setIsAddModalOpen(false);
             fetchBrands();
         } catch (error) {
             console.log("Error al crear marca", error);
-            toast("Error al crear marca");
+            toast.error("Error al crear marca");
         } finally {
             setFormLoading(false);
         }
@@ -113,10 +116,10 @@ const Brands = () => {
         try {
             const response = await axiosPrivate.get("/brands");
             setBrands(response.data);
-            toast("Marcas actualizadas exitosamente");
+            toast.success("Marcas actualizadas exitosamente");
         } catch (error) {
             console.log("Error al actualizar marcas", error);
-            toast("Error al actualizar marcas");
+            toast.error("Error al actualizar marcas");
         } finally {
             setRefreshing(false);
         }
@@ -136,6 +139,7 @@ const Brands = () => {
         });
         setIsEditModalOpen(true);
     };
+
     const handleDelete = (brand: Brand) => {
         setSelectedBrand(brand);
         setIsDeleteModalOpen(true);
@@ -147,280 +151,306 @@ const Brands = () => {
         setFormLoading(true);
         try {
             await axiosPrivate.put(`/brands/${selectedBrand._id}`, data);
-            toast("Marca actualizada exitosamente");
+            toast.success("Marca actualizada exitosamente");
             setIsEditModalOpen(false);
             fetchBrands();
         } catch (error) {
             console.log("Error al actualizar marca", error);
-            toast("Error al actualizar marca");
+            toast.error("Error al actualizar marca");
         } finally {
             setFormLoading(false);
         }
     };
+
     const handleDeleteBrand = async () => {
         if (!selectedBrand) return;
 
         try {
             await axiosPrivate.delete(`/brands/${selectedBrand._id}`);
-            toast("Marca eliminada exitosamente");
+            toast.success("Marca eliminada exitosamente");
             setIsDeleteModalOpen(false);
             fetchBrands();
         } catch (error) {
             console.log("Error al eliminar marca", error);
-            toast("Error al eliminar marca");
+            toast.error("Error al eliminar marca");
         }
     };
 
     return (
-        <div className="p-5 space-y-6">
-            <div className="flex justify-between items-center">
-                <h1 className="text-3xl font-bold">Marcas</h1>
-                <div className="flex items-center gap-2">
-                    <Button
-                        variant="outline"
-                        onClick={handleRefresh}
-                        disabled={refreshing}
-                    >
-                        <RefreshCw
-                            className={`mr-2 h-4 w-4 ${refreshing ? "animate-spin" : ""}`}
-                        />
-                        {refreshing ? "Actualizando..." : "Actualizar"}
-                    </Button>
-                    {isAdmin && (
-                        <Button onClick={() => setIsAddModalOpen(true)}>
-                            <Plus className="mr-2 h-4 w-4" /> Agregar Marca
+        <div className="min-h-screen bg-gray-50 pb-8">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                {/* Header */}
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+                    <div>
+                        <h1 className="text-3xl font-bold tracking-tight text-gray-900">Marcas</h1>
+                        <p className="mt-1 text-muted-foreground">Gestiona y administra las marcas de tus productos.</p>
+                    </div>
+                    <div className="flex items-center gap-3">
+                        <Button
+                            variant="outline"
+                            onClick={handleRefresh}
+                            disabled={refreshing}
+                            className="bg-white hover:bg-gray-50 text-gray-700 border-gray-200 shadow-sm"
+                        >
+                            <RefreshCw className={`mr-2 h-4 w-4 ${refreshing ? "animate-spin" : ""}`} />
+                            Actualizar
                         </Button>
-                    )}
+                        {isAdmin && (
+                            <Button
+                                onClick={() => setIsAddModalOpen(true)}
+                                className="bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm transition-all"
+                            >
+                                <Plus className="mr-2 h-4 w-4" /> Agregar Marca
+                            </Button>
+                        )}
+                    </div>
                 </div>
-            </div>
-            {loading ? (
-                <div className="flex justify-center items-center min-h-[400px]">
-                    <Loader2 className="h-8 w-8 animate-spin" />
-                </div>
-            ) : (
-                <div className="rounded-md border">
-                    <Table>
-                        <TableHeader>
-                            <TableRow>
-                                <TableHead className="w-[80px]">Imagen</TableHead>
-                                <TableHead>Nombre</TableHead>
-                                <TableHead>Fecha de creación</TableHead>
-                                {isAdmin && (
-                                    <TableHead className="text-right">Acciones</TableHead>
-                                )}
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {brands.map((brand) => (
-                                <TableRow key={brand._id}>
-                                    <TableCell>
-                                        {brand.image ? (
-                                            <div className="h-12 w-12 rounded overflow-hidden bg-muted">
-                                                <img
-                                                    src={getImageUrl(brand.image)}
-                                                    alt={brand.name}
-                                                    className="h-full w-full object-cover"
-                                                />
-                                            </div>
-                                        ) : (
-                                            <div className="h-12 w-12 rounded bg-muted flex items-center justify-center text-muted-foreground">
-                                                No Imagen
-                                            </div>
-                                        )}
-                                    </TableCell>
-                                    <TableCell className="font-medium">{brand.name}</TableCell>
-                                    <TableCell>
-                                        {new Date(brand.createdAt).toLocaleDateString()}
-                                    </TableCell>
-                                    {isAdmin && (
-                                        <TableCell className="text-right">
-                                            <Button
-                                                variant="ghost"
-                                                size="icon"
-                                                onClick={() => handleEdit(brand)}
-                                            >
-                                                <Edit className="h-4 w-4" />
-                                            </Button>
-                                            <Button
-                                                variant="ghost"
-                                                size="icon"
-                                                onClick={() => handleDelete(brand)}
-                                            >
-                                                <Trash className="h-4 w-4" />
-                                            </Button>
-                                        </TableCell>
-                                    )}
-                                </TableRow>
-                            ))}
-                            {brands.length === 0 && (
-                                <TableRow>
-                                    <TableCell
-                                        colSpan={isAdmin ? 4 : 3}
-                                        className="text-center py-10 text-muted-foreground"
-                                    >
-                                        No marcas encontradas
-                                    </TableCell>
-                                </TableRow>
-                            )}
-                        </TableBody>
-                    </Table>
-                </div>
-            )}
-            {/* Add brands */}
-            <Dialog open={isAddModalOpen} onOpenChange={setIsAddModalOpen}>
-                <DialogContent className="sm:max-w-[425px]">
-                    <DialogHeader>
-                        <DialogTitle>Agregar Marca</DialogTitle>
-                        <DialogDescription>Crear una nueva marca de producto</DialogDescription>
-                    </DialogHeader>
-                    <Form {...formAdd}>
-                        <form
-                            onSubmit={formAdd.handleSubmit(handleAddBrand)}
-                            className="space-y-4"
-                        >
-                            <FormField
-                                control={formAdd.control}
-                                name="name"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel> Nombre</FormLabel>
-                                        <FormControl>
-                                            <Input {...field} disabled={formLoading} />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                            <FormField
-                                control={formAdd.control}
-                                name="image"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel> Imagen (Opcional)</FormLabel>
-                                        <FormControl>
-                                            <ImageUpload
-                                                value={field.value ?? ""}
-                                                onChange={field.onChange}
-                                                disabled={formLoading}
-                                            />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                            <DialogFooter>
-                                <Button
-                                    type="button"
-                                    variant="outline"
-                                    onClick={() => setIsAddModalOpen(false)}
-                                    disabled={formLoading}
-                                >
-                                    Cancel
-                                </Button>
-                                <Button type="submit" disabled={formLoading}>
-                                    {formLoading ? (
-                                        <>
-                                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                            Creando...
-                                        </>
-                                    ) : (
-                                        "Crear Marca"
-                                    )}
-                                </Button>
-                            </DialogFooter>
-                        </form>
-                    </Form>
-                </DialogContent>
-            </Dialog>
-            {/* Edit Brand Modal */}
-            <Dialog open={isEditModalOpen} onOpenChange={setIsEditModalOpen}>
-                <DialogContent className="sm:max-w-[425px]">
-                    <DialogHeader>
-                        <DialogTitle>Editar Marca</DialogTitle>
-                        <DialogDescription>Actualizar información de la marca</DialogDescription>
-                    </DialogHeader>
-                    <Form {...formEdit}>
-                        <form
-                            onSubmit={formEdit.handleSubmit(handleUpdateBrand)}
-                            className="space-y-4"
-                        >
-                            <FormField
-                                control={formEdit.control}
-                                name="name"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel> Nombre</FormLabel>
-                                        <FormControl>
-                                            <Input {...field} disabled={formLoading} />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                            <FormField
-                                control={formEdit.control}
-                                name="image"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>Imagen (Opcional)</FormLabel>
-                                        <FormControl>
-                                            <ImageUpload
-                                                value={field.value ?? ""}
-                                                onChange={field.onChange}
-                                                disabled={formLoading}
-                                            />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                            <DialogFooter>
-                                <Button
-                                    type="button"
-                                    variant="outline"
-                                    onClick={() => setIsEditModalOpen(false)}
-                                    disabled={formLoading}
-                                >
-                                    Cancel
-                                </Button>
-                                <Button type="submit" disabled={formLoading}>
-                                    {formLoading ? (
-                                        <>
-                                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                            Actualizando...
-                                        </>
-                                    ) : (
-                                        "Actualizar Marca"
-                                    )}
-                                </Button>
-                            </DialogFooter>
-                        </form>
-                    </Form>
-                </DialogContent>
-            </Dialog>
 
-            {/* Delete Brand Confirmation */}
-            <AlertDialog open={isDeleteModalOpen} onOpenChange={setIsDeleteModalOpen}>
-                <AlertDialogContent>
-                    <AlertDialogHeader>
-                        <AlertDialogTitle>¿Estás seguro?</AlertDialogTitle>
-                        <AlertDialogDescription>
-                            Esta acción no puede ser deshecha. Esto eliminará permanentemente la
-                            marca <span className="font-semibold">{selectedBrand?.name}</span>
-                            .
-                        </AlertDialogDescription>
-                    </AlertDialogHeader>
-                    <AlertDialogFooter>
-                        <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                        <AlertDialogAction
-                            onClick={handleDeleteBrand}
-                            className="bg-destructive hover:bg-destructive/90"
-                        >
-                            Eliminar
-                        </AlertDialogAction>
-                    </AlertDialogFooter>
-                </AlertDialogContent>
-            </AlertDialog>
+                {loading ? (
+                    <div className="flex flex-col justify-center items-center min-h-[400px] bg-white rounded-xl border border-gray-200 shadow-sm">
+                        <Loader2 className="h-8 w-8 animate-spin text-indigo-600 mb-4" />
+                        <p className="text-gray-500 font-medium">Cargando marcas...</p>
+                    </div>
+                ) : (
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden"
+                    >
+                        <Table>
+                            <TableHeader className="bg-gray-50 border-b border-gray-100">
+                                <TableRow>
+                                    <TableHead className="w-[100px] font-semibold text-gray-700 pl-6">Imagen</TableHead>
+                                    <TableHead className="font-semibold text-gray-700">Nombre</TableHead>
+                                    <TableHead className="font-semibold text-gray-700">Fecha de creación</TableHead>
+                                    {isAdmin && (
+                                        <TableHead className="text-right font-semibold text-gray-700 pr-6">Acciones</TableHead>
+                                    )}
+                                </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                                {brands.length > 0 ? (
+                                    brands.map((brand) => (
+                                        <TableRow key={brand._id} className="border-b border-gray-100 hover:bg-gray-50/50 transition-colors">
+                                            <TableCell className="pl-6 py-4">
+                                                <div className="h-12 w-12 rounded-lg bg-gray-50 border border-gray-100 flex items-center justify-center overflow-hidden">
+                                                    {brand.image ? (
+                                                        <img
+                                                            src={getImageUrl(brand.image)}
+                                                            alt={brand.name}
+                                                            className="h-full w-full object-contain p-1"
+                                                        />
+                                                    ) : (
+                                                        <ImageIcon className="h-5 w-5 text-gray-300" />
+                                                    )}
+                                                </div>
+                                            </TableCell>
+                                            <TableCell className="font-medium text-gray-900">{brand.name}</TableCell>
+                                            <TableCell className="text-gray-500">
+                                                {new Date(brand.createdAt).toLocaleDateString()}
+                                            </TableCell>
+                                            {isAdmin && (
+                                                <TableCell className="text-right pr-6">
+                                                    <div className="flex justify-end items-center gap-1">
+                                                        <Button
+                                                            variant="ghost"
+                                                            size="icon"
+                                                            onClick={() => handleEdit(brand)}
+                                                            className="text-gray-500 hover:text-indigo-600 hover:bg-indigo-50"
+                                                        >
+                                                            <Edit className="h-4 w-4" />
+                                                        </Button>
+                                                        <Button
+                                                            variant="ghost"
+                                                            size="icon"
+                                                            onClick={() => handleDelete(brand)}
+                                                            className="text-gray-500 hover:text-red-600 hover:bg-red-50"
+                                                        >
+                                                            <Trash className="h-4 w-4" />
+                                                        </Button>
+                                                    </div>
+                                                </TableCell>
+                                            )}
+                                        </TableRow>
+                                    ))
+                                ) : (
+                                    <TableRow>
+                                        <TableCell colSpan={isAdmin ? 4 : 3} className="h-64 text-center">
+                                            <div className="flex flex-col items-center justify-center text-gray-400">
+                                                <Tag className="h-12 w-12 mb-4 opacity-20" />
+                                                <p className="text-lg font-medium text-gray-900">No se encontraron marcas</p>
+                                                <p className="text-sm">Comienza agregando una nueva marca.</p>
+                                            </div>
+                                        </TableCell>
+                                    </TableRow>
+                                )}
+                            </TableBody>
+                        </Table>
+                    </motion.div>
+                )}
+
+                {/* Add Brand Modal */}
+                <Dialog open={isAddModalOpen} onOpenChange={setIsAddModalOpen}>
+                    <DialogContent className="sm:max-w-[500px] bg-white rounded-xl p-0 gap-0 overflow-hidden">
+                        <DialogHeader className="px-6 py-4 bg-gray-50 border-b border-gray-100">
+                            <DialogTitle className="text-xl font-bold text-gray-900">Agregar Marca</DialogTitle>
+                            <DialogDescription className="text-gray-500">Crear una nueva marca de producto para tu catálogo.</DialogDescription>
+                        </DialogHeader>
+                        <div className="p-6">
+                            <Form {...formAdd}>
+                                <form onSubmit={formAdd.handleSubmit(handleAddBrand)} className="space-y-6">
+                                    <FormField
+                                        control={formAdd.control}
+                                        name="name"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel className="text-gray-700 font-medium">Nombre</FormLabel>
+                                                <FormControl>
+                                                    <Input {...field} disabled={formLoading} className="h-11 bg-gray-50 border-gray-200 focus:bg-white transition-colors" placeholder="Ej. Nike, Adidas" />
+                                                </FormControl>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+                                    <FormField
+                                        control={formAdd.control}
+                                        name="image"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel className="text-gray-700 font-medium">Logo de la Marca (Opcional)</FormLabel>
+                                                <FormControl>
+                                                    <div className="mt-2">
+                                                        <ImageUpload
+                                                            value={field.value ?? ""}
+                                                            onChange={field.onChange}
+                                                            disabled={formLoading}
+                                                        />
+                                                    </div>
+                                                </FormControl>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+                                    <DialogFooter className="pt-4">
+                                        <Button
+                                            type="button"
+                                            variant="outline"
+                                            onClick={() => setIsAddModalOpen(false)}
+                                            disabled={formLoading}
+                                            className="h-11 border-gray-200 text-gray-700"
+                                        >
+                                            Cancelar
+                                        </Button>
+                                        <Button type="submit" disabled={formLoading} className="h-11 bg-indigo-600 hover:bg-indigo-700 text-white min-w-[120px]">
+                                            {formLoading ? (
+                                                <>
+                                                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                                    Creando...
+                                                </>
+                                            ) : (
+                                                "Crear Marca"
+                                            )}
+                                        </Button>
+                                    </DialogFooter>
+                                </form>
+                            </Form>
+                        </div>
+                    </DialogContent>
+                </Dialog>
+
+                {/* Edit Brand Modal */}
+                <Dialog open={isEditModalOpen} onOpenChange={setIsEditModalOpen}>
+                    <DialogContent className="sm:max-w-[500px] bg-white rounded-xl p-0 gap-0 overflow-hidden">
+                        <DialogHeader className="px-6 py-4 bg-gray-50 border-b border-gray-100">
+                            <DialogTitle className="text-xl font-bold text-gray-900">Editar Marca</DialogTitle>
+                            <DialogDescription className="text-gray-500">Actualizar información de la marca existente.</DialogDescription>
+                        </DialogHeader>
+                        <div className="p-6">
+                            <Form {...formEdit}>
+                                <form onSubmit={formEdit.handleSubmit(handleUpdateBrand)} className="space-y-6">
+                                    <FormField
+                                        control={formEdit.control}
+                                        name="name"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel className="text-gray-700 font-medium">Nombre</FormLabel>
+                                                <FormControl>
+                                                    <Input {...field} disabled={formLoading} className="h-11 bg-gray-50 border-gray-200 focus:bg-white transition-colors" />
+                                                </FormControl>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+                                    <FormField
+                                        control={formEdit.control}
+                                        name="image"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel className="text-gray-700 font-medium">Logo de la Marca (Opcional)</FormLabel>
+                                                <FormControl>
+                                                    <div className="mt-2">
+                                                        <ImageUpload
+                                                            value={field.value ?? ""}
+                                                            onChange={field.onChange}
+                                                            disabled={formLoading}
+                                                        />
+                                                    </div>
+                                                </FormControl>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+                                    <DialogFooter className="pt-4">
+                                        <Button
+                                            type="button"
+                                            variant="outline"
+                                            onClick={() => setIsEditModalOpen(false)}
+                                            disabled={formLoading}
+                                            className="h-11 border-gray-200 text-gray-700"
+                                        >
+                                            Cancelar
+                                        </Button>
+                                        <Button type="submit" disabled={formLoading} className="h-11 bg-indigo-600 hover:bg-indigo-700 text-white min-w-[120px]">
+                                            {formLoading ? (
+                                                <>
+                                                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                                    Actualizando...
+                                                </>
+                                            ) : (
+                                                "Guardar Cambios"
+                                            )}
+                                        </Button>
+                                    </DialogFooter>
+                                </form>
+                            </Form>
+                        </div>
+                    </DialogContent>
+                </Dialog>
+
+                {/* Delete Brand Confirmation */}
+                <AlertDialog open={isDeleteModalOpen} onOpenChange={setIsDeleteModalOpen}>
+                    <AlertDialogContent className="bg-white rounded-xl p-0 gap-0 overflow-hidden sm:max-w-[450px]">
+                        <AlertDialogHeader className="px-6 py-4 bg-gray-50 border-b border-gray-100">
+                            <AlertDialogTitle className="text-xl font-bold text-gray-900">¿Estás seguro?</AlertDialogTitle>
+                        </AlertDialogHeader>
+                        <div className="p-6">
+                            <AlertDialogDescription className="text-gray-600 text-base">
+                                Esta acción no puede ser deshecha. Esto eliminará permanentemente la
+                                marca <span className="font-semibold text-gray-900">{selectedBrand?.name}</span> y la removerá de todos los productos asociados.
+                            </AlertDialogDescription>
+                        </div>
+                        <AlertDialogFooter className="px-6 py-4 bg-gray-50 border-t border-gray-100 flex gap-2">
+                            <AlertDialogCancel className="h-11 border-gray-200 bg-white text-gray-700 hover:bg-gray-50 mt-0">Cancelar</AlertDialogCancel>
+                            <AlertDialogAction
+                                onClick={handleDeleteBrand}
+                                className="h-11 bg-red-600 hover:bg-red-700 text-white"
+                            >
+                                Eliminar Marca
+                            </AlertDialogAction>
+                        </AlertDialogFooter>
+                    </AlertDialogContent>
+                </AlertDialog>
+            </div>
         </div>
     );
 };

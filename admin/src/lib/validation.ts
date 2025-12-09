@@ -43,7 +43,7 @@ export const brandSchema = z.object({
 export const categorySchema = z.object({
   name: z.string().min(1, "El nombre es requerido"),
   image: z.string().optional(),
-  categoryType: z.enum(["Featured", "Hot Categories", "Top Categories"], {
+  categoryType: z.enum(["Destacados", "Más vendidos", "Categorías populares", "Ofertas", "Nuevos ingresos"], {
     message: "El tipo de categoría es requerido",
   }),
 });
@@ -53,18 +53,20 @@ export const productSchema = z.object({
   description: z
     .string()
     .min(10, { message: "La descripción debe tener al menos 10 caracteres" }),
-  price: z.number().min(0, { message: "El precio debe ser un número positivo" }),
-  comparePrice: z.number().min(0).optional(),
-  stock: z.number().min(0).default(0),
+  price: z.coerce.number().min(0, { message: "El precio debe ser un número positivo" }),
+  comparePrice: z.coerce.number().min(0).optional(),
+  discountPercentage: z.coerce.number().min(0).max(100).default(0),
+  stock: z.coerce.number().min(0).default(0),
   category: z.string().min(1, { message: "Por favor seleccione una categoría" }),
   brand: z.string().min(1, { message: "Por favor seleccione una marca" }),
-  image: z.string().min(1, { message: "Por favor sube una imagen" }),
+  images: z.array(z.string()).min(1, { message: "Por favor sube al menos una imagen" }),
 });
 
 export const bannerSchema = z.object({
   name: z.string().min(1, "El nombre es requerido"),
   title: z.string().min(1, "El título es requerido"),
-  startFrom: z.number().min(0, "StartFrom debe ser un número positivo"),
+  startFrom: z.coerce.date().optional(),
+  endTo: z.coerce.date().optional(),
   image: z.string().min(1, "Por favor suba una imagen"),
   bannerType: z.string().min(1, "El tipo es requerido"),
 });

@@ -23,6 +23,7 @@ type AuthState = {
   }) => Promise<void>;
   logout: () => void;
   checkIsAdmin: () => boolean;
+  setUser: (user: User) => void;
 };
 
 const useAuthStore = create<AuthState>()(
@@ -65,6 +66,9 @@ const useAuthStore = create<AuthState>()(
           token: null,
           isAuthenticated: false,
         });
+      },
+      setUser: (user) => {
+        set({ user });
       },
       checkIsAdmin: () => {
         const { user } = get();

@@ -29,7 +29,7 @@ export type Category = {
     url: string;
     publicId: string;
   };
-  categoryType: "Featured" | "Hot Categories" | "Top Categories";
+  categoryType: "Destacados" | "Más vendidos" | "Categorías populares" | "Ofertas" | "Nuevos ingresos";
   createdAt: string;
 };
 
@@ -48,6 +48,7 @@ export type Product = {
   }>;
   category: Category;
   brand: Brand;
+  discountPercentage: number;
   featured?: boolean;
   isActive?: boolean;
   createdAt: string;
@@ -57,9 +58,7 @@ export type Banner = {
   _id: string;
   name: string;
   title: string;
-  startFrom: number; // Keep as number according to original file, though Date might be better logic wise, stick to file content for now or match usage. The controller reads it as Date?
-  // Controller calls "startFrom" but doesn't cast. Model says Date. Frontend form uses input type="number" and parses int.
-  // Sticking to original type definition context but updating image.
+  startFrom: number;
   image:
   | string
   | {
@@ -69,6 +68,43 @@ export type Banner = {
   bannerType: string;
   createdAt: string;
 };
+
+// ... existing types
+export interface OrderItem {
+  product: {
+    _id: string;
+    name: string;
+    price: number;
+    image: string;
+  };
+  quantity: number;
+  price: number;
+}
+
+export interface ShippingAddress {
+  street: string;
+  city: string;
+  state: string;
+  zipCode: string;
+  country: string;
+}
+
+export interface Order {
+  _id: string;
+  orderId: string;
+  user: {
+    _id: string;
+    name: string;
+    email: string;
+  };
+  items: OrderItem[];
+  totalAmount: number;
+  status: "pending" | "paid" | "completed" | "cancelled";
+  paymentStatus: "paid" | "failed" | "pending";
+  shippingAddress: ShippingAddress;
+  createdAt: string;
+  updatedAt: string;
+}
 
 export interface StatsData {
   counts: {

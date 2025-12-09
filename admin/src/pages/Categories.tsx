@@ -82,7 +82,7 @@ const Categories = () => {
         defaultValues: {
             name: "",
             image: "",
-            categoryType: "Featured",
+            categoryType: "Nuevos ingresos",
         },
     });
 
@@ -91,7 +91,7 @@ const Categories = () => {
         defaultValues: {
             name: "",
             image: "",
-            categoryType: "Featured",
+            categoryType: "Nuevos ingresos",
         },
     });
 
@@ -429,9 +429,11 @@ const Categories = () => {
                                                 <option value="" disabled>
                                                     Selecciona el tipo de categoría
                                                 </option>
-                                                <option value="Featured">Destacada</option>
-                                                <option value="Hot Categories">Categorías Hot</option>
-                                                <option value="Top Categories">Categorías Top</option>
+                                                <option value="Destacados">Destacados</option>
+                                                <option value="Más vendidos">Más vendidos</option>
+                                                <option value="Categorías populares">Categorías populares</option>
+                                                <option value="Ofertas">Ofertas</option>
+                                                <option value="Nuevos ingresos">Nuevos ingresos</option>
                                             </select>
                                         </FormControl>
                                         <FormMessage />
@@ -519,9 +521,11 @@ const Categories = () => {
                                                 <option value="" disabled>
                                                     Selecciona el tipo de categoría
                                                 </option>
-                                                <option value="Featured">Destacada</option>
-                                                <option value="Hot Categories">Categorías Hot</option>
-                                                <option value="Top Categories">Categorías Top</option>
+                                                <option value="Destacados">Destacados</option>
+                                                <option value="Más vendidos">Más vendidos</option>
+                                                <option value="Categorías populares">Categorías populares</option>
+                                                <option value="Ofertas">Ofertas</option>
+                                                <option value="Nuevos ingresos">Nuevos ingresos</option>
                                             </select>
                                         </FormControl>
                                         <FormMessage />

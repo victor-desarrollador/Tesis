@@ -1,7 +1,7 @@
 import type { User } from "@/lib/type";
 import { useEffect, useState } from "react";
 import useAuthStore from "@/store/useAuthStore";
-import { Edit, Trash, Plus, Users, Search, Eye, RefreshCw } from "lucide-react";
+import { Edit, Trash, Plus, Users, Search, Eye, RefreshCw, Mail, Calendar, User as UserIcon } from "lucide-react";
 import { useAxiosPrivate } from "@/hooks/useAxiosPrivate";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
@@ -23,7 +23,6 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-import UserSkeleton from "@/components/skeletons/UserSkeleton";
 import {
     Dialog,
     DialogContent,
@@ -55,7 +54,7 @@ import {
     AlertDialogHeader,
     AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { Label } from "@/components/ui/label";
+import { motion } from "framer-motion";
 
 type FormData = z.infer<typeof userSchema>;
 
@@ -71,10 +70,8 @@ const UsersPage = () => {
     const [formLoading, setFormLoading] = useState(false);
     const [searchTerm, setSearchTerm] = useState("");
     const [roleFilter, setRoleFilter] = useState<string>("all");
-    const [total, setTotal] = useState(0);
-    const [page, setPage] = useState(1);
-    const [perPage] = useState(20);
-    const [totalPages, setTotalPages] = useState(1);
+
+
 
     const axiosPrivate = useAxiosPrivate();
     const { checkIsAdmin } = useAuthStore();
@@ -108,7 +105,6 @@ const UsersPage = () => {
 
             if (response?.data) {
                 setUsers(response?.data?.users);
-                setTotal(response?.data?.users.length);
             }
         } catch (error) {
             console.log("Error al cargar usuarios", error);
@@ -124,8 +120,8 @@ const UsersPage = () => {
 
             if (response?.data) {
                 setUsers(response?.data?.users);
-                setTotal(response?.data?.users.length);
             }
+            toast.success("Usuarios actualizados");
         } catch (error) {
             toast.error("Error al cargar usuarios");
         } finally {
@@ -213,13 +209,13 @@ const UsersPage = () => {
     const getRoleColor = (role: string) => {
         switch (role) {
             case "admin":
-                return "bg-red-100 text-red-800";
+                return "bg-purple-100 text-purple-700 border-purple-200";
             case "deliveryman":
-                return "bg-blue-100 text-blue-800";
+                return "bg-blue-100 text-blue-700 border-blue-200";
             case "cliente":
-                return "bg-green-100 text-green-800";
+                return "bg-green-100 text-green-700 border-green-200";
             default:
-                return "bg-gray-100 text-gray-800";
+                return "bg-gray-100 text-gray-700 border-gray-200";
         }
     };
 
@@ -247,592 +243,526 @@ const UsersPage = () => {
         return `${url}${separator}v=${timestamp}`;
     };
 
-    if (loading) {
-        return <UserSkeleton isAdmin={isAdmin} />;
-    }
-
     return (
-        <div className="p-5 space-y-5">
-            {/* Header */}
-            <div className="flex items-center justify-between">
-                <div>
-                    <h1 className="text-3xl font-bold text-gray-900">Gestión de Usuarios</h1>
-                    <p className="text-gray-600 mt-0.5">
-                        Ver y administrar todos los usuarios del sistema
-                    </p>
-                </div>
-                <div className="flex items-center gap-4">
-                    <div className="flex items-center gap-2">
-                        <Users className="h-8 w-8 text-blue-600" />
-                        <span className="text-2xl font-bold text-blue-600">{filteredUsers.length}</span>
+        <div className="min-h-screen bg-gray-50 pb-8">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                {/* Header */}
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+                    <div>
+                        <h1 className="text-3xl font-bold tracking-tight text-gray-900">Gestión de Usuarios</h1>
+                        <p className="mt-1 text-muted-foreground">
+                            Ver y administrar todos los usuarios registrados en el sistema.
+                        </p>
                     </div>
-                    <Button
-                        variant="outline"
-                        onClick={handleRefresh}
-                        disabled={refreshing}
-                        className="border-blue-600 text-blue-600 hover:bg-blue-50"
-                    >
-                        <RefreshCw
-                            className={`mr-2 h-4 w-4 ${refreshing ? "animate-spin" : ""}`}
-                        />
-                        {refreshing ? "Actualizando..." : "Actualizar"}
-                    </Button>
-                    {isAdmin && (
+                    <div className="flex items-center gap-3">
                         <Button
-                            onClick={() => setIsAddModalOpen(true)}
-                            className="bg-blue-600 hover:bg-blue-700"
+                            variant="outline"
+                            onClick={handleRefresh}
+                            disabled={refreshing}
+                            className="bg-white hover:bg-gray-50 text-gray-700 border-gray-200 shadow-sm"
                         >
-                            <Plus className="mr-2 h-4 w-4" />
-                            Agregar Usuario
+                            <RefreshCw
+                                className={`mr-2 h-4 w-4 ${refreshing ? "animate-spin" : ""}`}
+                            />
+                            Actualizar
                         </Button>
-                    )}
+                        {isAdmin && (
+                            <Button
+                                onClick={() => setIsAddModalOpen(true)}
+                                className="bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm transition-all"
+                            >
+                                <Plus className="mr-2 h-4 w-4" />
+                                Agregar Usuario
+                            </Button>
+                        )}
+                    </div>
                 </div>
-            </div>
-            {/* Filters */}
-            <div>
-                <div className="flex items-center gap-4 flex-wrap">
-                    <div className="flex items-center gap-2">
-                        <Search className="h-4 w-4 text-gray-500" />
+
+                {/* Filters */}
+                <div className="flex flex-col sm:flex-row items-center gap-4 mb-6 bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
+                    <div className="relative flex-1 w-full">
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
                         <Input
-                            placeholder="Buscar usuarios..."
+                            placeholder="Buscar por nombre o email..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-64"
+                            className="pl-9 bg-gray-50 border-gray-200 focus:bg-white transition-colors w-full"
                         />
                     </div>
-                    <Select value={roleFilter} onValueChange={setRoleFilter}>
-                        <SelectTrigger className="w-48">
-                            <SelectValue placeholder="Filtrar por rol" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectItem value="all">Todos los Roles</SelectItem>
-                            <SelectItem value="admin">Administrador</SelectItem>
-                            <SelectItem value="cliente">Cliente</SelectItem>
-                            <SelectItem value="deliveryman">Repartidor</SelectItem>
-                        </SelectContent>
-                    </Select>
+                    <div className="w-full sm:w-[200px]">
+                        <Select value={roleFilter} onValueChange={setRoleFilter}>
+                            <SelectTrigger className="bg-gray-50 border-gray-200 focus:bg-white transition-colors">
+                                <SelectValue placeholder="Filtrar por rol" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="all">Todos los Roles</SelectItem>
+                                <SelectItem value="admin">Administrador</SelectItem>
+                                <SelectItem value="cliente">Cliente</SelectItem>
+                                <SelectItem value="deliveryman">Repartidor</SelectItem>
+                            </SelectContent>
+                        </Select>
+                    </div>
                 </div>
-            </div>
-            {/* Users Table */}
-            <div className="bg-white rounded-lg shadow-sm border overflow-hidden">
-                <Table>
-                    <TableHeader>
-                        <TableRow className="bg-gray-50">
-                            <TableHead className="font-semibold">Avatar</TableHead>
-                            <TableHead className="font-semibold">Nombre</TableHead>
-                            <TableHead className="font-semibold">Correo Electrónico</TableHead>
-                            <TableHead className="font-semibold">Rol</TableHead>
-                            <TableHead className="font-semibold">Creado el</TableHead>
-                            <TableHead className="font-semibold">Acciones</TableHead>
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                        {filteredUsers?.length > 0 ? (
-                            filteredUsers?.map((user) => (
-                                <TableRow key={user?._id}>
-                                    <TableCell>
-                                        <div className="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-semibold shadow-sm overflow-hidden">
-                                            {user.avatar ? (
-                                                <img
-                                                    src={getAvatarUrl(user.avatar, user.updatedAt)}
-                                                    alt={user.name}
-                                                    className="h-full w-full object-cover"
-                                                    key={user._id}
-                                                />
-                                            ) : (
-                                                <span className="text-lg">
-                                                    {user.name.charAt(0).toUpperCase()}
-                                                </span>
-                                            )}
-                                        </div>
-                                    </TableCell>
-                                    <TableCell className="font-medium">{user.name}</TableCell>
-                                    <TableCell className="text-gray-600">{user.email}</TableCell>
-                                    <TableCell>
-                                        <Badge
-                                            className={cn("capitalize", getRoleColor(user.role))}
-                                        >
-                                            {getRoleLabel(user.role)}
-                                        </Badge>
-                                    </TableCell>
-                                    <TableCell>
-                                        {new Date(user.createdAt).toLocaleDateString()}
-                                    </TableCell>
-                                    <TableCell>
-                                        <div className="flex items-center gap-2">
-                                            <Button
-                                                variant="ghost"
-                                                size="icon"
-                                                onClick={() => handleView(user)}
-                                                title="Ver detalles del usuario"
-                                            >
-                                                <Eye className="h-4 w-4" />
-                                            </Button>
-                                            {isAdmin && (
-                                                <>
-                                                    <Button
-                                                        variant="ghost"
-                                                        size="icon"
-                                                        onClick={() => handleEdit(user)}
-                                                        title="Editar usuario"
-                                                    >
-                                                        <Edit className="h-4 w-4" />
-                                                    </Button>
-                                                    <Button
-                                                        variant="ghost"
-                                                        size="icon"
-                                                        onClick={() => handleDelete(user)}
-                                                        className="text-red-600 hover:text-red-700"
-                                                        title="Eliminar usuario"
-                                                    >
-                                                        <Trash className="h-4 w-4" />
-                                                    </Button>
-                                                </>
-                                            )}
-                                        </div>
-                                    </TableCell>
+
+                {/* Users Table */}
+                {loading ? (
+                    <div className="flex flex-col justify-center items-center min-h-[400px] bg-white rounded-xl border border-gray-200 shadow-sm">
+                        <RefreshCw className="h-8 w-8 animate-spin text-indigo-600 mb-4" />
+                        <p className="text-gray-500 font-medium">Cargando usuarios...</p>
+                    </div>
+                ) : (
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden"
+                    >
+                        <Table>
+                            <TableHeader className="bg-gray-50 border-b border-gray-100">
+                                <TableRow>
+                                    <TableHead className="w-[80px] font-semibold text-gray-700 pl-6">Avatar</TableHead>
+                                    <TableHead className="font-semibold text-gray-700">Nombre</TableHead>
+                                    <TableHead className="font-semibold text-gray-700">Correo Electrónico</TableHead>
+                                    <TableHead className="font-semibold text-gray-700">Rol</TableHead>
+                                    <TableHead className="font-semibold text-gray-700">Creado el</TableHead>
+                                    <TableHead className="text-right font-semibold text-gray-700 pr-6">Acciones</TableHead>
                                 </TableRow>
-                            ))
-                        ) : (
-                            <TableRow>
-                                <TableCell colSpan={6} className="text-center py-12">
-                                    <div className="flex flex-col items-center gap-4">
-                                        <Users className="h-12 w-12 text-gray-400" />
+                            </TableHeader>
+                            <TableBody>
+                                {filteredUsers?.length > 0 ? (
+                                    filteredUsers?.map((user) => (
+                                        <TableRow key={user?._id} className="border-b border-gray-100 hover:bg-gray-50/50 transition-colors">
+                                            <TableCell className="pl-6 py-4">
+                                                <div className="h-10 w-10 rounded-full bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 font-semibold shadow-sm overflow-hidden ring-2 ring-white">
+                                                    {user.avatar ? (
+                                                        <img
+                                                            src={getAvatarUrl(user.avatar, user.updatedAt)}
+                                                            alt={user.name}
+                                                            className="h-full w-full object-cover"
+                                                        />
+                                                    ) : (
+                                                        <span className="text-sm font-bold">
+                                                            {user.name.charAt(0).toUpperCase()}
+                                                        </span>
+                                                    )}
+                                                </div>
+                                            </TableCell>
+                                            <TableCell className="font-medium text-gray-900">{user.name}</TableCell>
+                                            <TableCell className="text-gray-600">{user.email}</TableCell>
+                                            <TableCell>
+                                                <Badge
+                                                    className={cn("capitalize shadow-none font-medium px-2.5 py-0.5 rounded-full", getRoleColor(user.role))}
+                                                    variant="outline"
+                                                >
+                                                    {getRoleLabel(user.role)}
+                                                </Badge>
+                                            </TableCell>
+                                            <TableCell className="text-gray-500">
+                                                {new Date(user.createdAt).toLocaleDateString("es-ES", { year: "numeric", month: "long", day: "numeric" })}
+                                            </TableCell>
+                                            <TableCell className="text-right pr-6">
+                                                <div className="flex justify-end items-center gap-1">
+                                                    <Button
+                                                        variant="ghost"
+                                                        size="icon"
+                                                        onClick={() => handleView(user)}
+                                                        title="Ver detalles del usuario"
+                                                        className="text-gray-500 hover:text-indigo-600 hover:bg-indigo-50"
+                                                    >
+                                                        <Eye className="h-4 w-4" />
+                                                    </Button>
+                                                    {isAdmin && (
+                                                        <>
+                                                            <Button
+                                                                variant="ghost"
+                                                                size="icon"
+                                                                onClick={() => handleEdit(user)}
+                                                                title="Editar usuario"
+                                                                className="text-gray-500 hover:text-blue-600 hover:bg-blue-50"
+                                                            >
+                                                                <Edit className="h-4 w-4" />
+                                                            </Button>
+                                                            <Button
+                                                                variant="ghost"
+                                                                size="icon"
+                                                                onClick={() => handleDelete(user)}
+                                                                title="Eliminar usuario"
+                                                                className="text-gray-500 hover:text-red-600 hover:bg-red-50"
+                                                            >
+                                                                <Trash className="h-4 w-4" />
+                                                            </Button>
+                                                        </>
+                                                    )}
+                                                </div>
+                                            </TableCell>
+                                        </TableRow>
+                                    ))
+                                ) : (
+                                    <TableRow>
+                                        <TableCell colSpan={6} className="h-64 text-center">
+                                            <div className="flex flex-col items-center justify-center text-gray-400">
+                                                <Users className="h-12 w-12 mb-4 opacity-20" />
+                                                <p className="text-lg font-medium text-gray-900">
+                                                    No se encontraron usuarios
+                                                </p>
+                                                <p className="text-sm text-gray-500">
+                                                    {searchTerm || roleFilter !== "all"
+                                                        ? "Intenta ajustar tu búsqueda o filtros"
+                                                        : "Los usuarios aparecerán aquí cuando se registren"}
+                                                </p>
+                                            </div>
+                                        </TableCell>
+                                    </TableRow>
+                                )}
+                            </TableBody>
+                        </Table>
+                    </motion.div>
+                )}
+
+                {/* Add user Modal */}
+                <Dialog open={isAddModalOpen} onOpenChange={setIsAddModalOpen}>
+                    <DialogContent className="sm:max-w-[600px] bg-white rounded-xl p-0 gap-0 overflow-hidden max-h-[90vh] flex flex-col">
+                        <DialogHeader className="px-6 py-4 bg-gray-50 border-b border-gray-100 flex-shrink-0">
+                            <DialogTitle className="text-xl font-bold text-gray-900">Agregar Usuario</DialogTitle>
+                            <DialogDescription className="text-gray-500">Crear una nueva cuenta de usuario en el sistema.</DialogDescription>
+                        </DialogHeader>
+                        <div className="p-6 overflow-y-auto">
+                            <Form {...formAdd}>
+                                <form
+                                    onSubmit={formAdd.handleSubmit(handleAddUser)}
+                                    className="space-y-4"
+                                >
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <FormField
+                                            control={formAdd.control}
+                                            name="name"
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel className="text-gray-700 font-medium">Nombre</FormLabel>
+                                                    <FormControl>
+                                                        <Input {...field} disabled={formLoading} className="bg-gray-50 border-gray-200 focus:bg-white transition-colors" />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                        <FormField
+                                            control={formAdd.control}
+                                            name="role"
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel className="text-gray-700 font-medium">Role</FormLabel>
+                                                    <Select
+                                                        onValueChange={field.onChange}
+                                                        defaultValue={field.value}
+                                                        disabled={formLoading}
+                                                    >
+                                                        <FormControl>
+                                                            <SelectTrigger className="bg-gray-50 border-gray-200 focus:bg-white transition-colors">
+                                                                <SelectValue placeholder="Selecciona un rol" />
+                                                            </SelectTrigger>
+                                                        </FormControl>
+                                                        <SelectContent>
+                                                            <SelectItem value="cliente">Cliente</SelectItem>
+                                                            <SelectItem value="admin">Administrador</SelectItem>
+                                                            <SelectItem value="deliveryman">Repartidor</SelectItem>
+                                                        </SelectContent>
+                                                    </Select>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                    </div>
+                                    <FormField
+                                        control={formAdd.control}
+                                        name="email"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel className="text-gray-700 font-medium">Email</FormLabel>
+                                                <FormControl>
+                                                    <Input type="email" {...field} disabled={formLoading} className="bg-gray-50 border-gray-200 focus:bg-white transition-colors" />
+                                                </FormControl>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+                                    <FormField
+                                        control={formAdd.control}
+                                        name="password"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel className="text-gray-700 font-medium">Contraseña</FormLabel>
+                                                <FormControl>
+                                                    <Input type="password" {...field} disabled={formLoading} className="bg-gray-50 border-gray-200 focus:bg-white transition-colors" />
+                                                </FormControl>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+                                    <FormField
+                                        control={formAdd.control}
+                                        name="avatar"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel className="text-gray-700 font-medium">Avatar</FormLabel>
+                                                <FormControl>
+                                                    <div className="mt-2">
+                                                        <ImageUpload
+                                                            value={field.value ?? ""}
+                                                            onChange={field.onChange}
+                                                            disabled={formLoading}
+                                                        />
+                                                    </div>
+                                                </FormControl>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+                                    <DialogFooter className="pt-4 flex-shrink-0">
+                                        <Button
+                                            type="button"
+                                            variant="outline"
+                                            onClick={() => setIsAddModalOpen(false)}
+                                            disabled={formLoading}
+                                            className="h-11 border-gray-200 text-gray-700"
+                                        >
+                                            Cancelar
+                                        </Button>
+                                        <Button type="submit" disabled={formLoading} className="h-11 bg-indigo-600 hover:bg-indigo-700 text-white min-w-[140px]">
+                                            {formLoading ? (
+                                                <>
+                                                    <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
+                                                    Creando...
+                                                </>
+                                            ) : (
+                                                "Crear Usuario"
+                                            )}
+                                        </Button>
+                                    </DialogFooter>
+                                </form>
+                            </Form>
+                        </div>
+                    </DialogContent>
+                </Dialog>
+
+                {/* Edit user modal */}
+                <Dialog open={isEditModalOpen} onOpenChange={setIsEditModalOpen}>
+                    <DialogContent className="sm:max-w-[600px] bg-white rounded-xl p-0 gap-0 overflow-hidden max-h-[90vh] flex flex-col">
+                        <DialogHeader className="px-6 py-4 bg-gray-50 border-b border-gray-100 flex-shrink-0">
+                            <DialogTitle className="text-xl font-bold text-gray-900">Editar Usuario</DialogTitle>
+                            <DialogDescription className="text-gray-500">Actualizar información de la cuenta.</DialogDescription>
+                        </DialogHeader>
+                        <div className="p-6 overflow-y-auto">
+                            <Form {...formEdit}>
+                                <form
+                                    onSubmit={formEdit.handleSubmit(handleUpdateUser)}
+                                    className="space-y-4"
+                                >
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <FormField
+                                            control={formEdit.control}
+                                            name="name"
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel className="text-gray-700 font-medium">Nombre</FormLabel>
+                                                    <FormControl>
+                                                        <Input {...field} disabled={formLoading} className="bg-gray-50 border-gray-200 focus:bg-white transition-colors" />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                        <FormField
+                                            control={formEdit.control}
+                                            name="role"
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel className="text-gray-700 font-medium">Role</FormLabel>
+                                                    <Select
+                                                        onValueChange={field.onChange}
+                                                        defaultValue={field.value}
+                                                        disabled={formLoading}
+                                                    >
+                                                        <FormControl>
+                                                            <SelectTrigger className="bg-gray-50 border-gray-200 focus:bg-white transition-colors">
+                                                                <SelectValue placeholder="Selecciona un rol" />
+                                                            </SelectTrigger>
+                                                        </FormControl>
+                                                        <SelectContent>
+                                                            <SelectItem value="cliente">Cliente</SelectItem>
+                                                            <SelectItem value="admin">Administrador</SelectItem>
+                                                            <SelectItem value="deliveryman">Repartidor</SelectItem>
+                                                        </SelectContent>
+                                                    </Select>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                    </div>
+                                    <FormField
+                                        control={formEdit.control}
+                                        name="email"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel className="text-gray-700 font-medium">Email</FormLabel>
+                                                <FormControl>
+                                                    <Input type="email" {...field} disabled={formLoading} className="bg-gray-50 border-gray-200 focus:bg-white transition-colors" />
+                                                </FormControl>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+                                    <FormField
+                                        control={formEdit.control}
+                                        name="password"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel className="text-gray-700 font-medium">Contraseña</FormLabel>
+                                                <FormControl>
+                                                    <Input
+                                                        type="password"
+                                                        {...field}
+                                                        placeholder="Dejar vacío para mantener la actual"
+                                                        disabled={formLoading}
+                                                        className="bg-gray-50 border-gray-200 focus:bg-white transition-colors"
+                                                    />
+                                                </FormControl>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+                                    <FormField
+                                        control={formEdit.control}
+                                        name="avatar"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel className="text-gray-700 font-medium">Avatar</FormLabel>
+                                                <FormControl>
+                                                    <div className="mt-2">
+                                                        <ImageUpload
+                                                            value={field.value ?? ""}
+                                                            onChange={field.onChange}
+                                                            disabled={formLoading}
+                                                        />
+                                                    </div>
+                                                </FormControl>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+                                    <DialogFooter className="pt-4 flex-shrink-0">
+                                        <Button
+                                            type="button"
+                                            variant="outline"
+                                            onClick={() => setIsEditModalOpen(false)}
+                                            disabled={formLoading}
+                                            className="h-11 border-gray-200 text-gray-700"
+                                        >
+                                            Cancelar
+                                        </Button>
+                                        <Button type="submit" disabled={formLoading} className="h-11 bg-indigo-600 hover:bg-indigo-700 text-white min-w-[150px]">
+                                            {formLoading ? (
+                                                <>
+                                                    <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
+                                                    Actualizando...
+                                                </>
+                                            ) : (
+                                                "Actualizar Usuario"
+                                            )}
+                                        </Button>
+                                    </DialogFooter>
+                                </form>
+                            </Form>
+                        </div>
+                    </DialogContent>
+                </Dialog>
+
+                {/* Delete user modal */}
+                <AlertDialog open={isDeleteModalOpen} onOpenChange={setIsDeleteModalOpen}>
+                    <AlertDialogContent className="bg-white rounded-xl p-0 gap-0 overflow-hidden sm:max-w-[450px]">
+                        <AlertDialogHeader className="px-6 py-4 bg-gray-50 border-b border-gray-100">
+                            <AlertDialogTitle className="text-xl font-bold text-gray-900">¿Estás seguro?</AlertDialogTitle>
+                        </AlertDialogHeader>
+                        <div className="p-6">
+                            <AlertDialogDescription className="text-gray-600 text-base">
+                                Esta acción no puede ser deshecha. Esta acción eliminará permanentemente la cuenta de{" "}
+                                <span className="font-semibold text-gray-900">{selectedUser?.name}</span> y eliminará sus datos de nuestros servidores.
+                            </AlertDialogDescription>
+                        </div>
+                        <AlertDialogFooter className="px-6 py-4 bg-gray-50 border-t border-gray-100 flex gap-2">
+                            <AlertDialogCancel className="h-11 border-gray-200 bg-white text-gray-700 hover:bg-gray-50 mt-0">Cancelar</AlertDialogCancel>
+                            <AlertDialogAction
+                                onClick={handleDeleteUser}
+                                className="h-11 bg-red-600 hover:bg-red-700 text-white"
+                            >
+                                Eliminar cuenta
+                            </AlertDialogAction>
+                        </AlertDialogFooter>
+                    </AlertDialogContent>
+                </AlertDialog>
+
+                {/* View User Dialog */}
+                <Dialog open={isViewModalOpen} onOpenChange={setIsViewModalOpen}>
+                    <DialogContent className="sm:max-w-[450px] bg-white rounded-xl p-0 gap-0 overflow-hidden">
+                        <DialogHeader className="px-6 py-4 bg-gray-50 border-b border-gray-100">
+                            <DialogTitle className="text-xl font-bold text-gray-900">Detalles del Usuario</DialogTitle>
+                            <DialogDescription className="text-gray-500">Información completa de la cuenta.</DialogDescription>
+                        </DialogHeader>
+                        {selectedUser && (
+                            <div className="p-6">
+                                <div className="flex flex-col items-center mb-6">
+                                    <div className="h-24 w-24 rounded-full bg-indigo-50 border-4 border-white shadow-lg overflow-hidden mb-4 flex items-center justify-center">
+                                        {selectedUser.avatar ? (
+                                            <img
+                                                src={getAvatarUrl(selectedUser.avatar, selectedUser.updatedAt)}
+                                                alt={selectedUser.name}
+                                                className="h-full w-full object-cover"
+                                            />
+                                        ) : (
+                                            <span className="text-2xl font-bold text-indigo-600">
+                                                {selectedUser.name.charAt(0).toUpperCase()}
+                                            </span>
+                                        )}
+                                    </div>
+                                    <h3 className="text-xl font-bold text-gray-900 text-center">{selectedUser.name}</h3>
+                                    <div className="mt-1">
+                                        <Badge className={cn("capitalize px-3 py-0.5", getRoleColor(selectedUser.role))} variant="outline">
+                                            {getRoleLabel(selectedUser.role)}
+                                        </Badge>
+                                    </div>
+                                </div>
+                                <div className="space-y-4">
+                                    <div className="flex items-center p-3 rounded-lg bg-gray-50 border border-gray-100">
+                                        <Mail className="h-5 w-5 text-gray-400 mr-3" />
                                         <div>
-                                            <p className="text-lg font-medium text-gray-900">
-                                                No se encontraron usuarios
-                                            </p>
-                                            <p className="text-sm text-gray-500">
-                                                {searchTerm || roleFilter !== "all"
-                                                    ? "Intenta ajustar tu búsqueda o filtros"
-                                                    : "Los usuarios aparecerán aquí cuando se registren"}
-                                            </p>
+                                            <p className="text-xs text-gray-500 uppercase font-medium">Correo Electrónico</p>
+                                            <p className="text-sm font-medium text-gray-900">{selectedUser.email}</p>
                                         </div>
                                     </div>
-                                </TableCell>
-                            </TableRow>
+                                    <div className="flex items-center p-3 rounded-lg bg-gray-50 border border-gray-100">
+                                        <UserIcon className="h-5 w-5 text-gray-400 mr-3" />
+                                        <div>
+                                            <p className="text-xs text-gray-500 uppercase font-medium">ID de Usuario</p>
+                                            <p className="text-sm font-mono text-gray-600 truncate max-w-[280px]">{selectedUser._id}</p>
+                                        </div>
+                                    </div>
+                                    <div className="flex items-center p-3 rounded-lg bg-gray-50 border border-gray-100">
+                                        <Calendar className="h-5 w-5 text-gray-400 mr-3" />
+                                        <div>
+                                            <p className="text-xs text-gray-500 uppercase font-medium">Fecha de Registro</p>
+                                            <p className="text-sm font-medium text-gray-900">{new Date(selectedUser.createdAt).toLocaleDateString("es-AR", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="mt-6 flex justify-end">
+                                    <Button variant="outline" onClick={() => setIsViewModalOpen(false)} className="w-full">
+                                        Cerrar
+                                    </Button>
+                                </div>
+                            </div>
                         )}
-                    </TableBody>
-                </Table>
+                    </DialogContent>
+                </Dialog>
             </div>
-            {/* Add user Modal */}
-            <Dialog open={isAddModalOpen} onOpenChange={setIsAddModalOpen}>
-                <DialogContent className="sm:max-w-[550px] max-h-[90vh] overflow-y-auto">
-                    <DialogHeader>
-                        <DialogTitle>Agregar Usuario</DialogTitle>
-                        <DialogDescription>Crear una nueva cuenta de usuario</DialogDescription>
-                    </DialogHeader>
-                    <Form {...formAdd}>
-                        <form
-                            onSubmit={formAdd.handleSubmit(handleAddUser)}
-                            className="space-y-6 mt-4"
-                        >
-                            <FormField
-                                control={formAdd.control}
-                                name="name"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel className="text-gray-700 font-medium">
-                                            Nombre
-                                        </FormLabel>
-                                        <FormControl>
-                                            <Input
-                                                {...field}
-                                                disabled={formLoading}
-                                                className="border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200"
-                                            />
-                                        </FormControl>
-                                        <FormMessage className="text-red-500 text-xs" />
-                                    </FormItem>
-                                )}
-                            />
-                            <FormField
-                                control={formAdd.control}
-                                name="email"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel className="text-gray-700 font-medium">
-                                            Email
-                                        </FormLabel>
-                                        <FormControl>
-                                            <Input
-                                                type="email"
-                                                {...field}
-                                                disabled={formLoading}
-                                                className="border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200"
-                                            />
-                                        </FormControl>
-                                        <FormMessage className="text-red-500 text-xs" />
-                                    </FormItem>
-                                )}
-                            />
-                            <FormField
-                                control={formAdd.control}
-                                name="password"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel className="text-gray-700 font-medium">
-                                            Contraseña
-                                        </FormLabel>
-                                        <FormControl>
-                                            <Input
-                                                type="password"
-                                                {...field}
-                                                disabled={formLoading}
-                                                className="border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200"
-                                            />
-                                        </FormControl>
-                                        <FormMessage className="text-red-500 text-xs" />
-                                    </FormItem>
-                                )}
-                            />
-                            <FormField
-                                control={formAdd.control}
-                                name="role"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel className="text-gray-700 font-medium">
-                                            Role
-                                        </FormLabel>
-                                        <Select
-                                            onValueChange={field.onChange}
-                                            defaultValue={field.value}
-                                            disabled={formLoading}
-                                        >
-                                            <FormControl>
-                                                <SelectTrigger className="border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200 w-full">
-                                                    <SelectValue placeholder="Selecciona un rol" />
-                                                </SelectTrigger>
-                                            </FormControl>
-                                            <SelectContent>
-                                                <SelectItem value="cliente">Cliente</SelectItem>
-                                                <SelectItem value="admin">Administrador</SelectItem>
-                                                <SelectItem value="deliveryman">
-                                                    Repartidor
-                                                </SelectItem>
-                                            </SelectContent>
-                                        </Select>
-                                        <FormMessage className="text-red-500 text-xs" />
-                                    </FormItem>
-                                )}
-                            />
-                            <FormField
-                                control={formAdd.control}
-                                name="avatar"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel className="text-gray-700 font-medium">
-                                            Avatar
-                                        </FormLabel>
-                                        <FormControl>
-                                            <ImageUpload
-                                                value={field.value ?? ""}
-                                                onChange={field.onChange}
-                                                disabled={formLoading}
-                                            />
-                                        </FormControl>
-                                        <FormMessage className="text-red-500 text-xs" />
-                                    </FormItem>
-                                )}
-                            />
-                            <DialogFooter className="mt-6 flex justify-end gap-3">
-                                <Button
-                                    type="button"
-                                    variant="outline"
-                                    onClick={() => setIsAddModalOpen(false)}
-                                    disabled={formLoading}
-                                    className="border-gray-300 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-200"
-                                >
-                                    Cancelar
-                                </Button>
-                                <Button
-                                    type="submit"
-                                    disabled={formLoading}
-                                    className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg shadow-md transition-colors duration-200"
-                                >
-                                    {formLoading ? (
-                                        <>
-                                            <svg
-                                                className="animate-spin h-5 w-5 mr-2 text-white"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                fill="none"
-                                                viewBox="0 0 24 24"
-                                            >
-                                                <circle
-                                                    className="opacity-25"
-                                                    cx="12"
-                                                    cy="12"
-                                                    r="10"
-                                                    stroke="currentColor"
-                                                    strokeWidth="4"
-                                                />
-                                                <path
-                                                    className="opacity-75"
-                                                    fill="currentColor"
-                                                    d="M4 12a8 8 0 018-8v8H4z"
-                                                />
-                                            </svg>
-                                            Creando...
-                                        </>
-                                    ) : (
-                                        "Crear Usuario"
-                                    )}
-                                </Button>
-                            </DialogFooter>
-                        </form>
-                    </Form>
-                </DialogContent>
-            </Dialog>
-            {/* Edit user modal */}
-            <Dialog open={isEditModalOpen} onOpenChange={setIsEditModalOpen}>
-                <DialogContent className="sm:max-w-[550px] max-h-[90vh] overflow-y-auto">
-                    <DialogHeader>
-                        <DialogTitle>Editar Usuario</DialogTitle>
-                        <DialogDescription>Actualizar información del usuario</DialogDescription>
-                    </DialogHeader>
-                    <Form {...formEdit}>
-                        <form
-                            onSubmit={formEdit.handleSubmit(handleUpdateUser)}
-                            className="space-y-6 mt-4"
-                        >
-                            <FormField
-                                control={formEdit.control}
-                                name="name"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel className="text-gray-700 font-medium">
-                                            Nombre
-                                        </FormLabel>
-                                        <FormControl>
-                                            <Input
-                                                {...field}
-                                                disabled={formLoading}
-                                                className="border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200"
-                                            />
-                                        </FormControl>
-                                        <FormMessage className="text-red-500 text-xs" />
-                                    </FormItem>
-                                )}
-                            />
-                            <FormField
-                                control={formEdit.control}
-                                name="email"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel className="text-gray-700 font-medium">
-                                            Email
-                                        </FormLabel>
-                                        <FormControl>
-                                            <Input
-                                                type="email"
-                                                {...field}
-                                                disabled={formLoading}
-                                                className="border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200"
-                                            />
-                                        </FormControl>
-                                        <FormMessage className="text-red-500 text-xs" />
-                                    </FormItem>
-                                )}
-                            />
-                            <FormField
-                                control={formEdit.control}
-                                name="password"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel className="text-gray-700 font-medium">
-                                            Contraseña (dejar vacío para mantener la actual)
-                                        </FormLabel>
-                                        <FormControl>
-                                            <Input
-                                                type="password"
-                                                {...field}
-                                                placeholder="Dejar vacío para mantener la contraseña actual"
-                                                disabled={formLoading}
-                                                className="border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200"
-                                            />
-                                        </FormControl>
-                                        <FormMessage className="text-red-500 text-xs" />
-                                    </FormItem>
-                                )}
-                            />
-                            <FormField
-                                control={formEdit.control}
-                                name="role"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel className="text-gray-700 font-medium">
-                                            Role
-                                        </FormLabel>
-                                        <Select
-                                            onValueChange={field.onChange}
-                                            defaultValue={field.value}
-                                            disabled={formLoading}
-                                        >
-                                            <FormControl>
-                                                <SelectTrigger className="border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200">
-                                                    <SelectValue placeholder="Selecciona un rol" />
-                                                </SelectTrigger>
-                                            </FormControl>
-                                            <SelectContent>
-                                                <SelectItem value="cliente">Cliente</SelectItem>
-                                                <SelectItem value="admin">Administrador</SelectItem>
-                                                <SelectItem value="deliveryman">
-                                                    Repartidor
-                                                </SelectItem>
-                                            </SelectContent>
-                                        </Select>
-                                        <FormMessage className="text-red-500 text-xs" />
-                                    </FormItem>
-                                )}
-                            />
-                            <FormField
-                                control={formEdit.control}
-                                name="avatar"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel className="text-gray-700 font-medium">
-                                            Avatar
-                                        </FormLabel>
-                                        <FormControl>
-                                            <ImageUpload
-                                                value={field.value ?? ""}
-                                                onChange={field.onChange}
-                                                disabled={formLoading}
-                                            />
-                                        </FormControl>
-                                        <FormMessage className="text-red-500 text-xs" />
-                                    </FormItem>
-                                )}
-                            />
-                            <DialogFooter className="mt-6 flex justify-end gap-3">
-                                <Button
-                                    type="button"
-                                    variant="outline"
-                                    onClick={() => setIsEditModalOpen(false)}
-                                    disabled={formLoading}
-                                    className="border-gray-300 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-200"
-                                >
-                                    Cancelar
-                                </Button>
-                                <Button
-                                    type="submit"
-                                    disabled={formLoading}
-                                    className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg shadow-md transition-colors duration-200"
-                                >
-                                    {formLoading ? (
-                                        <>
-                                            <svg
-                                                className="animate-spin h-5 w-5 mr-2 text-white"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                fill="none"
-                                                viewBox="0 0 24 24"
-                                            >
-                                                <circle
-                                                    className="opacity-25"
-                                                    cx="12"
-                                                    cy="12"
-                                                    r="10"
-                                                    stroke="currentColor"
-                                                    strokeWidth="4"
-                                                />
-                                                <path
-                                                    className="opacity-75"
-                                                    fill="currentColor"
-                                                    d="M4 12a8 8 0 018-8v8H4z"
-                                                />
-                                            </svg>
-                                            Actualizando...
-                                        </>
-                                    ) : (
-                                        "Actualizar Usuario"
-                                    )}
-                                </Button>
-                            </DialogFooter>
-                        </form>
-                    </Form>
-                </DialogContent>
-            </Dialog>
-            {/* Delete user modal */}
-            <AlertDialog open={isDeleteModalOpen} onOpenChange={setIsDeleteModalOpen}>
-                <AlertDialogContent>
-                    <AlertDialogHeader>
-                        <AlertDialogTitle>¿Estás seguro?</AlertDialogTitle>
-                        <AlertDialogDescription>
-                            Esta acción no se puede deshacer. Esto eliminará permanentemente la cuenta de{" "}
-                            <span className="font-semibold">{selectedUser?.name}</span>.
-                        </AlertDialogDescription>
-                    </AlertDialogHeader>
-                    <AlertDialogFooter>
-                        <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                        <AlertDialogAction
-                            onClick={handleDeleteUser}
-                            className="bg-red-600 hover:bg-red-700"
-                        >
-                            Eliminar
-                        </AlertDialogAction>
-                    </AlertDialogFooter>
-                </AlertDialogContent>
-            </AlertDialog>
-            {/* View User Dialog */}
-            <Dialog open={isViewModalOpen} onOpenChange={setIsViewModalOpen}>
-                <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
-                    <DialogHeader>
-                        <DialogTitle>Detalles del Usuario</DialogTitle>
-                        <DialogDescription>
-                            Ver información completa del usuario
-                        </DialogDescription>
-                    </DialogHeader>
-                    {selectedUser && (
-                        <div className="space-y-6">
-                            <div className="flex items-center gap-4">
-                                <div className="h-20 w-20 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-semibold shadow-sm overflow-hidden">
-                                    {selectedUser.avatar ? (
-                                        <img
-                                            src={getAvatarUrl(selectedUser.avatar, selectedUser.updatedAt)}
-                                            alt={selectedUser.name}
-                                            className="h-full w-full object-cover"
-                                            key={selectedUser._id}
-                                        />
-                                    ) : (
-                                        <span className="text-2xl">
-                                            {selectedUser.name.charAt(0).toUpperCase()}
-                                        </span>
-                                    )}
-                                </div>
-                                <div>
-                                    <h3 className="text-2xl font-bold text-gray-900">
-                                        {selectedUser.name}
-                                    </h3>
-                                    <p className="text-gray-600">{selectedUser.email}</p>
-                                    <Badge
-                                        className={cn(
-                                            "capitalize mt-2",
-                                            getRoleColor(selectedUser.role)
-                                        )}
-                                    >
-                                        {getRoleLabel(selectedUser.role)}
-                                    </Badge>
-                                </div>
-                            </div>
-
-                            <div className="flex flex-col gap-2">
-                                <div>
-                                    <Label className="text-sm font-medium text-gray-600">
-                                        ID de Usuario
-                                    </Label>
-                                    <p className="text-lg font-semibold">{selectedUser._id}</p>
-                                </div>
-                                <div>
-                                    <Label className="text-sm font-medium text-gray-600">
-                                        Creado el
-                                    </Label>
-                                    <p>{new Date(selectedUser.createdAt).toLocaleDateString()}</p>
-                                </div>
-                            </div>
-                        </div>
-                    )}
-                </DialogContent>
-            </Dialog>
         </div>
     );
 };
