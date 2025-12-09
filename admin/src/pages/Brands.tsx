@@ -81,8 +81,8 @@ const Brands = () => {
             const response = await axiosPrivate.get("/brands");
             setBrands(response.data);
         } catch (error) {
-            console.log("Failed to load brands", error);
-            toast("Failed to load brands");
+            console.log("Error al cargar marcas", error);
+            toast("Error al cargar marcas");
         } finally {
             setLoading(false);
         }
@@ -96,13 +96,13 @@ const Brands = () => {
         setFormLoading(true);
         try {
             await axiosPrivate.post("/brands", data);
-            toast("Brand created successfully");
+            toast("Marca creada exitosamente");
             formAdd.reset();
             setIsAddModalOpen(false);
-            // fetchBrands();
+            fetchBrands();
         } catch (error) {
-            console.log("Failed to create brand", error);
-            toast("Failed to create brand");
+            console.log("Error al crear marca", error);
+            toast("Error al crear marca");
         } finally {
             setFormLoading(false);
         }
@@ -113,20 +113,26 @@ const Brands = () => {
         try {
             const response = await axiosPrivate.get("/brands");
             setBrands(response.data);
-            toast("Brands refreshed successfully");
+            toast("Marcas actualizadas exitosamente");
         } catch (error) {
-            console.log("Failed to refresh brands", error);
-            toast("Failed to refresh brands");
+            console.log("Error al actualizar marcas", error);
+            toast("Error al actualizar marcas");
         } finally {
             setRefreshing(false);
         }
+    };
+
+    const getImageUrl = (image: string | { url: string; publicId: string } | undefined): string => {
+        if (!image) return "";
+        if (typeof image === "string") return image;
+        return image.url;
     };
 
     const handleEdit = (brand: Brand) => {
         setSelectedBrand(brand);
         formEdit.reset({
             name: brand.name,
-            image: brand.image || "",
+            image: getImageUrl(brand.image),
         });
         setIsEditModalOpen(true);
     };
@@ -141,12 +147,12 @@ const Brands = () => {
         setFormLoading(true);
         try {
             await axiosPrivate.put(`/brands/${selectedBrand._id}`, data);
-            toast("Brand updated successfully");
+            toast("Marca actualizada exitosamente");
             setIsEditModalOpen(false);
             fetchBrands();
         } catch (error) {
-            console.log("Failed to update brand", error);
-            toast("Failed to update brand");
+            console.log("Error al actualizar marca", error);
+            toast("Error al actualizar marca");
         } finally {
             setFormLoading(false);
         }
@@ -156,12 +162,12 @@ const Brands = () => {
 
         try {
             await axiosPrivate.delete(`/brands/${selectedBrand._id}`);
-            toast("Brand deleted successfully");
+            toast("Marca eliminada exitosamente");
             setIsDeleteModalOpen(false);
             fetchBrands();
         } catch (error) {
-            console.log("Failed to delete brand", error);
-            toast("Failed to delete brand");
+            console.log("Error al eliminar marca", error);
+            toast("Error al eliminar marca");
         }
     };
 
@@ -178,7 +184,7 @@ const Brands = () => {
                         <RefreshCw
                             className={`mr-2 h-4 w-4 ${refreshing ? "animate-spin" : ""}`}
                         />
-                        {refreshing ? "Refreshing..." : "Refresh"}
+                        {refreshing ? "Actualizando..." : "Actualizar"}
                     </Button>
                     {isAdmin && (
                         <Button onClick={() => setIsAddModalOpen(true)}>
@@ -211,7 +217,7 @@ const Brands = () => {
                                         {brand.image ? (
                                             <div className="h-12 w-12 rounded overflow-hidden bg-muted">
                                                 <img
-                                                    src={brand.image}
+                                                    src={getImageUrl(brand.image)}
                                                     alt={brand.name}
                                                     className="h-full w-full object-cover"
                                                 />

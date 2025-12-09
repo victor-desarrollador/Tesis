@@ -54,6 +54,7 @@ const userSchema = mongoose.Schema(
     },
     // Avatar del usuario (base64 o URL)
     avatar: { type: String, default: "" },
+    avatarPublicId: { type: String }, // Cloudinary public ID para eliminar imagen
     // Múltiples direcciones de envío
     addresses: [addressSchema],
     phone: { type: String },

@@ -1,6 +1,7 @@
 import asyncHandler from "express-async-handler";
 import User from "../models/userModel.js";
 import generateToken from "../utils/generateToken.js";
+import { uploadImage } from "../services/uploadService.js";
 
 // registrar usuario
 const registerUser = asyncHandler(async (req, res) => {
@@ -12,12 +13,23 @@ const registerUser = asyncHandler(async (req, res) => {
         throw new Error("El usuario ya existe, Inicia sesion");
     }
 
+    // Subir avatar a Cloudinary si se proporciona
+    let avatarUrl = "";
+    let avatarPublicId = "";
+
+    if (avatar && avatar.startsWith("data:image")) {
+        const uploadResult = await uploadImage(avatar, "avatars");
+        avatarUrl = uploadResult.url;
+        avatarPublicId = uploadResult.publicId;
+    }
+
     const user = await User.create({
         name,
         email,
         password,
         role,
-        avatar: avatar || "",
+        avatar: avatarUrl,
+        avatarPublicId: avatarPublicId,
         addresses: [], // ✅ Corrección del typo
     });
 

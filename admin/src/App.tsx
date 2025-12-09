@@ -7,11 +7,16 @@ import { useState } from "react";
 import { cn } from "./lib/utils";
 
 function App() {
-  const { isAuthenticated } = useAuthStore();
+  const { isAuthenticated, user } = useAuthStore();
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
   if (!isAuthenticated) {
     return <Navigate to={"/login"} />;
+  }
+
+  // Verificar que el usuario sea admin
+  if (user && user.role !== "admin") {
+    return <Navigate to={"/acceso-denegado"} />;
   }
 
   return (

@@ -1,11 +1,11 @@
 import asyncHandler from "express-async-handler";
 import Category from "../models/categoryModel.js";
+import { uploadImage, deleteImage } from "../services/uploadService.js";
 
 /**
  * @desc    Obtener todas las categorías
  * @route   GET /api/categories
  * @access  Public
- * 
  * Soporta paginación y filtros opcionales
  */
 const getCategories = asyncHandler(async (req, res) => {
@@ -82,9 +82,20 @@ const createCategory = asyncHandler(async (req, res) => {
         throw new Error("Ya existe una categoría con este nombre");
     }
 
+    // Subir imagen a Cloudinary si es base64
+    let imageUrl = "";
+    let imagePublicId = "";
+
+    if (image && image.startsWith("data:image")) {
+        const uploadResult = await uploadImage(image, "categories");
+        imageUrl = uploadResult.url;
+        imagePublicId = uploadResult.publicId;
+    }
+
     const category = await Category.create({
         name,
-        image: image || "",
+        // Usar la estructura { url, publicId } requerida por el modelo, o string vacío si no hay
+        image: imageUrl ? { url: imageUrl, publicId: imagePublicId } : undefined,
         categoryType,
     });
 
@@ -108,9 +119,45 @@ const updateCategory = asyncHandler(async (req, res) => {
         throw new Error("Categoría no encontrada");
     }
 
+    const { name, image, categoryType } = req.body;
+
+    // Manejo de imagen
+    let imageUrl = category.image?.url || "";
+    let imagePublicId = category.image?.publicId || "";
+
+    // 1. Si viene una nueva imagen base64
+    if (image && image.startsWith("data:image")) {
+        // Eliminar anterior si existe
+        if (imagePublicId) {
+            await deleteImage(imagePublicId);
+        }
+        // Subir nueva
+        const uploadResult = await uploadImage(image, "categories");
+        imageUrl = uploadResult.url;
+        imagePublicId = uploadResult.publicId;
+    }
+    // 2. Si image es un string vacío (usuario eliminó la imagen)
+    else if (image === "" && imagePublicId) {
+        await deleteImage(imagePublicId);
+        imageUrl = "";
+        imagePublicId = "";
+    }
+    // 3. Si image es la URL que ya tenía, no hacer nada
+
+    // Construir objeto de actualización
+    const updateData = {
+        name: name || category.name,
+        categoryType: categoryType || category.categoryType,
+        image: imageUrl ? { url: imageUrl, publicId: imagePublicId } : undefined,
+    };
+
+    // Si imageUrl está vacío, podemos querer undefined o null en el modelo segun definición
+    // Mongoose setea undefined si no pasamos nada y no es required.
+    // Si image era opcional en el modelo, esto funcionará.
+
     const updatedCategory = await Category.findByIdAndUpdate(
         req.params.id,
-        req.body,
+        updateData,
         {
             new: true,
             runValidators: true,
@@ -135,6 +182,11 @@ const deleteCategory = asyncHandler(async (req, res) => {
     if (!category) {
         res.status(404);
         throw new Error("Categoría no encontrada");
+    }
+
+    // Eliminar imagen de Cloudinary si existe
+    if (category.image && category.image.publicId) {
+        await deleteImage(category.image.publicId);
     }
 
     await Category.findByIdAndDelete(req.params.id);

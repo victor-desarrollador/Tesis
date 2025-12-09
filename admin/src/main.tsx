@@ -13,11 +13,13 @@ import Users from './pages/Users.tsx'
 import Banners from './pages/Banners.tsx'
 import Categories from './pages/Categories.tsx'
 import Brands from './pages/Brands.tsx'
+import AccessDenied from './pages/AccessDenied.tsx'
 
 
 const router = createBrowserRouter([
   { path: '/login', element: <Login /> },
   { path: '/register', element: <Register /> },
+  { path: '/acceso-denegado', element: <AccessDenied /> },
 
   {
     path: '/', element: <App />, children: [

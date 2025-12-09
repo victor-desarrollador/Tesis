@@ -2,6 +2,7 @@ import asyncHandler from "express-async-handler";
 import Product from "../models/productModel.js";
 import Category from "../models/categoryModel.js";
 import Brand from "../models/brandModel.js";
+import { uploadImage, deleteImage } from "../services/uploadService.js";
 
 /**
  * @desc    Crear nuevo producto
@@ -86,6 +87,27 @@ const createProduct = asyncHandler(async (req, res) => {
         }
     }
 
+    // Procesar imágenes con Cloudinary
+    let processedImages = [];
+    if (images && Array.isArray(images)) {
+        for (const img of images) {
+            // Si es base64, subir a Cloudinary
+            if (img.url && img.url.startsWith("data:image")) {
+                const uploadResult = await uploadImage(img.url, "products");
+                processedImages.push({
+                    url: uploadResult.url,
+                    publicId: uploadResult.publicId,
+                });
+            } else {
+                // Si ya es una URL válida o no es base64, se mantiene (ej. si viniera de otro lado)
+                // Pero aseguramos que tenga la estructura correcta si es posible
+                if (img.url) {
+                    processedImages.push(img);
+                }
+            }
+        }
+    }
+
     // Crear producto
     const product = await Product.create({
         name,
@@ -93,7 +115,7 @@ const createProduct = asyncHandler(async (req, res) => {
         price,
         comparePrice,
         stock: stock || 0,
-        images: images || [],
+        images: processedImages,
         category: categoryId,
         brand: brandId,
         featured: featured || false,
@@ -116,10 +138,10 @@ const createProduct = asyncHandler(async (req, res) => {
  */
 const getProducts = asyncHandler(async (req, res) => {
     const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 12;
+    const limit = parseInt(req.query.limit || req.query.perPage) || 12; // Soportar ambos
     const skip = (page - 1) * limit;
 
-    const filter = { isActive: true };
+    const filter = {}; // Remover filtro isActive por defecto
 
     if (req.query.search) {
         filter.$text = { $search: req.query.search };
@@ -263,6 +285,55 @@ const updateProduct = asyncHandler(async (req, res) => {
         }
     }
 
+    // Gestionar imágenes
+    let finalImages = [];
+    if (req.body.images && Array.isArray(req.body.images)) {
+        // Iterar sobre las nuevas imágenes solicitadas
+        for (const img of req.body.images) {
+            // Caso 1: Imagen base64 nueva -> Subir a Cloudinary
+            if (img.url && img.url.startsWith("data:image")) {
+                const uploadResult = await uploadImage(img.url, "products");
+                finalImages.push({
+                    url: uploadResult.url,
+                    publicId: uploadResult.publicId,
+                });
+            }
+            // Caso 2: URL existente (http/s)
+            else if (img.url && img.url.startsWith("http")) {
+                // Verificar si esta imagen ya existía en el producto para preservar su publicId
+                const existingImage = product.images.find(
+                    (pImg) => pImg.url === img.url
+                );
+
+                if (existingImage) {
+                    finalImages.push(existingImage); // Mantiene publicId original
+                } else {
+                    // Si es una URL externa nueva (no común con Cloudinary Flow, pero posible)
+                    // Se agrega tal cual
+                    finalImages.push(img);
+                }
+            }
+        }
+
+        // Eliminar imágenes antiguas que ya no están en finalImages
+        // SOLO si tienen publicId (están en Cloudinary)
+        if (product.images && product.images.length > 0) {
+            for (const oldImg of product.images) {
+                if (oldImg.publicId) {
+                    const stillExists = finalImages.find(
+                        (newImg) => newImg.publicId === oldImg.publicId
+                    );
+                    if (!stillExists) {
+                        await deleteImage(oldImg.publicId);
+                    }
+                }
+            }
+        }
+
+        // Actualizar el array de imagenes en el body para que findByIdAndUpdate lo use
+        req.body.images = finalImages;
+    }
+
     const updatedProduct = await Product.findByIdAndUpdate(
         req.params.id,
         req.body,
@@ -290,6 +361,15 @@ const deleteProduct = asyncHandler(async (req, res) => {
     if (!product) {
         res.status(404);
         throw new Error("Producto no encontrado");
+    }
+
+    // Eliminar imágenes de Cloudinary asociadas
+    if (product.images && product.images.length > 0) {
+        for (const img of product.images) {
+            if (img.publicId) {
+                await deleteImage(img.publicId);
+            }
+        }
     }
 
     await Product.findByIdAndDelete(req.params.id);

@@ -1,12 +1,12 @@
 import asyncHandler from "express-async-handler";
 import Brand from "../models/brandModel.js";
-import cloudinary from "../config/cloudinary.js"; 
+import { uploadImage, deleteImage } from "../services/uploadService.js";
 
 // @desc    Get all brands
 // @route   GET /api/brands
 // @access  Public
 const getBrands = asyncHandler(async (req, res) => {
-    const brands = await Brand.find();
+    const brands = await Brand.find().sort({ createdAt: -1 });
     res.json(brands);
 });
 
@@ -42,18 +42,19 @@ const createBrand = asyncHandler(async (req, res) => {
         throw new Error("La marca ya existe");
     }
 
+    // Subir imagen a Cloudinary si es base64
     let imageUrl = "";
+    let imagePublicId = "";
 
-    if (image) {
-        const result = await cloudinary.uploader.upload(image, {
-            folder: "admin/panel-de-control/marcas",
-        });
-        imageUrl = result.secure_url;
+    if (image && image.startsWith("data:image")) {
+        const uploadResult = await uploadImage(image, "brands");
+        imageUrl = uploadResult.url;
+        imagePublicId = uploadResult.publicId;
     }
 
     const brand = await Brand.create({
         name,
-        image: imageUrl || "",
+        image: imageUrl ? { url: imageUrl, publicId: imagePublicId } : undefined,
     });
 
     res.status(201).json(brand);
@@ -72,20 +73,42 @@ const updateBrand = asyncHandler(async (req, res) => {
         throw new Error("Marca no encontrada");
     }
 
-    // Si envían nombre, actualizarlo
-    if (name) {
-        brand.name = name;
-    }
+    // Manejo de imagen
+    let imageUrl = brand.image?.url || "";
+    let imagePublicId = brand.image?.publicId || "";
 
-    // Si envían imagen, subirla a Cloudinary
-    if (image) {
-        const result = await cloudinary.uploader.upload(image, {
-            folder: "admin/panel-de-control/marcas",
-        });
-        brand.image = result.secure_url;
+    // 1. Si viene una nueva imagen base64
+    if (image && image.startsWith("data:image")) {
+        // Eliminar anterior si existe
+        if (imagePublicId) {
+            await deleteImage(imagePublicId);
+        }
+        // Subir nueva
+        const uploadResult = await uploadImage(image, "brands");
+        imageUrl = uploadResult.url;
+        imagePublicId = uploadResult.publicId;
     }
+    // 2. Si image es un string vacío (usuario eliminó la imagen)
+    else if (image === "" && imagePublicId) {
+        await deleteImage(imagePublicId);
+        imageUrl = "";
+        imagePublicId = "";
+    }
+    // 3. Si image es la URL que ya tenía, no hacer nada
 
-    const updatedBrand = await brand.save();
+    const updateData = {
+        name: name || brand.name,
+        image: imageUrl ? { url: imageUrl, publicId: imagePublicId } : undefined,
+    };
+
+    const updatedBrand = await Brand.findByIdAndUpdate(
+        req.params.id,
+        updateData,
+        {
+            new: true,
+            runValidators: true,
+        }
+    );
 
     res.json(updatedBrand);
 });
@@ -99,6 +122,11 @@ const deleteBrand = asyncHandler(async (req, res) => {
     if (!brand) {
         res.status(404);
         throw new Error("Marca no encontrada");
+    }
+
+    // Eliminar imagen de Cloudinary si existe
+    if (brand.image && brand.image.publicId) {
+        await deleteImage(brand.image.publicId);
     }
 
     await brand.deleteOne();

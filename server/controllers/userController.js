@@ -1,5 +1,6 @@
 import asyncHandler from "express-async-handler";
 import User from "../models/userModel.js";
+import { uploadImage, deleteImage } from "../services/uploadService.js";
 
 // =========================
 // GET ALL USERS
@@ -26,13 +27,24 @@ const createUser = asyncHandler(async (req, res) => {
     throw new Error("El usuario ya existe");
   }
 
+  // Subir avatar a Cloudinary si es base64
+  let avatarUrl = "";
+  let avatarPublicId = "";
+
+  if (avatar && avatar.startsWith("data:image")) {
+    const uploadResult = await uploadImage(avatar, "avatars");
+    avatarUrl = uploadResult.url;
+    avatarPublicId = uploadResult.publicId;
+  }
+
   // crear usuario
   const user = await User.create({
     name,
     email,
     password,
     role,
-    avatar: avatar || "",
+    avatar: avatarUrl,
+    avatarPublicId: avatarPublicId,
     addresses: addresses || [],
   });
 
@@ -83,7 +95,20 @@ const updateUser = asyncHandler(async (req, res) => {
 
   // Actualizar avatar si se proporciona
   if (req.body.avatar !== undefined) {
-    user.avatar = req.body.avatar;
+    // Si es una nueva imagen base64, subirla a Cloudinary
+    if (req.body.avatar && req.body.avatar.startsWith("data:image")) {
+      // Eliminar imagen anterior si existe
+      if (user.avatarPublicId) {
+        await deleteImage(user.avatarPublicId);
+      }
+
+      const uploadResult = await uploadImage(req.body.avatar, "avatars");
+      user.avatar = uploadResult.url;
+      user.avatarPublicId = uploadResult.publicId;
+    } else {
+      // Si es una URL o string vacío, solo actualizar
+      user.avatar = req.body.avatar;
+    }
   }
 
   // Solo admin puede cambiar roles
@@ -116,6 +141,11 @@ const deleteUser = asyncHandler(async (req, res) => {
   if (!user) {
     res.status(404);
     throw new Error("Usuario no encontrado");
+  }
+
+  // Eliminar avatar de Cloudinary si existe
+  if (user.avatarPublicId) {
+    await deleteImage(user.avatarPublicId);
   }
 
   await user.deleteOne();
