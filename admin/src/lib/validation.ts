@@ -65,8 +65,7 @@ export const productSchema = z.object({
 export const bannerSchema = z.object({
   name: z.string().min(1, "El nombre es requerido"),
   title: z.string().min(1, "El título es requerido"),
-  startFrom: z.coerce.date().optional(),
-  endTo: z.coerce.date().optional(),
+  startFrom: z.coerce.date({ required_error: "La fecha es requerida" }),
   image: z.string().min(1, "Por favor suba una imagen"),
   bannerType: z.string().min(1, "El tipo es requerido"),
 });

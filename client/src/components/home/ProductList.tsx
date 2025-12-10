@@ -13,13 +13,13 @@ const ProductList = async () => {
     const data = await fetchData<ProductsResponse>("/products?perPage=10");
     products = data?.products;
   } catch (error) {
-    console.log("Product fetching Error", error);
+    console.log("Error al recuperar el producto", error);
   }
 
   if (products?.length === 0) {
     return (
       <div className="bg-babyshopWhite p-5 rounded-md border mt-3">
-        <p className="text-xl font-semibold">No Products Available</p>
+        <p className="text-xl font-semibold">No hay productos disponibles</p>
       </div>
     );
   }

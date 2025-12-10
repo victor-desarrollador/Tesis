@@ -38,7 +38,7 @@ const Banner = async () => {
             href={"/shop"}
             className="capitalize bg-babyshopWhite rounded-full font-medium text-babyshopBlack hover:text-babyshopWhite px-6 py-2 text-base hover:bg-babyshopSky/10 border border-transparent hover:border hover:border-babyshopWhite hoverEffect"
           >
-            shop now
+            comprar ahora
           </Link>
         </div>
       </div>
@@ -59,7 +59,7 @@ const Banner = async () => {
             href={"/shop"}
             className="capitalize bg-babyshopWhite rounded-full font-medium text-babyshopBlack hover:text-babyshopWhite px-6 py-2 text-base hover:bg-babyshopPurple/10 border border-transparent hover:border hover:border-babyshopWhite hoverEffect"
           >
-            shop now
+            comprar ahora
           </Link>
         </div>
       </div>

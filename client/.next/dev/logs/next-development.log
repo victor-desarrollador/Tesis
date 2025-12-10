@@ -1,2 +1,5 @@
-[00:00:02.651] Server  LOG      ✓ Ready in 1250ms
-[00:00:14.136] Server  LOG      ○ Compiling / ...
+[00:00:01.630] Server  LOG      ✓ Ready in 998ms
+[00:00:09.095] Server  ERROR   An empty string ("") was passed to the src attribute. This may cause the browser to download the whole page again over the network. To fix this, either do not render the element at all or pass null to src instead of an empty string.
+[00:00:09.628] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:10.034] Browser ERROR   An empty string ("") was passed to the %s attribute. This may cause the browser to download the whole page again over the network. To fix this, either do not render the element at all or pass null to %s instead of an empty string. src src
+[00:00:10.034] Browser ERROR   Image is missing required "src" property: <img>

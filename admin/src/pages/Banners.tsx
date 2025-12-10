@@ -65,22 +65,22 @@ export default function BannersPage() {
     const isAdmin = checkIsAdmin();
 
     const formAdd = useForm<FormData>({
-        resolver: zodResolver(bannerSchema),
+        resolver: zodResolver(bannerSchema) as any,
         defaultValues: {
             name: "",
             title: "",
-            startFrom: 0,
+            startFrom: new Date(),
             image: "",
             bannerType: "",
         },
     });
 
     const formEdit = useForm<FormData>({
-        resolver: zodResolver(bannerSchema),
+        resolver: zodResolver(bannerSchema) as any,
         defaultValues: {
             name: "",
             title: "",
-            startFrom: 0,
+            startFrom: new Date(),
             image: "",
             bannerType: "",
         },
@@ -142,17 +142,17 @@ export default function BannersPage() {
     const handleAddBanner = async (data: FormData) => {
         setFormLoading(true);
         try {
-            await axiosPrivate.post("/banners", {
+            const payload = {
                 ...data,
-                startFrom: Number(data.startFrom),
-            });
+                startFrom: data.startFrom instanceof Date ? data.startFrom.toISOString() : data.startFrom,
+            };
+            await axiosPrivate.post("/banners", payload);
             toast.success("Publicidad creada correctamente");
             formAdd.reset();
             setIsAddModalOpen(false);
             fetchBanners();
-        } catch (error) {
-            console.log("No se pudo crear la publicidad", error);
-            toast.error("No se pudo crear la publicidad");
+        } catch (error: any) {
+            toast.error(error.response?.data?.message || "No se pudo crear la publicidad");
         } finally {
             setFormLoading(false);
         }
@@ -165,7 +165,7 @@ export default function BannersPage() {
         try {
             await axiosPrivate.put(`/banners/${selectedBanner._id}`, {
                 ...data,
-                startFrom: Number(data.startFrom),
+                startFrom: data.startFrom instanceof Date ? data.startFrom.toISOString() : data.startFrom,
             });
             toast.success("Publicidad actualizada correctamente");
             setIsEditModalOpen(false);
@@ -364,16 +364,14 @@ export default function BannersPage() {
                                             name="startFrom"
                                             render={({ field }) => (
                                                 <FormItem>
-                                                    <FormLabel className="text-gray-700 font-medium">Fecha de inicio (Timestamp)</FormLabel>
+                                                    <FormLabel className="text-gray-700 font-medium">Fecha de inicio</FormLabel>
                                                     <FormControl>
                                                         <Input
                                                             {...field}
-                                                            type="number"
-                                                            min="0"
+                                                            type="date"
                                                             disabled={formLoading}
-                                                            onChange={(e) =>
-                                                                field.onChange(parseInt(e.target.value))
-                                                            }
+                                                            value={field.value instanceof Date ? field.value.toISOString().split('T')[0] : ''}
+                                                            onChange={(e) => field.onChange(new Date(e.target.value))}
                                                             className="bg-gray-50 border-gray-200 focus:bg-white transition-colors"
                                                         />
                                                     </FormControl>
@@ -386,9 +384,20 @@ export default function BannersPage() {
                                             name="bannerType"
                                             render={({ field }) => (
                                                 <FormItem>
-                                                    <FormLabel className="text-gray-700 font-medium">Tipo</FormLabel>
+                                                    <FormLabel className="text-gray-700 font-medium">Tipo de Banner</FormLabel>
                                                     <FormControl>
-                                                        <Input {...field} disabled={formLoading} placeholder="Ej. principal, secundario" className="bg-gray-50 border-gray-200 focus:bg-white transition-colors" />
+                                                        <select
+                                                            {...field}
+                                                            disabled={formLoading}
+                                                            className="w-full rounded-md border border-input bg-gray-50 px-3 py-2 text-sm ring-offset-background focus:bg-white focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 transition-colors"
+                                                        >
+                                                            <option value="">Selecciona un tipo</option>
+                                                            <option value="hero">Hero (Principal)</option>
+                                                            <option value="sale">Venta</option>
+                                                            <option value="discount">Descuento</option>
+                                                            <option value="category">Categoría</option>
+                                                            <option value="other">Otro</option>
+                                                        </select>
                                                     </FormControl>
                                                     <FormMessage />
                                                 </FormItem>
@@ -488,16 +497,14 @@ export default function BannersPage() {
                                             name="startFrom"
                                             render={({ field }) => (
                                                 <FormItem>
-                                                    <FormLabel className="text-gray-700 font-medium">Fecha de inicio (Timestamp)</FormLabel>
+                                                    <FormLabel className="text-gray-700 font-medium">Fecha de inicio</FormLabel>
                                                     <FormControl>
                                                         <Input
                                                             {...field}
-                                                            type="number"
-                                                            min="0"
+                                                            type="date"
                                                             disabled={formLoading}
-                                                            onChange={(e) =>
-                                                                field.onChange(parseInt(e.target.value))
-                                                            }
+                                                            value={field.value instanceof Date ? field.value.toISOString().split('T')[0] : ''}
+                                                            onChange={(e) => field.onChange(new Date(e.target.value))}
                                                             className="bg-gray-50 border-gray-200 focus:bg-white transition-colors"
                                                         />
                                                     </FormControl>
@@ -510,9 +517,20 @@ export default function BannersPage() {
                                             name="bannerType"
                                             render={({ field }) => (
                                                 <FormItem>
-                                                    <FormLabel className="text-gray-700 font-medium">Tipo</FormLabel>
+                                                    <FormLabel className="text-gray-700 font-medium">Tipo de Banner</FormLabel>
                                                     <FormControl>
-                                                        <Input {...field} disabled={formLoading} className="bg-gray-50 border-gray-200 focus:bg-white transition-colors" />
+                                                        <select
+                                                            {...field}
+                                                            disabled={formLoading}
+                                                            className="w-full rounded-md border border-input bg-gray-50 px-3 py-2 text-sm ring-offset-background focus:bg-white focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 transition-colors"
+                                                        >
+                                                            <option value="">Selecciona un tipo</option>
+                                                            <option value="hero">Hero (Principal)</option>
+                                                            <option value="sale">Venta</option>
+                                                            <option value="discount">Descuento</option>
+                                                            <option value="category">Categoría</option>
+                                                            <option value="other">Otro</option>
+                                                        </select>
                                                     </FormControl>
                                                     <FormMessage />
                                                 </FormItem>
