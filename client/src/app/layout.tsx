@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import Header from "@/components/header/Header";
+import Footer from "@/components/footer/Footer";
 
 export const metadata: Metadata = {
   title: "Tienda L&V | Cosmética, Accesorios y Carteras",
@@ -33,9 +35,9 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body className={`antialiased`}>
-        {/* Header */}
+        <Header />
         {children}
-        {/* Footer */}
+        <Footer />
       </body>
     </html>
   );

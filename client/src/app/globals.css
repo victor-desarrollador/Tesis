@@ -8,14 +8,16 @@
 @theme inline {
   /* Custom Colors Start */
 
-  --color-babyshopSky: #29beb3;
-  --color-babyshopBlack: #000000;
-  --color-babyshopWhite: #ffffff;
-  --color-babyShopLightWhite: #ededed;
-  --color-babyshopRed: #ec2b04;
-  --color-babyshopTextLight: #999999;
-  --color-babyshopPurple: #a96bde;
-  --color-babyshopLightBg: #f8f8f8;
+ --color-babyshopSky: #3A4ED3;         /* Nuevo primario elegante */
+  --color-babyshopBlack: #1A1A1A;       /* Negro suave, más premium */
+  --color-babyshopWhite: #FFFFFF;       /* Blanco */
+  --color-babyShopLightWhite: #F5F7FB;  /* Gris moderno y limpio */
+
+  --color-babyshopRed: #FFB43B;         /* Nuevo secundario (dorado/naranja alegre) */
+  --color-babyshopTextLight: #4A4A4A;   /* Texto gris moderno */
+
+  --color-babyshopPurple: #54D6BB;      /* Acento moderno agua */
+  --color-babyshopLightBg: #F6D7F7;     /* Fondo pastel suave y elegante */
 
   /* Custom Colors End */
   --radius-sm: calc(var(--radius) - 4px);

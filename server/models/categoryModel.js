@@ -71,7 +71,6 @@ categorySchema.pre('save', function (next) {
  * Índices para búsquedas optimizadas
  */
 categorySchema.index({ name: 'text' });
-categorySchema.index({ slug: 1 });
 categorySchema.index({ parent: 1 });
 categorySchema.index({ isActive: 1 });
 

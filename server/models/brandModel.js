@@ -63,7 +63,6 @@ brandSchema.pre('save', function (next) {
  * Índices para búsquedas optimizadas
  */
 brandSchema.index({ name: 'text' });
-brandSchema.index({ slug: 1 });
 brandSchema.index({ isActive: 1 });
 
 const Brand = mongoose.model('Brand', brandSchema);

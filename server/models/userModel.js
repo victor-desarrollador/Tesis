@@ -43,8 +43,7 @@ const userSchema = mongoose.Schema(
       type: String,
       required: true,
       unique: true,
-      lowercase: true,
-      index: true,
+      lowercase: true
     },
     password: { type: String, required: true, minlength: 8 },
     role: {
@@ -74,6 +73,29 @@ const userSchema = mongoose.Schema(
     isVerified: { type: Boolean, default: false },
     resetPasswordToken: String,
     resetPasswordExpires: Date,
+    
+    /**
+     * Preferencias del Usuario para Productos de Belleza
+     * Permite personalización y recomendaciones
+     */
+    preferences: {
+      skinType: {
+        type: String,
+        enum: ["seca", "grasa", "mixta", "normal", "sensible"],
+        // Tipo de piel del usuario para recomendaciones
+      },
+      fragrancePreference: [
+        {
+          type: String,
+          // ej: ["floral", "cítrico", "amaderado", "dulce"]
+        },
+      ],
+      hairType: {
+        type: String,
+        enum: ["liso", "ondulado", "rizado", "afro"],
+        // Tipo de cabello para productos capilares
+      },
+    },
   },
   { timestamps: true }
 );
@@ -98,11 +120,6 @@ userSchema.pre("save", async function (next) {
   this.password = await bcrypt.hash(this.password, salt);
   next();
 });
-
-/**
- * Índices para optimizar búsquedas
- */
-userSchema.index({ email: 1 });
 
 const User = mongoose.model("User", userSchema);
 

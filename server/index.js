@@ -1,6 +1,8 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
+import helmet from "helmet";
+import rateLimit from "express-rate-limit";
 import connectDB from "./config/db.js";
 import swaggerUi from "swagger-ui-express";
 import { specs } from "./config/swagger.js";
@@ -33,7 +35,8 @@ const app = express();
 const PORT = process.env.PORT || 8000;
 
 // Enhanced CORS configuration
-const allowedOrigins = [
+// Usar Set para mejor performance en búsquedas
+const allowedOrigins = new Set([
   process.env.CLIENT_URL,
   process.env.ADMIN_URL,
   "http://localhost:3000",
@@ -41,7 +44,7 @@ const allowedOrigins = [
   "http://localhost:8081",
   "http://10.0.2.2:8081",
   "http://10.0.2.2:8080"
-];
+].filter(Boolean)); // Filtrar valores undefined/null
 
 app.use(
   cors({
@@ -53,7 +56,7 @@ app.use(
         return callback(null, true);
       }
 
-      if (allowedOrigins.indexOf(origin) !== -1) {
+      if (allowedOrigins.has(origin)) {
         callback(null, true);
       } else {
         callback(new Error("Not allowed by CORS"));
@@ -68,6 +71,63 @@ app.use(
 // Body parser middleware
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ limit: "10mb", extended: true }));
+
+// 🔒 SECURITY: Helmet para protección de headers HTTP
+// Protege contra XSS, clickjacking, y otros ataques comunes
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        imgSrc: [
+          "'self'",
+          "https://res.cloudinary.com",
+          "data:",
+          "https:",
+        ],
+        scriptSrc: ["'self'", "'unsafe-inline'"], // Swagger necesita unsafe-inline
+        styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+        fontSrc: ["'self'", "https://fonts.gstatic.com"],
+        connectSrc: ["'self'"],
+      },
+    },
+    crossOriginEmbedderPolicy: false, // Necesario para Swagger UI
+    crossOriginResourcePolicy: { policy: "cross-origin" },
+  })
+);
+
+// 🛡️ RATE LIMITING: Protección contra ataques de fuerza bruta y DDoS
+// Limitar intentos de autenticación (más estricto)
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutos
+  max: 5, // 5 intentos por IP en 15 minutos
+  message: {
+    success: false,
+    message: "Demasiados intentos de login. Por favor intenta nuevamente en 15 minutos.",
+  },
+  standardHeaders: true, // Retorna rate limit info en headers `RateLimit-*`
+  legacyHeaders: false, // No retorna `X-RateLimit-*` headers
+  skipSuccessfulRequests: false, // Contar todos los requests, incluso exitosos
+});
+
+// Rate limiting general para todas las rutas API
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutos
+  max: 100, // 100 requests por IP en 15 minutos
+  message: {
+    success: false,
+    message: "Demasiadas peticiones desde esta IP. Por favor intenta más tarde.",
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+// Aplicar rate limiting a rutas de autenticación
+app.use("/api/auth/login", authLimiter);
+app.use("/api/auth/register", authLimiter);
+
+// Aplicar rate limiting general a todas las rutas API
+app.use("/api/", apiLimiter);
 
 // API Routes
 app.use("/api/auth", authRoutes);

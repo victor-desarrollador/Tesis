@@ -149,24 +149,26 @@ const orderSchema = new mongoose.Schema(
 
 /**
  * Middleware Pre-Save: Generar número de orden único
- * Formato: ORD-YYYYMMDD-XXX
+ * Formato: LV-YYYY-NNNNN (según especificaciones de tesis)
+ * Ejemplo: LV-2024-00001, LV-2024-00002, etc.
  */
 orderSchema.pre('save', async function (next) {
   if (!this.orderNumber) {
-    const date = new Date();
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
+    const year = new Date().getFullYear();
 
-    // Contar órdenes del día
+    // Contar órdenes del año actual
+    const startOfYear = new Date(`${year}-01-01T00:00:00.000Z`);
+    const endOfYear = new Date(`${year + 1}-01-01T00:00:00.000Z`);
+
     const count = await mongoose.model('Order').countDocuments({
       createdAt: {
-        $gte: new Date(year, date.getMonth(), day),
-        $lt: new Date(year, date.getMonth(), day + 1),
+        $gte: startOfYear,
+        $lt: endOfYear,
       },
     });
 
-    this.orderNumber = `ORD-${year}${month}${day}-${String(count + 1).padStart(3, '0')}`;
+    // Formato: LV-2024-00001 (5 dígitos con ceros a la izquierda)
+    this.orderNumber = `LV-${year}-${String(count + 1).padStart(5, '0')}`;
   }
   next();
 });
@@ -199,7 +201,6 @@ orderSchema.pre('save', function (next) {
  * Índices para optimizar consultas
  */
 orderSchema.index({ userId: 1, createdAt: -1 });
-orderSchema.index({ orderNumber: 1 });
 orderSchema.index({ status: 1 });
 orderSchema.index({ createdAt: -1 });
 
