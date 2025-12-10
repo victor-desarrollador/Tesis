@@ -16,10 +16,16 @@ export interface Product {
   name: string;
   description: string;
   price: number;
+  comparePrice?: number;
   discountPercentage: number;
   stock: number;
   averageRating: number;
-  image: string;
+  image?: string; // Legacy field
+  images?: Array<{
+    url: string;
+    publicId: string;
+    _id?: string;
+  }>;
   category: Category;
   brand: Brand;
   ratings: [];

@@ -983,7 +983,7 @@ const getApiConfig = ()=>{
         baseUrl = ("TURBOPACK compile-time value", "http://localhost:8000/api") || "http://localhost:8000/api";
     } else //TURBOPACK unreachable
     ;
-    const isProduction = ("TURBOPACK compile-time value", "development") === "production" || ("TURBOPACK compile-time value", "production") === "production";
+    const isProduction = ("TURBOPACK compile-time value", "development") === "production" || ("TURBOPACK compile-time value", "development") === "production";
     return {
         baseUrl,
         isProduction

@@ -8,23 +8,23 @@ const topHelpCenter = [
 
 const footerTopData = [
   {
-    title: "Selección de Alta Calidad",
-    subTitle: "Control total de calidad para tu tranquilidad",
+    title: "Productos Originales",
+    subTitle: "100% auténticos y de alta calidad garantizada",
     image: footerOne,
   },
   {
-    title: "Precios Accesibles",
-    subTitle: "Precios directos de fábrica para ahorrar al máximo",
+    title: "Mejores Precios",
+    subTitle: "Ofertas exclusivas y precios competitivos",
     image: footerTwo,
   },
   {
-    title: "Envío Exprés",
-    subTitle: "Entrega rápida y confiable desde nuestro depósito",
+    title: "Envío Rápido",
+    subTitle: "Entrega a todo el país en tiempo récord",
     image: footerThree,
   },
   {
-    title: "Sin Preocupaciones",
-    subTitle: "Acceso inmediato a soporte profesional",
+    title: "Atención Personalizada",
+    subTitle: "Soporte profesional para ayudarte siempre",
     image: footerFour,
   },
 ];

@@ -122,6 +122,17 @@ export default function BannersPage() {
         return image.url;
     };
 
+    const getBannerTypeLabel = (type: string): string => {
+        const labels: Record<string, string> = {
+            'hero': 'Principal',
+            'sale': 'Venta',
+            'discount': 'Descuento',
+            'category': 'Categoría',
+            'other': 'Otro'
+        };
+        return labels[type] || type;
+    };
+
     const handleEdit = (banner: Banner) => {
         setSelectedBanner(banner);
         formEdit.reset({
@@ -274,7 +285,7 @@ export default function BannersPage() {
                                             <TableCell className="text-gray-600">{banner.startFrom}</TableCell>
                                             <TableCell>
                                                 <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-50 text-blue-700">
-                                                    {banner.bannerType}
+                                                    {getBannerTypeLabel(banner.bannerType)}
                                                 </span>
                                             </TableCell>
                                             {isAdmin && (

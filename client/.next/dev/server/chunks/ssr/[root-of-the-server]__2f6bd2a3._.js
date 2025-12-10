@@ -895,7 +895,7 @@ const getApiConfig = ()=>{
         // Server-side: use API_ENDPOINT
         baseUrl = process.env.API_ENDPOINT || "http://localhost:8000/api";
     }
-    const isProduction = ("TURBOPACK compile-time value", "development") === "production" || ("TURBOPACK compile-time value", "production") === "production";
+    const isProduction = ("TURBOPACK compile-time value", "development") === "production" || ("TURBOPACK compile-time value", "development") === "production";
     return {
         baseUrl,
         isProduction
