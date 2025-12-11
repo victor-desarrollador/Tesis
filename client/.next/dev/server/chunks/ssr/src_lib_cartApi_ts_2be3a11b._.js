@@ -23,13 +23,13 @@ const getUserCart = async ()=>{
             return {
                 success: true,
                 cart: response.data.cart || [],
-                message: response.data.message || "Cart retrieved successfully"
+                message: response.data.message || "Carrito recuperado exitosamente"
             };
         } else {
             return {
                 success: false,
                 cart: [],
-                message: response.error?.message || "Failed to get cart"
+                message: response.error?.message || "Error al obtener el carrito"
             };
         }
     } catch (error) {
@@ -37,7 +37,7 @@ const getUserCart = async ()=>{
         return {
             success: false,
             cart: [],
-            message: "Failed to get cart"
+            message: "Error al obtener el carrito"
         };
     }
 };
@@ -51,13 +51,13 @@ const addToCart = async (token, productId, quantity = 1)=>{
             return {
                 success: true,
                 cart: response.data.cart || [],
-                message: response.data.message || "Item added to cart successfully"
+                message: response.data.message || "Producto agregado al carrito"
             };
         } else {
             return {
                 success: false,
                 cart: [],
-                message: response.error?.message || "Failed to add to cart"
+                message: response.error?.message || "Error al agregar al carrito"
             };
         }
     } catch (error) {
@@ -65,7 +65,7 @@ const addToCart = async (token, productId, quantity = 1)=>{
         return {
             success: false,
             cart: [],
-            message: "Failed to add to cart"
+            message: "Error al agregar al carrito"
         };
     }
 };
@@ -79,13 +79,13 @@ const updateCartItem = async (token, productId, quantity)=>{
             return {
                 success: true,
                 cart: response.data.cart || [],
-                message: response.data.message || "Cart item updated successfully"
+                message: response.data.message || "Carrito actualizado correctamente"
             };
         } else {
             return {
                 success: false,
                 cart: [],
-                message: response.error?.message || "Failed to update cart item"
+                message: response.error?.message || "Error al actualizar el carrito"
             };
         }
     } catch (error) {
@@ -93,7 +93,7 @@ const updateCartItem = async (token, productId, quantity)=>{
         return {
             success: false,
             cart: [],
-            message: "Failed to update cart item"
+            message: "Error al actualizar el carrito"
         };
     }
 };
@@ -104,13 +104,13 @@ const removeFromCart = async (token, productId)=>{
             return {
                 success: true,
                 cart: response.data.cart || [],
-                message: response.data.message || "Item removed from cart successfully"
+                message: response.data.message || "Producto eliminado del carrito"
             };
         } else {
             return {
                 success: false,
                 cart: [],
-                message: response.error?.message || "Failed to remove from cart"
+                message: response.error?.message || "Error al eliminar del carrito"
             };
         }
     } catch (error) {
@@ -118,7 +118,7 @@ const removeFromCart = async (token, productId)=>{
         return {
             success: false,
             cart: [],
-            message: "Failed to remove from cart"
+            message: "Error al eliminar del carrito"
         };
     }
 };
@@ -129,13 +129,13 @@ const clearCart = async ()=>{
             return {
                 success: true,
                 cart: [],
-                message: response.data.message || "Cart cleared successfully"
+                message: response.data.message || "Carrito vaciado exitosamente"
             };
         } else {
             return {
                 success: false,
                 cart: [],
-                message: response.error?.message || "Failed to clear cart"
+                message: response.error?.message || "Error al vaciar el carrito"
             };
         }
     } catch (error) {
@@ -143,7 +143,7 @@ const clearCart = async ()=>{
         return {
             success: false,
             cart: [],
-            message: "Failed to clear cart"
+            message: "Error al vaciar el carrito"
         };
     }
 };

@@ -118,6 +118,71 @@ const Products = () => {
         },
     });
 
+    // Auto-calculation logic for prices (Add Form)
+    useEffect(() => {
+        const subscription = formAdd.watch((value, { name, type }) => {
+            if (name === "discountPercentage") {
+                const cp = Number(formAdd.getValues("comparePrice")) || 0;
+                const dp = Number(value.discountPercentage);
+                if (cp > 0) {
+                    const newPrice = Math.round(cp * (1 - dp / 100));
+                    formAdd.setValue("price", newPrice);
+                }
+            } else if (name === "price") {
+                const cp = Number(formAdd.getValues("comparePrice")) || 0;
+                const p = Number(value.price);
+                if (cp > 0 && cp > p) {
+                    const newDiscount = Math.round(((cp - p) / cp) * 100);
+                    // Avoid circular updates if value is same (though RHF handles this well usually)
+                    const currentDiscount = formAdd.getValues("discountPercentage");
+                    if (currentDiscount !== newDiscount) {
+                        formAdd.setValue("discountPercentage", newDiscount);
+                    }
+                }
+            } else if (name === "comparePrice") {
+                const cp = Number(value.comparePrice);
+                const dp = Number(formAdd.getValues("discountPercentage")) || 0;
+                if (cp > 0 && dp > 0) {
+                    const newPrice = Math.round(cp * (1 - dp / 100));
+                    formAdd.setValue("price", newPrice);
+                }
+            }
+        });
+        return () => subscription.unsubscribe();
+    }, [formAdd]);
+
+    // Auto-calculation logic for prices (Edit Form)
+    useEffect(() => {
+        const subscription = formEdit.watch((value, { name, type }) => {
+            if (name === "discountPercentage") {
+                const cp = Number(formEdit.getValues("comparePrice")) || 0;
+                const dp = Number(value.discountPercentage);
+                if (cp > 0) {
+                    const newPrice = Math.round(cp * (1 - dp / 100));
+                    formEdit.setValue("price", newPrice);
+                }
+            } else if (name === "price") {
+                const cp = Number(formEdit.getValues("comparePrice")) || 0;
+                const p = Number(value.price);
+                if (cp > 0 && cp > p) {
+                    const newDiscount = Math.round(((cp - p) / cp) * 100);
+                    const currentDiscount = formEdit.getValues("discountPercentage");
+                    if (currentDiscount !== newDiscount) {
+                        formEdit.setValue("discountPercentage", newDiscount);
+                    }
+                }
+            } else if (name === "comparePrice") {
+                const cp = Number(value.comparePrice);
+                const dp = Number(formEdit.getValues("discountPercentage")) || 0;
+                if (cp > 0 && dp > 0) {
+                    const newPrice = Math.round(cp * (1 - dp / 100));
+                    formEdit.setValue("price", newPrice);
+                }
+            }
+        });
+        return () => subscription.unsubscribe();
+    }, [formEdit]);
+
     // Reset page to 1 on initial load
     useEffect(() => {
         setPage(1);

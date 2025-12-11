@@ -232,7 +232,7 @@ const CategoriesSection = async () => {
           <Gift className="w-5 h-5 text-pink-500" />
           <p className="font-semibold text-sm text-gray-800">Envío Gratis</p>
         </div>
-        <p className="text-xs text-gray-600 mb-3">En compras superiores a $15.000</p>
+        <p className="text-xs text-gray-600 mb-3">En compras superiores a $100.000</p>
         <Link
           href="/shop"
           className="text-xs text-pink-600 hover:text-pink-700 font-medium hover:underline"

@@ -21,7 +21,7 @@ export interface Order {
   userId: string;
   items: OrderItem[];
   total: number;
-  status: "pending" | "paid" | "completed" | "cancelled";
+  status: "pendiente" | "pagado" | "completado" | "cancelado";
   shippingAddress: ShippingAddress;
   paymentIntentId?: string;
   stripeSessionId?: string;
@@ -65,7 +65,7 @@ export const createOrderFromCart = async (
 
     if (!response.ok) {
       const errorData = await response.json();
-      throw new Error(errorData.message || "Failed to create order");
+      throw new Error(errorData.message || "Error al crear el pedido");
     }
 
     const orderData = await response.json();
@@ -81,7 +81,7 @@ export const createOrderFromCart = async (
       success: false,
       order: {} as Order,
       message:
-        error instanceof Error ? error.message : "Failed to create order",
+        error instanceof Error ? error.message : "Error al crear el pedido",
     };
   }
 };
@@ -96,7 +96,7 @@ export const getUserOrders = async (token: string): Promise<Order[]> => {
     });
 
     if (!response.ok) {
-      throw new Error("Failed to fetch orders");
+      throw new Error("Error al obtener los pedidos");
     }
 
     return await response.json();
@@ -119,7 +119,7 @@ export const getOrderById = async (
     });
 
     if (!response.ok) {
-      throw new Error("Failed to fetch order");
+      throw new Error("Error al obtener el pedido");
     }
 
     return await response.json();
@@ -144,19 +144,19 @@ export const deleteOrder = async (
 
     if (!response.ok) {
       const errorData = await response.json();
-      throw new Error(errorData.message || "Failed to delete order");
+      throw new Error(errorData.message || "Error al eliminar el pedido");
     }
 
     return {
       success: true,
-      message: "Order deleted successfully",
+      message: "Pedido eliminado correctamente",
     };
   } catch (error) {
     console.error("Error deleting order:", error);
     return {
       success: false,
       message:
-        error instanceof Error ? error.message : "Failed to delete order",
+        error instanceof Error ? error.message : "Error al eliminar el pedido",
     };
   }
 };
@@ -164,7 +164,7 @@ export const deleteOrder = async (
 // Update order status
 export const updateOrderStatus = async (
   orderId: string,
-  status: "pending" | "paid" | "completed" | "cancelled",
+  status: "pendiente" | "pagado" | "completado" | "cancelado",
   token: string,
   paymentIntentId?: string,
   stripeSessionId?: string
@@ -185,7 +185,7 @@ export const updateOrderStatus = async (
 
     if (!response.ok) {
       const errorData = await response.json();
-      throw new Error(errorData.message || "Failed to update order status");
+      throw new Error(errorData.message || "Error al actualizar estado del pedido");
     }
 
     const data = await response.json();
@@ -201,7 +201,7 @@ export const updateOrderStatus = async (
       message:
         error instanceof Error
           ? error.message
-          : "Failed to update order status",
+          : "Error al actualizar estado del pedido",
     };
   }
 };

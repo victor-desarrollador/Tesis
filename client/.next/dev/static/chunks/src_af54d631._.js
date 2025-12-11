@@ -1572,7 +1572,7 @@ const useUserStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_mo
                         console.warn("Store: Failed to load orders:", orderError);
                     }
                 } else {
-                    throw new Error("Invalid token");
+                    throw new Error("Token inválido");
                 }
             } catch (error) {
                 console.error("Store: Verify auth error:", error);
@@ -1588,7 +1588,7 @@ const useUserStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_mo
             try {
                 const response = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$authApi$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].post("/auth/register", data);
                 if (!response.data) {
-                    throw new Error(response.error?.message || "Registration failed");
+                    throw new Error(response.error?.message || "Error en el registro");
                 }
             } catch (error) {
                 console.error("Store: Register error:", error);
@@ -1606,7 +1606,7 @@ const useCartStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_mo
         addToCart: async (product, quantity = 1)=>{
             const { auth_token } = useUserStore.getState();
             if (!auth_token) {
-                throw new Error("Authentication required");
+                throw new Error("Autenticación requerida");
             }
             set({
                 isLoading: true
@@ -1633,7 +1633,7 @@ const useCartStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_mo
         removeFromCart: async (productId)=>{
             const { auth_token } = useUserStore.getState();
             if (!auth_token) {
-                throw new Error("Authentication required");
+                throw new Error("Autenticación requerida");
             }
             set({
                 isLoading: true
@@ -1660,7 +1660,7 @@ const useCartStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_mo
         updateCartItemQuantity: async (productId, quantity)=>{
             const { auth_token } = useUserStore.getState();
             if (!auth_token) {
-                throw new Error("Authentication required");
+                throw new Error("Autenticación requerida");
             }
             set({
                 isLoading: true
@@ -1687,7 +1687,7 @@ const useCartStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_mo
         clearCart: async ()=>{
             const { auth_token } = useUserStore.getState();
             if (!auth_token) {
-                throw new Error("Authentication required");
+                throw new Error("Autenticación requerida");
             }
             set({
                 isLoading: true
@@ -1800,7 +1800,10 @@ const useOrderStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_m
 const useWishlistStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$zustand$2f$esm$2f$react$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["create"])()((0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$zustand$2f$esm$2f$middleware$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["persist"])((set, get)=>({
         wishlistItems: [],
         wishlistIds: [],
-        addToWishlist: (product)=>set((state)=>{
+        addToWishlist: async (product)=>{
+            const { auth_token } = useUserStore.getState();
+            // Optimistic update
+            set((state)=>{
                 if (!state.wishlistIds.includes(product._id)) {
                     return {
                         wishlistItems: [
@@ -1814,11 +1817,32 @@ const useWishlistStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$nod
                     };
                 }
                 return state;
-            }),
-        removeFromWishlist: (productId)=>set((state)=>({
+            });
+            if (auth_token) {
+                try {
+                    const { addToWishlist } = await __turbopack_context__.A("[project]/src/lib/wishlistApi.ts [app-client] (ecmascript, async loader)");
+                    await addToWishlist(product._id, auth_token);
+                } catch (error) {
+                    console.error("Store: Failed to add to server wishlist:", error);
+                }
+            }
+        },
+        removeFromWishlist: async (productId)=>{
+            const { auth_token } = useUserStore.getState();
+            // Optimistic update
+            set((state)=>({
                     wishlistItems: state.wishlistItems.filter((item)=>item._id !== productId),
                     wishlistIds: state.wishlistIds.filter((id)=>id !== productId)
-                })),
+                }));
+            if (auth_token) {
+                try {
+                    const { removeFromWishlist } = await __turbopack_context__.A("[project]/src/lib/wishlistApi.ts [app-client] (ecmascript, async loader)");
+                    await removeFromWishlist(productId, auth_token);
+                } catch (error) {
+                    console.error("Store: Failed to remove from server wishlist:", error);
+                }
+            }
+        },
         setWishlistItems: (products)=>set({
                 wishlistItems: products,
                 wishlistIds: products.map((product)=>product._id)

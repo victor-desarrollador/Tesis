@@ -113,7 +113,7 @@ const authLimiter = rateLimit({
 // Rate limiting general para todas las rutas API
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutos
-  max: 100, // 100 requests por IP en 15 minutos
+  max: 1000, // 1000 requests por IP en 15 minutos (aumentado para desarrollo)
   message: {
     success: false,
     message: "Demasiadas peticiones desde esta IP. Por favor intenta más tarde.",

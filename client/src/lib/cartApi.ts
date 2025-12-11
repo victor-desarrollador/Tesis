@@ -31,13 +31,13 @@ export const getUserCart = async (): Promise<CartResponse> => {
       return {
         success: true,
         cart: response.data.cart || [],
-        message: response.data.message || "Cart retrieved successfully",
+        message: response.data.message || "Carrito recuperado exitosamente",
       };
     } else {
       return {
         success: false,
         cart: [],
-        message: response.error?.message || "Failed to get cart",
+        message: response.error?.message || "Error al obtener el carrito",
       };
     }
   } catch (error) {
@@ -45,7 +45,7 @@ export const getUserCart = async (): Promise<CartResponse> => {
     return {
       success: false,
       cart: [],
-      message: "Failed to get cart",
+      message: "Error al obtener el carrito",
     };
   }
 };
@@ -61,13 +61,13 @@ export const addToCart = async (
       return {
         success: true,
         cart: response.data.cart || [],
-        message: response.data.message || "Item added to cart successfully",
+        message: response.data.message || "Producto agregado al carrito",
       };
     } else {
       return {
         success: false,
         cart: [],
-        message: response.error?.message || "Failed to add to cart",
+        message: response.error?.message || "Error al agregar al carrito",
       };
     }
   } catch (error) {
@@ -75,7 +75,7 @@ export const addToCart = async (
     return {
       success: false,
       cart: [],
-      message: "Failed to add to cart",
+      message: "Error al agregar al carrito",
     };
   }
 };
@@ -91,13 +91,13 @@ export const updateCartItem = async (
       return {
         success: true,
         cart: response.data.cart || [],
-        message: response.data.message || "Cart item updated successfully",
+        message: response.data.message || "Carrito actualizado correctamente",
       };
     } else {
       return {
         success: false,
         cart: [],
-        message: response.error?.message || "Failed to update cart item",
+        message: response.error?.message || "Error al actualizar el carrito",
       };
     }
   } catch (error) {
@@ -105,7 +105,7 @@ export const updateCartItem = async (
     return {
       success: false,
       cart: [],
-      message: "Failed to update cart item",
+      message: "Error al actualizar el carrito",
     };
   }
 };
@@ -120,13 +120,13 @@ export const removeFromCart = async (
       return {
         success: true,
         cart: response.data.cart || [],
-        message: response.data.message || "Item removed from cart successfully",
+        message: response.data.message || "Producto eliminado del carrito",
       };
     } else {
       return {
         success: false,
         cart: [],
-        message: response.error?.message || "Failed to remove from cart",
+        message: response.error?.message || "Error al eliminar del carrito",
       };
     }
   } catch (error) {
@@ -134,7 +134,7 @@ export const removeFromCart = async (
     return {
       success: false,
       cart: [],
-      message: "Failed to remove from cart",
+      message: "Error al eliminar del carrito",
     };
   }
 };
@@ -146,13 +146,13 @@ export const clearCart = async (): Promise<CartResponse> => {
       return {
         success: true,
         cart: [],
-        message: response.data.message || "Cart cleared successfully",
+        message: response.data.message || "Carrito vaciado exitosamente",
       };
     } else {
       return {
         success: false,
         cart: [],
-        message: response.error?.message || "Failed to clear cart",
+        message: response.error?.message || "Error al vaciar el carrito",
       };
     }
   } catch (error) {
@@ -160,7 +160,7 @@ export const clearCart = async (): Promise<CartResponse> => {
     return {
       success: false,
       cart: [],
-      message: "Failed to clear cart",
+      message: "Error al vaciar el carrito",
     };
   }
 };

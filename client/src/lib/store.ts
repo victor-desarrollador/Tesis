@@ -17,19 +17,19 @@ interface CartServerItem {
     averageRating?: number;
     image?: string;
     category:
-      | string
-      | {
-          _id: string;
-          name: string;
-          image: string;
-          categoryType: string;
-        };
+    | string
+    | {
+      _id: string;
+      name: string;
+      image: string;
+      categoryType: string;
+    };
     brand:
-      | string
-      | {
-          _id: string;
-          name: string;
-        };
+    | string
+    | {
+      _id: string;
+      name: string;
+    };
     ratings?: [];
   };
   quantity: number;
@@ -55,11 +55,11 @@ const mapCartItemToProduct = (
     category:
       typeof item.productId.category === "string"
         ? {
-            _id: item.productId.category,
-            name: "",
-            image: "",
-            categoryType: "",
-          }
+          _id: item.productId.category,
+          name: "",
+          image: "",
+          categoryType: "",
+        }
         : item.productId.category,
     brand:
       typeof item.productId.brand === "string"
@@ -134,8 +134,8 @@ interface OrderState {
 interface WishlistState {
   wishlistItems: Product[];
   wishlistIds: string[];
-  addToWishlist: (product: Product) => void;
-  removeFromWishlist: (productId: string) => void;
+  addToWishlist: (product: Product) => Promise<void>;
+  removeFromWishlist: (productId: string) => Promise<void>;
   setWishlistItems: (products: Product[]) => void;
   setWishlistIds: (ids: string[]) => void;
   clearWishlist: () => void;
@@ -301,7 +301,7 @@ export const useUserStore = create<UserState>()(
               console.warn("Store: Failed to load orders:", orderError);
             }
           } else {
-            throw new Error("Invalid token");
+            throw new Error("Token inválido");
           }
         } catch (error) {
           console.error("Store: Verify auth error:", error);
@@ -314,7 +314,7 @@ export const useUserStore = create<UserState>()(
           const response = await authApi.post("/auth/register", data);
 
           if (!response.data) {
-            throw new Error(response.error?.message || "Registration failed");
+            throw new Error(response.error?.message || "Error en el registro");
           }
         } catch (error) {
           console.error("Store: Register error:", error);
@@ -341,7 +341,7 @@ export const useCartStore = create<CartState>()(
       addToCart: async (product, quantity = 1) => {
         const { auth_token } = useUserStore.getState();
         if (!auth_token) {
-          throw new Error("Authentication required");
+          throw new Error("Autenticación requerida");
         }
 
         set({ isLoading: true });
@@ -369,7 +369,7 @@ export const useCartStore = create<CartState>()(
       removeFromCart: async (productId) => {
         const { auth_token } = useUserStore.getState();
         if (!auth_token) {
-          throw new Error("Authentication required");
+          throw new Error("Autenticación requerida");
         }
 
         set({ isLoading: true });
@@ -397,7 +397,7 @@ export const useCartStore = create<CartState>()(
       updateCartItemQuantity: async (productId, quantity) => {
         const { auth_token } = useUserStore.getState();
         if (!auth_token) {
-          throw new Error("Authentication required");
+          throw new Error("Autenticación requerida");
         }
 
         set({ isLoading: true });
@@ -429,7 +429,7 @@ export const useCartStore = create<CartState>()(
       clearCart: async () => {
         const { auth_token } = useUserStore.getState();
         if (!auth_token) {
-          throw new Error("Authentication required");
+          throw new Error("Autenticación requerida");
         }
 
         set({ isLoading: true });
@@ -543,7 +543,10 @@ export const useWishlistStore = create<WishlistState>()(
     (set, get) => ({
       wishlistItems: [],
       wishlistIds: [],
-      addToWishlist: (product) =>
+      addToWishlist: async (product) => {
+        const { auth_token } = useUserStore.getState();
+
+        // Optimistic update
         set((state) => {
           if (!state.wishlistIds.includes(product._id)) {
             return {
@@ -552,14 +555,37 @@ export const useWishlistStore = create<WishlistState>()(
             };
           }
           return state;
-        }),
-      removeFromWishlist: (productId) =>
+        });
+
+        if (auth_token) {
+          try {
+            const { addToWishlist } = await import("./wishlistApi");
+            await addToWishlist(product._id, auth_token);
+          } catch (error) {
+            console.error("Store: Failed to add to server wishlist:", error);
+          }
+        }
+      },
+      removeFromWishlist: async (productId) => {
+        const { auth_token } = useUserStore.getState();
+
+        // Optimistic update
         set((state) => ({
           wishlistItems: state.wishlistItems.filter(
             (item) => item._id !== productId
           ),
           wishlistIds: state.wishlistIds.filter((id) => id !== productId),
-        })),
+        }));
+
+        if (auth_token) {
+          try {
+            const { removeFromWishlist } = await import("./wishlistApi");
+            await removeFromWishlist(productId, auth_token);
+          } catch (error) {
+            console.error("Store: Failed to remove from server wishlist:", error);
+          }
+        }
+      },
       setWishlistItems: (products) =>
         set({
           wishlistItems: products,

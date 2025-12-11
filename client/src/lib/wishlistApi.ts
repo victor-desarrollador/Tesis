@@ -30,7 +30,7 @@ export const addToWishlist = async (
 
     if (!response.ok) {
       const errorData = await response.json();
-      throw new Error(errorData.message || "Failed to add to wishlist");
+      throw new Error(errorData.message || "Error al agregar a favoritos");
     }
 
     const data = await response.json();
@@ -58,7 +58,7 @@ export const removeFromWishlist = async (
 
     if (!response.ok) {
       const errorData = await response.json();
-      throw new Error(errorData.message || "Failed to remove from wishlist");
+      throw new Error(errorData.message || "Error al eliminar de favoritos");
     }
 
     const data = await response.json();
@@ -84,7 +84,7 @@ export const getUserWishlist = async (
 
     if (!response.ok) {
       const errorData = await response.json();
-      throw new Error(errorData.message || "Failed to get wishlist");
+      throw new Error(errorData.message || "Error al obtener favoritos");
     }
 
     const data = await response.json();
@@ -112,7 +112,7 @@ export const getWishlistProducts = async (
 
     if (!response.ok) {
       const errorData = await response.json();
-      throw new Error(errorData.message || "Failed to get wishlist products");
+      throw new Error(errorData.message || "Error al obtener productos favoritos");
     }
 
     const data = await response.json();
@@ -138,7 +138,7 @@ export const clearWishlist = async (
 
     if (!response.ok) {
       const errorData = await response.json();
-      throw new Error(errorData.message || "Failed to clear wishlist");
+      throw new Error(errorData.message || "Error al vaciar favoritos");
     }
 
     const data = await response.json();
