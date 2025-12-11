@@ -203,17 +203,27 @@ const CheckoutPageClient = () => {
       // If this is a temporary order (from cart), create it first
       if (order?._id === "temp") {
         setIsCreatingOrder(true);
-        const orderItems = cartItemsWithQuantities.map((item) => ({
+        const payloadItems = cartItemsWithQuantities.map((item) => ({
           _id: item.product._id,
           name: item.product.name,
           price: item.product.price,
           quantity: item.quantity,
           image: item.product.image,
         }));
+
+        const shippingPayload = {
+          street: selectedAddress!.street,
+          city: selectedAddress!.city,
+          country: selectedAddress!.country || "Argentina",
+          postalCode: selectedAddress!.postalCode || "0000",
+        };
+
+        console.log("Processing Payment with:", { payloadItems, shippingPayload });
+
         const response = await createOrderFromCart(
           auth_token!,
-          orderItems,
-          selectedAddress!
+          payloadItems,
+          shippingPayload
         );
 
         if (!response?.success || !response.order) {

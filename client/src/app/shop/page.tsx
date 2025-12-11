@@ -1,0 +1,26 @@
+import ShopPageClient from "@/components/pages/shop/ShopPageClient";
+import { fetchData } from "@/lib/api";
+import { Brand, Category } from "@/types/type";
+import React from "react";
+
+interface CategoriesResponse {
+  categories: Category[];
+}
+
+const ShopPage = async () => {
+  const brands = await fetchData<Brand[]>("/brands");
+  let categories: Category[] = [];
+  let error: string | null = null;
+
+  try {
+    const data = await fetchData<CategoriesResponse>("/categories");
+    categories = data.categories;
+  } catch (err) {
+    error = err instanceof Error ? err.message : "Se ha producido un error desconocido.";
+    console.log("error", error);
+  }
+
+  return <ShopPageClient categories={categories} brands={brands} />;
+};
+
+export default ShopPage;

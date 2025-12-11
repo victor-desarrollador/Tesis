@@ -1,5 +1,7 @@
+"use client";
 import React from "react";
 import TopHeader from "./TopHeader";
+import { useUserStore } from "@/lib/store";
 import Container from "../common/Container";
 import Logo from "../common/Logo";
 import SearchInput from "./SearchInput";
@@ -10,6 +12,12 @@ import CartIcon from "./CartIcon";
 import Sidebar from "./Sidebar";
 
 const Header = () => {
+  const { verifyAuth } = useUserStore();
+
+  React.useEffect(() => {
+    verifyAuth();
+  }, [verifyAuth]);
+
   return (
     <header className="border-b sticky top-0 z-50 bg-babyshopWhite">
       <TopHeader />

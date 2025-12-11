@@ -6,10 +6,10 @@ const SignInPage = () => {
     <div className="p-5 md:p-10">
       <div className="max-w-4xl mx-auto bg-babyshopWhite p-5 md:p-10 flex flex-col items-center rounded-md border shadow">
         <div className="text-center">
-          <h3 className="text-3xl font-semibold mb-1">Sign In</h3>
+          <h3 className="text-3xl font-semibold mb-1">Iniciar sesión</h3>
           <p>
-            Login to access{" "}
-            <span className="text-babyshopSky font-medium">Babymart</span>
+            Inicia sesión para acceder a{" "}
+            <span className="text-babyshopSky font-medium">Tienda L&V</span>
           </p>
         </div>
         <SignInForm />

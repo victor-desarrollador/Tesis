@@ -34,11 +34,11 @@ const EmptyListDesign = ({ message, resetFilters }: EmptyListProps) => {
 
       {/* Message */}
       <h3 className="text-xl font-semibold text-gray-800 mb-2">
-        No Products Found
+        No se encontraron productos
       </h3>
       <p className="text-gray-600 text-center max-w-md mb-6">
         {message ||
-          "Sorry, no products match your selected filters. Try adjusting or resetting the filters to find what you're looking for."}
+          "Lo sentimos, no hay productos que coincidan con los filtros seleccionados. Intente ajustar o restablecer los filtros para encontrar lo que busca."}
       </p>
 
       {/* Call to Action */}
@@ -46,7 +46,7 @@ const EmptyListDesign = ({ message, resetFilters }: EmptyListProps) => {
         onClick={resetFilters}
         className="px-6 py-2 bg-blue-600 text-white hover:bg-blue-700"
       >
-        Reset Filters
+        Restablecer filtros
       </Button>
     </div>
   );

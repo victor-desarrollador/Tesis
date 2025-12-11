@@ -32,7 +32,7 @@ const AddToCartButton = ({ product, className }: Props) => {
         description: `Nombre: ${product?.name}`,
       });
     } catch (error) {
-      console.error("Add to cart error:", error);
+      console.error("Error al añadir al carrito:", error);
       toast.error("Error al añadir al carrito. Por favor, intenta de nuevo.");
     } finally {
       setLocalLoading(false);

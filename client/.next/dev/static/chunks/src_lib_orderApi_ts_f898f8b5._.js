@@ -18,19 +18,22 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 const API_BASE_URL = ("TURBOPACK compile-time value", "http://localhost:8000/api") || "http://localhost:8000/api";
 const createOrderFromCart = async (token, cartItems, shippingAddress)=>{
     try {
+        const payload = {
+            items: cartItems,
+            shippingAddress
+        };
+        console.log("Creating order with payload:", JSON.stringify(payload, null, 2));
         const response = await fetch(`${API_BASE_URL}/orders`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${token}`
             },
-            body: JSON.stringify({
-                items: cartItems,
-                shippingAddress
-            })
+            body: JSON.stringify(payload)
         });
         if (!response.ok) {
             const errorData = await response.json();
+            console.error("Server returned error:", JSON.stringify(errorData, null, 2));
             throw new Error(errorData.message || "Error al crear el pedido");
         }
         const orderData = await response.json();

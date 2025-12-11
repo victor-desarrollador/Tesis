@@ -8,7 +8,7 @@ export const createOrderValidation = [
         .isArray({ min: 1 }).withMessage('Debe haber al menos un producto en la orden')
         .notEmpty().withMessage('Los items son obligatorios'),
 
-    body('items.*.productId')
+    body('items.*._id')
         .notEmpty().withMessage('El ID del producto es obligatorio')
         .isMongoId().withMessage('ID de producto inválido'),
 

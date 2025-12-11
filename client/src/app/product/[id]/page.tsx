@@ -3,6 +3,7 @@ import BackToHome from "@/components/common/BackToHome";
 import Container from "@/components/common/Container";
 import DiscountBadge from "@/components/common/DiscountBadge";
 import ProductActions from "@/components/common/pages/product/ProductActions";
+import BuyNowButton from "@/components/common/pages/product/BuyNowButton";
 import ProductDescription from "@/components/common/pages/product/ProductDescription";
 import ProductImageGallery from "@/components/common/pages/product/ProductImageGallery";
 import PriceFormatter from "@/components/common/PriceFormatter";
@@ -141,9 +142,7 @@ const SingleProductPage = async ({
               <span>personas viendo este producto ahora</span>
             </p>
 
-            <Button className="w-full py-6 text-base bg-pink-500 hover:bg-pink-600 text-white font-semibold">
-              Comprar Ahora
-            </Button>
+            <BuyNowButton product={product} />
 
             <div className="flex items-center gap-5 justify-between border-b border-gray-200 pb-5">
               <button className="flex items-center gap-2 text-gray-700 hover:text-pink-600 transition-colors">

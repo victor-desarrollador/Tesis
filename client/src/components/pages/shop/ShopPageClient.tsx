@@ -44,7 +44,7 @@ const ShopPageClient = ({ categories, brands }: Props) => {
   const [newlyLoadedProducts, setNewlyLoadedProducts] = useState<Product[]>([]);
   const [total, setTotal] = useState(0);
   const [priceRange, setPriceRange] = useState<[number, number] | null>(null);
-  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
+  const [sortOrder, setSortOrder] = useState<string>("newest");
   const [currentPage, setCurrentPage] = useState(1);
   const [invalidCategory, setInvalidCategory] = useState<string>("");
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
@@ -90,18 +90,36 @@ const ShopPageClient = ({ categories, brands }: Props) => {
         }
         params.append("page", currentPage.toString());
         params.append("limit", productsPerPage.toString());
-        params.append("sortOrder", sortOrder);
+        if (sortOrder) {
+          // Map frontend sort values to backend expected values
+          let backendSort = "newest"; // Default
+          switch (sortOrder) {
+            case "asc": // Frontend "Mas reciente" -> Backend "newest"
+              backendSort = "newest";
+              break;
+            case "desc": // Frontend "Mas antiguo" -> We'll use price_asc as a proxy or just keep descending creation if backend supports it. 
+              // Actually, backend has specific cases. Let's align options with backend capabilities.
+              // "price_asc", "price_desc", "rating", "newest", "popular"
+              // Keeping "asc" as "newest" and adding Price sorting.
+              backendSort = "newest";
+              break;
+            // Let's just pass the value directly if we update the Select options
+            default:
+              backendSort = sortOrder;
+          }
+          params.append("sort", sortOrder);
+        }
 
         const response: ProductsResponse = await fetchData(
           `/products?${params.toString()}`
         );
-        setTotal(response?.total);
+        setTotal(response?.total || 0);
         if (loadMore) {
-          setNewlyLoadedProducts(response.products);
-          setProducts((prev) => [...prev, ...response.products]);
+          setNewlyLoadedProducts(response?.products || []);
+          setProducts((prev) => [...prev, ...(response?.products || [])]);
         } else {
           setNewlyLoadedProducts([]);
-          setProducts(response.products);
+          setProducts(response?.products || []);
         }
       } catch (error) {
         console.log("Failed to fetch products:", error);
@@ -147,13 +165,13 @@ const ShopPageClient = ({ categories, brands }: Props) => {
 
   const totalPages = Math.ceil(total / productsPerPage);
 
-  const hasMoreProducts = products.length < total && currentPage < totalPages;
+  const hasMoreProducts = products?.length < total && currentPage < totalPages;
 
-  const priceRanges: [number, number][] = [
-    [0, 20],
-    [20, 50],
-    [50, 100],
-    [100, Infinity],
+  const priceRanges: [number, number][] = [ // Precios en ARS (estimados)
+    [0, 10000],
+    [10000, 30000],
+    [30000, 50000],
+    [50000, Infinity],
   ];
 
   const loadMoreProducts = () => {
@@ -184,7 +202,7 @@ const ShopPageClient = ({ categories, brands }: Props) => {
   };
 
   const resetSortOrder = () => {
-    setSortOrder("asc");
+    setSortOrder("newest");
     setCurrentPage(1);
   };
 
@@ -193,7 +211,7 @@ const ShopPageClient = ({ categories, brands }: Props) => {
     setBrand("");
     setSearch("");
     setPriceRange(null);
-    setSortOrder("asc");
+    setSortOrder("newest");
     setCurrentPage(1);
     setInvalidCategory("");
   };
@@ -202,29 +220,29 @@ const ShopPageClient = ({ categories, brands }: Props) => {
     <Container className="py-10">
       <div className="flex items-center justify-between mb-5">
         <div>
-          <h2 className="text-2xl font-semibold">Shop Products</h2>
+          <h2 className="text-2xl font-semibold">Comprar productos</h2>
           <p className="text-babyshopBlack/70 fiont-medium">
             {loading
-              ? "Loading"
-              : `Showing ${products?.length} of ${total} products`}
+              ? "Cargando"
+              : `Mostrando ${products?.length} de ${total} productos`}
           </p>
           {invalidCategory && (
             <div className="mt-2 bg-yellow-50 border border-yellow-200 rounded-md py-1 px-2">
               <p className="text-sm text-yellow-800">
-                Category &quot;{invalidCategory}&quot; not found. Showing all
-                products instead.
+                Categoría &quot;{invalidCategory}&quot; no encontrada. Mostrando todos
+                los productos.
               </p>
             </div>
           )}
         </div>
-        {(category || brand || search || priceRange || sortOrder !== "asc") && (
+        {(category || brand || search || priceRange || sortOrder !== "newest") && (
           <Button
             variant={"outline"}
             className="text-sm"
             onClick={resetAllFilters}
             disabled={loading}
           >
-            Reset All Filters
+            Resetear filtros
           </Button>
         )}
       </div>
@@ -237,7 +255,7 @@ const ShopPageClient = ({ categories, brands }: Props) => {
               onClick={() => setIsFiltersOpen(!isFiltersOpen)}
               className="w-full mb-4 flex items-center justify-between"
             >
-              <span className="font-medium">Filters</span>
+              <span className="font-medium">Filtros</span>
               {isFiltersOpen ? (
                 <ChevronUp size={20} />
               ) : (
@@ -246,14 +264,14 @@ const ShopPageClient = ({ categories, brands }: Props) => {
             </Button>
           </div>
           <div
-            className={`${
-              isFiltersOpen ? "block" : "hidden"
-            } md:block space-y-4`}
+            className={`${isFiltersOpen ? "block" : "hidden"
+              } md:block space-y-4`}
           >
+            {/* ... (Search, Category, Brand, Price Range Sections remain same, just ensure correct nesting if replacing large chunk) ... */}
             {/* Search */}
             {search && (
               <div>
-                <h3 className="text-sm font-medium mb-3">Search</h3>
+                <h3 className="text-sm font-medium mb-3">Buscar</h3>
                 <div className="flex flex-wrap gap-2">
                   <span className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-blue-50 text-blue-700 border border-blue-200">
                     `&quot;`{search}`&quot;`
@@ -272,7 +290,7 @@ const ShopPageClient = ({ categories, brands }: Props) => {
             <div className="mb-4">
               <div className="flex justify-between items-center">
                 <label className="block text-sm font-medium mb-2">
-                  Category
+                  Categoría
                 </label>
                 {category && (
                   <Button
@@ -296,12 +314,12 @@ const ShopPageClient = ({ categories, brands }: Props) => {
                 disabled={loading}
               >
                 <SelectTrigger className="w-full p-2 border rounded-md">
-                  <SelectValue placeholder="Select a category" />
+                  <SelectValue placeholder="Seleccionar categoría" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
-                    <SelectLabel>Categories</SelectLabel>
-                    <SelectItem value="All">All Categories</SelectItem>
+                    <SelectLabel>Categorías</SelectLabel>
+                    <SelectItem value="All">Todas las categorías</SelectItem>
                     {categories?.map((cat: Category) => (
                       <SelectItem key={cat?._id} value={cat?._id}>
                         {cat?.name}
@@ -314,7 +332,7 @@ const ShopPageClient = ({ categories, brands }: Props) => {
             {/* brands */}
             <div className="mb-4">
               <div className="flex justify-between items-center">
-                <label className="block text-sm font-medium mb-2">Brand</label>
+                <label className="block text-sm font-medium mb-2">Marca</label>
                 {brand && (
                   <Button
                     variant="link"
@@ -323,7 +341,7 @@ const ShopPageClient = ({ categories, brands }: Props) => {
                     disabled={loading}
                     className="text-xs text-blue-600 p-0"
                   >
-                    Reset
+                    Resetear
                   </Button>
                 )}
               </div>
@@ -336,12 +354,12 @@ const ShopPageClient = ({ categories, brands }: Props) => {
                 disabled={loading}
               >
                 <SelectTrigger className="w-full p-2 border rounded">
-                  <SelectValue placeholder="Select a brand" />
+                  <SelectValue placeholder="Seleccionar marca" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
-                    <SelectLabel>Brands</SelectLabel>
-                    <SelectItem value="All">All Brands</SelectItem>
+                    <SelectLabel>Marcas</SelectLabel>
+                    <SelectItem value="All">Todas las marcas</SelectItem>
                     {brands.map((brd: Brand) => (
                       <SelectItem key={brd?._id} value={brd?._id}>
                         {brd?.name}
@@ -355,7 +373,7 @@ const ShopPageClient = ({ categories, brands }: Props) => {
             <div className="mb-4">
               <div className="flex justify-between items-center">
                 <label className="block text-sm font-medium mb-2">
-                  Price Range
+                  Rango de precio
                 </label>
                 {priceRange && (
                   <Button
@@ -365,7 +383,7 @@ const ShopPageClient = ({ categories, brands }: Props) => {
                     disabled={loading}
                     className="text-xs text-blue-600 p-0"
                   >
-                    Reset
+                    Resetear
                   </Button>
                 )}
               </div>
@@ -383,15 +401,15 @@ const ShopPageClient = ({ categories, brands }: Props) => {
                 disabled={loading}
               >
                 <SelectTrigger className="w-full p-2 border rounded">
-                  <SelectValue placeholder="Select a price range" />
+                  <SelectValue placeholder="Seleccionar rango de precio" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
-                    <SelectLabel>Price Ranges</SelectLabel>
-                    <SelectItem value="all">All Prices</SelectItem>
+                    <SelectLabel>Rangos de precio</SelectLabel>
+                    <SelectItem value="all">Todos los precios</SelectItem>
                     {priceRanges.map(([min, max]) => (
                       <SelectItem key={`${min}-${max}`} value={`${min}-${max}`}>
-                        ${min} - {max === Infinity ? "Above" : `$${max}`}
+                        ${min} - {max === Infinity ? "Por encima" : `$${max}`}
                       </SelectItem>
                     ))}
                   </SelectGroup>
@@ -402,9 +420,9 @@ const ShopPageClient = ({ categories, brands }: Props) => {
             <div>
               <div className="flex justify-between items-center">
                 <label className="block text-sm font-medium mb-2">
-                  Sort By
+                  Ordenar por
                 </label>
-                {sortOrder !== "asc" && (
+                {sortOrder !== "newest" && (
                   <Button
                     variant="link"
                     size="sm"
@@ -412,24 +430,25 @@ const ShopPageClient = ({ categories, brands }: Props) => {
                     disabled={loading}
                     className="text-xs text-blue-600 p-0"
                   >
-                    Reset
+                    Resetear
                   </Button>
                 )}
               </div>
               <Select
                 value={sortOrder}
-                onValueChange={(value: "asc" | "desc") => {
+                onValueChange={(value: "newest" | "price_asc" | "price_desc") => {
                   setSortOrder(value);
                   setCurrentPage(1);
                 }}
                 disabled={loading}
               >
                 <SelectTrigger className="w-full p-2 border rounded">
-                  <SelectValue placeholder="Sort By" />
+                  <SelectValue placeholder="Ordenar por" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="asc">Newest First</SelectItem>
-                  <SelectItem value="desc">Oldest First</SelectItem>
+                  <SelectItem value="newest">Mas reciente</SelectItem>
+                  <SelectItem value="price_asc">Precio: Bajo a Alto</SelectItem>
+                  <SelectItem value="price_desc">Precio: Alto a Bajo</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -448,17 +467,17 @@ const ShopPageClient = ({ categories, brands }: Props) => {
                   return (
                     <div
                       key={`${product?._id}-${index}`}
-                      className={`transition-all duration-700 ease-out ${
-                        isNewlyLoaded
-                          ? "opacity-0 translate-y-8 scale-95"
-                          : "opacity-100 translate-y-0 scale-100"
-                      }`}
+                      className={`transition-all duration-700 ease-out ${isNewlyLoaded
+                        ? "opacity-0 translate-y-8 scale-95"
+                        : "opacity-100 translate-y-0 scale-100"
+                        }`}
                       style={{
                         transitionDelay: isNewlyLoaded
                           ? `${(index % 10) * 100}ms`
                           : "0ms",
                       }}
                     >
+                      {/* Debug log for images */}
                       <ProductCard product={product} />
                     </div>
                   );
@@ -486,10 +505,10 @@ const ShopPageClient = ({ categories, brands }: Props) => {
                 !loadingMore && (
                   <div className="text-center py-6 mt-6">
                     <p className="text-gray-600 text-lg mb-2">
-                      🎉 You&apos;ve seen it all! No more products to show.
+                      🎉 Has visto todo! No hay más productos para mostrar.
                     </p>
                     <p className="text-gray-500 text-sm">
-                      Showing all {products.length} products
+                      Mostrando todos los {products.length} productos
                     </p>
                   </div>
                 )}
@@ -497,7 +516,7 @@ const ShopPageClient = ({ categories, brands }: Props) => {
           ) : (
             !loading && (
               <EmptyListDesign
-                message="No products match to your selected filters."
+                message="No hay productos que coincidan con tus filtros seleccionados."
                 resetFilters={resetAllFilters}
               />
             )

@@ -1,3 +1,4 @@
+"use client";
 import { Product } from "@/types/type";
 import Image from "next/image";
 import Link from "next/link";
@@ -21,12 +22,13 @@ const ProductCard = ({ product }: { product: Product }) => {
     if (product?.image) {
       if (typeof product.image === 'string') return product.image || null;
       if (typeof product.image === 'object' && 'url' in product.image) {
-        return product.image.url || null;
+        return (product.image as any).url || null;
       }
     }
     return null;
   };
 
+  const [imageError, setImageError] = React.useState(false);
   const imageUrl = getFirstImageUrl();
 
   return (
@@ -35,7 +37,7 @@ const ProductCard = ({ product }: { product: Product }) => {
         href={`/product/${product?._id}`}
         className="p-2 overflow-hidden relative block"
       >
-        {imageUrl ? (
+        {imageUrl && !imageError ? (
           <Image
             src={imageUrl}
             alt="productImage"
@@ -44,10 +46,12 @@ const ProductCard = ({ product }: { product: Product }) => {
             loading="eager"
             priority
             className="w-full h-32 object-cover group-hover:scale-110 hoverEffect"
+            onError={() => setImageError(true)}
           />
         ) : (
-          <div className="w-full h-32 bg-gradient-to-br from-pink-50 to-purple-50 flex items-center justify-center">
-            <span className="text-4xl">🛍️</span>
+          <div className="w-full h-32 bg-gray-100 flex items-center justify-center">
+            {/* Show a placeholder if image missing or error */}
+            <div className="text-4xl">🛍️</div>
           </div>
         )}
         <DiscountBadge

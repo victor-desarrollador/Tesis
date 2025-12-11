@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import WishlistButton from "./WishlistButton";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { useCartStore } from "@/lib/store";
 
 interface ProductActionsProps {
   product: Product;
@@ -26,14 +27,16 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
     }
   };
 
+  const { addToCart } = useCartStore();
+
   const handleAddToCart = async () => {
     setLocalLoading(true);
     try {
-      // TODO: Implement cart functionality when store is ready
+      await addToCart(product, quantity);
       toast.success(`${product.name} agregado al carrito (${quantity} unidades)`);
-      console.log("Add to cart:", { productId: product._id, quantity });
     } catch (error) {
       toast.error("Error al agregar al carrito");
+      console.error(error);
     } finally {
       setLocalLoading(false);
     }

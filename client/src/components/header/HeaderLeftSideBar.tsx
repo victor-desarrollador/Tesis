@@ -1,26 +1,29 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import Image from "next/image";
-import { smallLogo } from "@/assets/image";
 import { useOutsideClick } from "@/hooks";
 import {
   Baby,
+  Gem,
   Heart,
   HelpCircle,
   Home,
+  LayoutDashboard,
   Package,
   Phone,
   ShoppingBag,
+  Sparkles,
   Star,
   Store,
   Tag,
   Truck,
   User,
   UserCircle,
+  Wind,
 } from "lucide-react";
 import { useUserStore } from "@/lib/store";
 import { Button } from "../ui/button";
+import Logo from "../common/Logo";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -38,9 +41,8 @@ const HeaderLeftSideBar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
 
   return (
     <div
-      className={`fixed inset-y-0 h-screen left-0 z-50 w-full bg-black/50 shadow-xl transform ${
-        isOpen ? "translate-x-0" : "-translate-x-full"
-      } transition-transform ease-in-out duration-300`}
+      className={`fixed inset-y-0 h-screen left-0 z-50 w-full bg-black/50 shadow-xl transform ${isOpen ? "translate-x-0" : "-translate-x-full"
+        } transition-transform ease-in-out duration-300`}
     >
       <motion.div
         animate={{ opacity: 1 }}
@@ -49,15 +51,14 @@ const HeaderLeftSideBar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
         className="min-w-72 max-w-96 bg-white text-black z-50 h-screen border-r flex flex-col gap-6 relative"
       >
         {/* LOGO */}
-        <div className="flex items-center justify-baseline border-b p-5">
-          <Link href={"/"} className="flex items-end gap-2">
-            <Image src={smallLogo} alt="smallLogo" className="w-8" />
-            <p className="text-base font-medium">Listo para Entregar</p>
-          </Link>
+        <div className="flex items-center justify-center border-b p-5">
+          <div onClick={onClose}>
+            <Logo />
+          </div>
         </div>
 
         <div className="flex flex-col justify-between flex-1 px-5 overflow-hidden">
-          <div className="overflow-y-auto flex-1 pr-2">
+          <div className="overflow-y-auto flex-1 pr-2 scrollbar-thin scrollbar-thumb-gray-200 scrollbar-track-transparent">
             {/* -------------------------- */}
             {/* ENLACES RÁPIDOS */}
             {/* -------------------------- */}
@@ -69,7 +70,7 @@ const HeaderLeftSideBar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
               <div className="space-y-2">
                 <Link
                   href="/"
-                  className="flex items-center gap-3 py-2 px-3 rounded-lg hover:bg-gray-50 transition-colors"
+                  className="flex items-center gap-3 py-2 px-3 rounded-lg hover:bg-gray-50 hover:text-babyshopSky transition-colors"
                   onClick={onClose}
                 >
                   <Home size={18} />
@@ -78,7 +79,7 @@ const HeaderLeftSideBar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
 
                 <Link
                   href="/shop"
-                  className="flex items-center gap-3 py-2 px-3 rounded-lg hover:bg-gray-50 transition-colors"
+                  className="flex items-center gap-3 py-2 px-3 rounded-lg hover:bg-gray-50 hover:text-babyshopSky transition-colors"
                   onClick={onClose}
                 >
                   <Store size={18} />
@@ -87,7 +88,7 @@ const HeaderLeftSideBar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
 
                 <Link
                   href="/shop?sortOrder=desc"
-                  className="flex items-center gap-3 py-2 px-3 rounded-lg hover:bg-gray-50 transition-colors"
+                  className="flex items-center gap-3 py-2 px-3 rounded-lg hover:bg-gray-50 hover:text-babyshopSky transition-colors"
                   onClick={onClose}
                 >
                   <Star size={18} />
@@ -96,7 +97,7 @@ const HeaderLeftSideBar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
 
                 <Link
                   href="/shop?priceRange=0-50"
-                  className="flex items-center gap-3 py-2 px-3 rounded-lg hover:bg-gray-50 transition-colors"
+                  className="flex items-center gap-3 py-2 px-3 rounded-lg hover:bg-gray-50 hover:text-babyshopSky transition-colors"
                   onClick={onClose}
                 >
                   <Tag size={18} />
@@ -106,48 +107,57 @@ const HeaderLeftSideBar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
             </div>
 
             {/* -------------------------- */}
-            {/* COMPRAR POR EDAD */}
+            {/* COMPRAR POR CATEGORÍA */}
             {/* -------------------------- */}
             <div className="space-y-3 mb-6">
               <h3 className="text-sm font-semibold text-gray-600 uppercase tracking-wider">
-                Comprar por Edad
+                Comprar por Categoría
               </h3>
 
               <div className="space-y-2">
                 <Link
-                  href="/shop?search=newborn"
-                  className="flex items-center gap-3 py-2 px-3 rounded-lg hover:bg-gray-50 transition-colors"
+                  href="/shop?search=maquillaje"
+                  className="flex items-center gap-3 py-2 px-3 rounded-lg hover:bg-gray-50 hover:text-babyshopSky transition-colors"
                   onClick={onClose}
                 >
-                  <Baby size={18} />
-                  <span>Recién Nacido (0-6 meses)</span>
+                  <Sparkles size={18} />
+                  <span>Maquillaje</span>
                 </Link>
 
                 <Link
-                  href="/shop?search=infant"
-                  className="flex items-center gap-3 py-2 px-3 rounded-lg hover:bg-gray-50 transition-colors"
+                  href="/shop?search=facial"
+                  className="flex items-center gap-3 py-2 px-3 rounded-lg hover:bg-gray-50 hover:text-babyshopSky transition-colors"
                   onClick={onClose}
                 >
-                  <Baby size={18} />
-                  <span>Bebé (6-12 meses)</span>
+                  <Heart size={18} />
+                  <span>Cuidado Facial</span>
                 </Link>
 
                 <Link
-                  href="/shop?search=toddler"
-                  className="flex items-center gap-3 py-2 px-3 rounded-lg hover:bg-gray-50 transition-colors"
+                  href="/shop?search=perfumes"
+                  className="flex items-center gap-3 py-2 px-3 rounded-lg hover:bg-gray-50 hover:text-babyshopSky transition-colors"
                   onClick={onClose}
                 >
-                  <Baby size={18} />
-                  <span>Niño Pequeño (1-2 años)</span>
+                  <Wind size={18} />
+                  <span>Perfumes</span>
                 </Link>
 
                 <Link
-                  href="/shop?search=kids"
-                  className="flex items-center gap-3 py-2 px-3 rounded-lg hover:bg-gray-50 transition-colors"
+                  href="/shop?search=joyeria"
+                  className="flex items-center gap-3 py-2 px-3 rounded-lg hover:bg-gray-50 hover:text-babyshopSky transition-colors"
                   onClick={onClose}
                 >
-                  <Baby size={18} />
-                  <span>Niños (2+ años)</span>
+                  <Gem size={18} />
+                  <span>Joyería</span>
+                </Link>
+
+                <Link
+                  href="/shop?search=accesorios"
+                  className="flex items-center gap-3 py-2 px-3 rounded-lg hover:bg-gray-50 hover:text-babyshopSky transition-colors"
+                  onClick={onClose}
+                >
+                  <ShoppingBag size={18} />
+                  <span>Accesorios</span>
                 </Link>
               </div>
             </div>
@@ -167,9 +177,22 @@ const HeaderLeftSideBar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
                 </h3>
 
                 <div className="space-y-2">
+                  {authUser.role === "admin" && (
+                    <a
+                      href={process.env.NEXT_PUBLIC_ADMIN_URL || "http://localhost:5174"}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-3 py-2 px-3 rounded-lg hover:bg-gray-50 hover:text-babyshopSky transition-colors text-blue-600 font-medium"
+                      onClick={onClose}
+                    >
+                      <LayoutDashboard size={18} />
+                      <span>Panel de Administrador</span>
+                    </a>
+                  )}
+
                   <Link
                     href="/user/profile"
-                    className="flex items-center gap-3 py-2 px-3 rounded-lg hover:bg-gray-50 transition-colors"
+                    className="flex items-center gap-3 py-2 px-3 rounded-lg hover:bg-gray-50 hover:text-babyshopSky transition-colors"
                     onClick={onClose}
                   >
                     <UserCircle size={18} />
@@ -178,7 +201,7 @@ const HeaderLeftSideBar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
 
                   <Link
                     href="/user/orders"
-                    className="flex items-center gap-3 py-2 px-3 rounded-lg hover:bg-gray-50 transition-colors"
+                    className="flex items-center gap-3 py-2 px-3 rounded-lg hover:bg-gray-50 hover:text-babyshopSky transition-colors"
                     onClick={onClose}
                   >
                     <Package size={18} />
@@ -187,7 +210,7 @@ const HeaderLeftSideBar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
 
                   <Link
                     href="/user/wishlist"
-                    className="flex items-center gap-3 py-2 px-3 rounded-lg hover:bg-gray-50 transition-colors"
+                    className="flex items-center gap-3 py-2 px-3 rounded-lg hover:bg-gray-50 hover:text-babyshopSky transition-colors"
                     onClick={onClose}
                   >
                     <Heart size={18} />
@@ -196,7 +219,7 @@ const HeaderLeftSideBar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
 
                   <Link
                     href="/user/cart"
-                    className="flex items-center gap-3 py-2 px-3 rounded-lg hover:bg-gray-50 transition-colors"
+                    className="flex items-center gap-3 py-2 px-3 rounded-lg hover:bg-gray-50 hover:text-babyshopSky transition-colors"
                     onClick={onClose}
                   >
                     <ShoppingBag size={18} />
@@ -223,7 +246,7 @@ const HeaderLeftSideBar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
               <div className="space-y-2">
                 <Link
                   href="/help"
-                  className="flex items-center gap-3 py-2 px-3 rounded-lg hover:bg-gray-50 transition-colors"
+                  className="flex items-center gap-3 py-2 px-3 rounded-lg hover:bg-gray-50 hover:text-babyshopSky transition-colors"
                   onClick={onClose}
                 >
                   <HelpCircle size={18} />
@@ -232,7 +255,7 @@ const HeaderLeftSideBar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
 
                 <Link
                   href="/help/shipping"
-                  className="flex items-center gap-3 py-2 px-3 rounded-lg hover:bg-gray-50 transition-colors"
+                  className="flex items-center gap-3 py-2 px-3 rounded-lg hover:bg-gray-50 hover:text-babyshopSky transition-colors"
                   onClick={onClose}
                 >
                   <Truck size={18} />
@@ -241,7 +264,7 @@ const HeaderLeftSideBar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
 
                 <Link
                   href="/help/contact"
-                  className="flex items-center gap-3 py-2 px-3 rounded-lg hover:bg-gray-50 transition-colors"
+                  className="flex items-center gap-3 py-2 px-3 rounded-lg hover:bg-gray-50 hover:text-babyshopSky transition-colors"
                   onClick={onClose}
                 >
                   <Phone size={18} />
@@ -259,7 +282,7 @@ const HeaderLeftSideBar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
               {isAuthenticated && authUser ? (
                 <Button
                   variant={"outline"}
-                  className="w-full py-5.5 text-base font-semibold"
+                  className="w-full py-5.5 text-base font-semibold hover:bg-gray-100"
                   onClick={handleLogout}
                 >
                   Cerrar Sesión
@@ -271,7 +294,7 @@ const HeaderLeftSideBar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
                   </p>
 
                   <Link href="/auth/signin" onClick={onClose}>
-                    <Button className="w-full py-5.5 text-base font-semibold">
+                    <Button className="w-full py-5.5 text-base font-semibold bg-babyshopBlack hover:bg-gray-800 text-white">
                       Iniciar Sesión
                     </Button>
                   </Link>

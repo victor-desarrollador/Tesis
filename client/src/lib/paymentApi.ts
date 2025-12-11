@@ -20,10 +20,15 @@ export const createPaymentPreference = async (
         const response = await authApi.post("/payments/create-preference", {
             orderId,
         });
-        return response.data;
+
+        if (!response.success) {
+            throw new Error(response.error?.message || "Error al crear preferencia de pago");
+        }
+
+        return response.data as PaymentPreference;
     } catch (error: any) {
         throw new Error(
-            error.response?.data?.message || "Error al crear preferencia de pago"
+            error.message || "Error al crear preferencia de pago"
         );
     }
 };

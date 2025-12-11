@@ -51,20 +51,24 @@ export const createOrderFromCart = async (
   shippingAddress: ShippingAddress
 ): Promise<CreateOrderResponse> => {
   try {
+    const payload = {
+      items: cartItems,
+      shippingAddress,
+    };
+    console.log("Creating order with payload:", JSON.stringify(payload, null, 2));
+
     const response = await fetch(`${API_BASE_URL}/orders`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({
-        items: cartItems,
-        shippingAddress,
-      }),
+      body: JSON.stringify(payload),
     });
 
     if (!response.ok) {
       const errorData = await response.json();
+      console.error("Server returned error:", JSON.stringify(errorData, null, 2));
       throw new Error(errorData.message || "Error al crear el pedido");
     }
 

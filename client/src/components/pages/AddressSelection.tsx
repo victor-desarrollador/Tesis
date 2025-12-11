@@ -15,6 +15,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  DialogDescription,
 } from "../ui/dialog";
 import { Button } from "../ui/button";
 import { Edit, MapPin, Plus, Trash2 } from "lucide-react";
@@ -131,11 +132,11 @@ const AddressSelection: React.FC<AddressSelectionProps> = ({
   const openEditDialog = (address: Address) => {
     setEditingAddress(address);
     setFormData({
-      street: address.street,
-      city: address.city,
-      country: address.country,
-      postalCode: address.postalCode,
-      isDefault: address.isDefault,
+      street: address.street || "",
+      city: address.city || "",
+      country: address.country || "",
+      postalCode: address.postalCode || "",
+      isDefault: address.isDefault || false,
     });
     setIsEditDialogOpen(true);
   };
@@ -166,6 +167,9 @@ const AddressSelection: React.FC<AddressSelectionProps> = ({
               <DialogContent>
                 <DialogHeader>
                   <DialogTitle>Agregar Nueva Dirección</DialogTitle>
+                  <DialogDescription>
+                    Ingresa los datos de tu nueva dirección de envío.
+                  </DialogDescription>
                 </DialogHeader>
                 <form onSubmit={handleAddAddress} className="space-y-6">
                   <div className="space-y-4">
@@ -332,8 +336,8 @@ const AddressSelection: React.FC<AddressSelectionProps> = ({
                   <div
                     key={address._id}
                     className={`relative p-4 border-2 rounded-xl transition-all duration-200 hover:shadow-md ${selectedAddress?._id === address._id
-                        ? "border-blue-500 bg-blue-50/50 ring-2 ring-blue-500/20"
-                        : "border-gray-200 hover:border-gray-300"
+                      ? "border-blue-500 bg-blue-50/50 ring-2 ring-blue-500/20"
+                      : "border-gray-200 hover:border-gray-300"
                       }`}
                   >
                     <div className="flex items-start space-x-4">
@@ -426,6 +430,9 @@ const AddressSelection: React.FC<AddressSelectionProps> = ({
               <DialogContent>
                 <DialogHeader>
                   <DialogTitle>Agregar Nueva Dirección</DialogTitle>
+                  <DialogDescription>
+                    Ingresa los datos de tu nueva dirección de envío.
+                  </DialogDescription>
                 </DialogHeader>
                 <form onSubmit={handleAddAddress} className="space-y-4">
                   <div>
@@ -510,6 +517,9 @@ const AddressSelection: React.FC<AddressSelectionProps> = ({
               <DialogContent>
                 <DialogHeader>
                   <DialogTitle>Editar Dirección</DialogTitle>
+                  <DialogDescription>
+                    Actualiza la información de tu dirección.
+                  </DialogDescription>
                 </DialogHeader>
                 <form onSubmit={handleEditAddress} className="space-y-4">
                   <div>
