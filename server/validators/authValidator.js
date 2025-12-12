@@ -82,3 +82,19 @@ export const updateUserValidation = [
         .trim()
         .matches(/^[0-9+\-\s()]+$/).withMessage('Número de teléfono inválido'),
 ];
+
+export const forgotPasswordValidation = [
+    body('email')
+        .trim()
+        .notEmpty().withMessage('El email es obligatorio')
+        .isEmail().withMessage('Debe ser un email válido')
+        .normalizeEmail(),
+];
+
+export const resetPasswordValidation = [
+    body('password')
+        .notEmpty().withMessage('La contraseña es obligatoria')
+        .isLength({ min: 8 }).withMessage('La contraseña debe tener al menos 8 caracteres')
+        .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/)
+        .withMessage('La contraseña debe contener al menos una mayúscula, una minúscula y un número'),
+];

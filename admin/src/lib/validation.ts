@@ -42,10 +42,9 @@ export const brandSchema = z.object({
 
 export const categorySchema = z.object({
   name: z.string().min(1, "El nombre es requerido"),
+  description: z.string().optional(),
   image: z.string().optional(),
-  categoryType: z.enum(["Destacados", "Más vendidos", "Categorías populares", "Ofertas", "Nuevos ingresos"], {
-    message: "El tipo de categoría es requerido",
-  }),
+  parent: z.string().optional(), // ID de categoría padre (opcional)
 });
 
 export const productSchema = z.object({
@@ -60,6 +59,9 @@ export const productSchema = z.object({
   category: z.string().min(1, { message: "Por favor seleccione una categoría" }),
   brand: z.string().min(1, { message: "Por favor seleccione una marca" }),
   images: z.array(z.string()).min(1, { message: "Por favor sube al menos una imagen" }),
+  featured: z.boolean().optional(),
+  bestSeller: z.boolean().optional(),
+  newArrival: z.boolean().optional(),
 });
 
 export const bannerSchema = z.object({

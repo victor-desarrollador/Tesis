@@ -23,13 +23,14 @@ export type Brand = {
 export type Category = {
   _id: string;
   name: string;
+  description?: string;
+  parent?: string;
   image?:
   | string
   | {
     url: string;
     publicId: string;
   };
-  categoryType: "Destacados" | "Más vendidos" | "Categorías populares" | "Ofertas" | "Nuevos ingresos";
   createdAt: string;
 };
 
@@ -50,6 +51,8 @@ export type Product = {
   brand: Brand;
   discountPercentage: number;
   featured?: boolean;
+  bestSeller?: boolean;
+  newArrival?: boolean;
   isActive?: boolean;
   createdAt: string;
 };
@@ -60,13 +63,13 @@ export type Banner = {
   title: string;
   startFrom: number;
   image:
-  | string
+  | string;
   | {
     url: string;
     publicId: string;
   };
-  bannerType: string;
-  createdAt: string;
+bannerType: string;
+createdAt: string;
 };
 
 // ... existing types

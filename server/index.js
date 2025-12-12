@@ -1,5 +1,5 @@
+import "dotenv/config";
 import express from "express";
-import dotenv from "dotenv";
 import cors from "cors";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
@@ -26,7 +26,7 @@ import paymentRoutes from "./routes/paymentRoutes.js";
 
 
 // Load env vars
-dotenv.config();
+// dotenv.config(); // Loaded at top
 
 // Connect to database
 connectDB();
@@ -97,10 +97,10 @@ app.use(
 );
 
 // 🛡️ RATE LIMITING: Protección contra ataques de fuerza bruta y DDoS
-// Limitar intentos de autenticación (más estricto)
+// Limitar intentos de autenticación (más permisivo para desarrollo)
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutos
-  max: 5, // 5 intentos por IP en 15 minutos
+  max: 20, // 20 intentos por IP en 15 minutos (aumentado para desarrollo)
   message: {
     success: false,
     message: "Demasiados intentos de login. Por favor intenta nuevamente en 15 minutos.",

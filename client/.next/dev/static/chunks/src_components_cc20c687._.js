@@ -683,6 +683,22 @@ const SignInForm = ()=>{
                                     lineNumber: 127,
                                     columnNumber: 15
                                 }, ("TURBOPACK compile-time value", void 0)),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "flex justify-end",
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                                        href: "/auth/forgot-password",
+                                        className: "text-sm text-indigo-600 hover:text-indigo-800 hover:underline transition-all duration-200",
+                                        children: "¿Olvidaste tu contraseña?"
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/components/common/pages/auth/SignInForm.tsx",
+                                        lineNumber: 168,
+                                        columnNumber: 17
+                                    }, ("TURBOPACK compile-time value", void 0))
+                                }, void 0, false, {
+                                    fileName: "[project]/src/components/common/pages/auth/SignInForm.tsx",
+                                    lineNumber: 167,
+                                    columnNumber: 15
+                                }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$form$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FormField"], {
                                     control: form.control,
                                     name: "termsAccepted",
@@ -697,12 +713,12 @@ const SignInForm = ()=>{
                                                         className: "border-gray-300 data-[state=checked]:bg-indigo-600 data-[state=checked]:border-indigo-600"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/common/pages/auth/SignInForm.tsx",
-                                                        lineNumber: 173,
+                                                        lineNumber: 181,
                                                         columnNumber: 23
                                                     }, void 0)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/common/pages/auth/SignInForm.tsx",
-                                                    lineNumber: 172,
+                                                    lineNumber: 180,
                                                     columnNumber: 21
                                                 }, void 0),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$form$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FormLabel"], {
@@ -716,7 +732,7 @@ const SignInForm = ()=>{
                                                             children: "Política de Privacidad"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/common/pages/auth/SignInForm.tsx",
-                                                            lineNumber: 182,
+                                                            lineNumber: 190,
                                                             columnNumber: 23
                                                         }, void 0),
                                                         " ",
@@ -728,31 +744,31 @@ const SignInForm = ()=>{
                                                             children: "Términos de Uso"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/common/pages/auth/SignInForm.tsx",
-                                                            lineNumber: 189,
+                                                            lineNumber: 197,
                                                             columnNumber: 23
                                                         }, void 0)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/components/common/pages/auth/SignInForm.tsx",
-                                                    lineNumber: 180,
+                                                    lineNumber: 188,
                                                     columnNumber: 21
                                                 }, void 0),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$form$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FormMessage"], {
                                                     className: "text-red-500 text-xs"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/common/pages/auth/SignInForm.tsx",
-                                                    lineNumber: 196,
+                                                    lineNumber: 204,
                                                     columnNumber: 21
                                                 }, void 0)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/common/pages/auth/SignInForm.tsx",
-                                            lineNumber: 171,
+                                            lineNumber: 179,
                                             columnNumber: 19
                                         }, void 0)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/common/pages/auth/SignInForm.tsx",
-                                    lineNumber: 167,
+                                    lineNumber: 175,
                                     columnNumber: 15
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
@@ -776,38 +792,38 @@ const SignInForm = ()=>{
                                                     className: "animate-spin"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/common/pages/auth/SignInForm.tsx",
-                                                    lineNumber: 212,
+                                                    lineNumber: 220,
                                                     columnNumber: 23
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 " Iniciando sesión"
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/common/pages/auth/SignInForm.tsx",
-                                            lineNumber: 211,
+                                            lineNumber: 219,
                                             columnNumber: 21
                                         }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                             className: "flex items-center gap-2",
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$log$2d$in$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__LogIn$3e$__["LogIn"], {}, void 0, false, {
                                                     fileName: "[project]/src/components/common/pages/auth/SignInForm.tsx",
-                                                    lineNumber: 216,
+                                                    lineNumber: 224,
                                                     columnNumber: 23
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 " Iniciar sesión"
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/common/pages/auth/SignInForm.tsx",
-                                            lineNumber: 215,
+                                            lineNumber: 223,
                                             columnNumber: 21
                                         }, ("TURBOPACK compile-time value", void 0))
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/common/pages/auth/SignInForm.tsx",
-                                        lineNumber: 205,
+                                        lineNumber: 213,
                                         columnNumber: 17
                                     }, ("TURBOPACK compile-time value", void 0))
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/common/pages/auth/SignInForm.tsx",
-                                    lineNumber: 200,
+                                    lineNumber: 208,
                                     columnNumber: 15
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
@@ -840,13 +856,13 @@ const SignInForm = ()=>{
                                     children: "Regístrate"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/common/pages/auth/SignInForm.tsx",
-                                    lineNumber: 227,
+                                    lineNumber: 235,
                                     columnNumber: 13
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/common/pages/auth/SignInForm.tsx",
-                            lineNumber: 225,
+                            lineNumber: 233,
                             columnNumber: 11
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardDescription"], {
@@ -857,14 +873,14 @@ const SignInForm = ()=>{
                                     children: "Sobre Nosotros"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/common/pages/auth/SignInForm.tsx",
-                                    lineNumber: 235,
+                                    lineNumber: 243,
                                     columnNumber: 13
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                     children: "Bienvenido a nuestra plataforma, donde puedes explorar una amplia variedad de productos, gestionar tu carrito y rastrear tus pedidos de manera fluida. Nos esforzamos por proporcionar una experiencia de compra agradable con transacciones seguras y características personalizadas."
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/common/pages/auth/SignInForm.tsx",
-                                    lineNumber: 236,
+                                    lineNumber: 244,
                                     columnNumber: 13
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -872,7 +888,7 @@ const SignInForm = ()=>{
                                     children: "Protección de Datos"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/common/pages/auth/SignInForm.tsx",
-                                    lineNumber: 243,
+                                    lineNumber: 251,
                                     columnNumber: 13
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -885,26 +901,26 @@ const SignInForm = ()=>{
                                             children: "Política de Privacidad"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/common/pages/auth/SignInForm.tsx",
-                                            lineNumber: 250,
+                                            lineNumber: 258,
                                             columnNumber: 15
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         "."
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/common/pages/auth/SignInForm.tsx",
-                                    lineNumber: 244,
+                                    lineNumber: 252,
                                     columnNumber: 13
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/common/pages/auth/SignInForm.tsx",
-                            lineNumber: 234,
+                            lineNumber: 242,
                             columnNumber: 11
                         }, ("TURBOPACK compile-time value", void 0))
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/common/pages/auth/SignInForm.tsx",
-                    lineNumber: 224,
+                    lineNumber: 232,
                     columnNumber: 9
                 }, ("TURBOPACK compile-time value", void 0))
             ]

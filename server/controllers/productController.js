@@ -169,13 +169,25 @@ const getProducts = asyncHandler(async (req, res) => {
         filter.featured = true;
     }
 
+    if (req.query.bestSeller === "true") {
+        filter.bestSeller = true;
+    }
+
+    if (req.query.newArrival === "true") {
+        filter.newArrival = true;
+    }
+
     let sort = {};
-    switch (req.query.sort) {
+    const sortParam = req.query.sort || req.query.sortOrder;
+
+    switch (sortParam) {
         case "price_asc":
+        case "asc":
             sort = { price: 1 };
             break;
         case "price_desc":
-            sort = { price: -1 };
+        case "desc":
+            sort = { createdAt: -1 };
             break;
         case "rating":
             sort = { rating: -1 };

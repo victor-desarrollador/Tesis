@@ -8,6 +8,7 @@ import {
     AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
     Dialog,
     DialogContent,
@@ -100,6 +101,9 @@ const Products = () => {
             category: "",
             brand: "",
             images: [],
+            featured: false,
+            bestSeller: false,
+            newArrival: false,
         },
     });
 
@@ -115,6 +119,9 @@ const Products = () => {
             category: "",
             brand: "",
             images: [],
+            featured: false,
+            bestSeller: false,
+            newArrival: false,
         },
     });
 
@@ -335,6 +342,9 @@ const Products = () => {
             brand: product.brand._id,
             // Map array of objects to array of strings
             images: product.images ? product.images.map(img => img.url) : [],
+            featured: product.featured || false,
+            bestSeller: product.bestSeller || false,
+            newArrival: product.newArrival || false,
         });
         setIsEditModalOpen(true);
     };
@@ -623,6 +633,61 @@ const Products = () => {
                         </FormItem>
                     )}
                 />
+
+                {/* Marketing Flags */}
+                <div className="space-y-3 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                    <label className="text-sm font-semibold text-gray-700">FLAGS de Marketing</label>
+                    <div className="flex flex-wrap gap-6 mt-2">
+                        <FormField
+                            control={form.control}
+                            name="featured"
+                            render={({ field }) => (
+                                <FormItem className="flex items-center space-x-2">
+                                    <FormControl>
+                                        <Checkbox
+                                            checked={field.value}
+                                            onCheckedChange={field.onChange}
+                                            disabled={formLoading}
+                                        />
+                                    </FormControl>
+                                    <FormLabel className="font-normal cursor-pointer mb-0">⭐ Destacado</FormLabel>
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="bestSeller"
+                            render={({ field }) => (
+                                <FormItem className="flex items-center space-x-2">
+                                    <FormControl>
+                                        <Checkbox
+                                            checked={field.value}
+                                            onCheckedChange={field.onChange}
+                                            disabled={formLoading}
+                                        />
+                                    </FormControl>
+                                    <FormLabel className="font-normal cursor-pointer mb-0">🔥 Más Vendido</FormLabel>
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="newArrival"
+                            render={({ field }) => (
+                                <FormItem className="flex items-center space-x-2">
+                                    <FormControl>
+                                        <Checkbox
+                                            checked={field.value}
+                                            onCheckedChange={field.onChange}
+                                            disabled={formLoading}
+                                        />
+                                    </FormControl>
+                                    <FormLabel className="font-normal cursor-pointer mb-0">✨ Nuevo Ingreso</FormLabel>
+                                </FormItem>
+                            )}
+                        />
+                    </div>
+                </div>
 
                 <Button type="submit" className="w-full bg-indigo-600 hover:bg-indigo-700" disabled={formLoading}>
                     {formLoading ? (

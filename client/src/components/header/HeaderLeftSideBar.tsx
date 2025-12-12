@@ -1,29 +1,33 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { useOutsideClick } from "@/hooks";
 import {
-  Baby,
-  Gem,
-  Heart,
-  HelpCircle,
   Home,
   LayoutDashboard,
   Package,
   Phone,
   ShoppingBag,
-  Sparkles,
   Star,
-  Store,
   Tag,
   Truck,
   User,
   UserCircle,
-  Wind,
+  Heart,
+  HelpCircle,
+  Store,
+  ChevronRight,
 } from "lucide-react";
 import { useUserStore } from "@/lib/store";
 import { Button } from "../ui/button";
 import Logo from "../common/Logo";
+
+interface Category {
+  _id: string;
+  name: string;
+  parent?: string | null;
+}
 
 interface SidebarProps {
   isOpen: boolean;
@@ -33,10 +37,41 @@ interface SidebarProps {
 const HeaderLeftSideBar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
   const sidebarRef = useOutsideClick<HTMLDivElement>(onClose);
   const { isAuthenticated, authUser, logoutUser } = useUserStore();
+  const [categories, setCategories] = useState<Category[]>([]);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/categories?perPage=100`);
+        const data = await response.json();
+        setCategories(data?.categories || []);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+
+    if (isOpen) {
+      fetchCategories();
+    }
+  }, [isOpen]);
 
   const handleLogout = () => {
     logoutUser();
     onClose();
+  };
+
+  const parentCategories = categories.filter(cat => !cat.parent);
+
+  // Emojis para cada categoría principal
+  const categoryIcons: Record<string, JSX.Element> = {
+    "Perfumería": <span className="text-pink-500">🌸</span>,
+    "Maquillaje": <span className="text-purple-500">💄</span>,
+    "Cuidado de Piel": <span className="text-blue-500">✨</span>,
+    "Cabello": <span className="text-indigo-500">💇</span>,
+    "Cuidado Diario": <span className="text-green-500">🧴</span>,
+    "Carteras y Bolsos": <span className="text-amber-500">👜</span>,
+    "Joyería y Accesorios": <span className="text-yellow-500">💍</span>,
+    "Otros": <span className="text-gray-500">🎁</span>
   };
 
   return (
@@ -115,50 +150,21 @@ const HeaderLeftSideBar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
               </h3>
 
               <div className="space-y-2">
-                <Link
-                  href="/shop?search=maquillaje"
-                  className="flex items-center gap-3 py-2 px-3 rounded-lg hover:bg-gray-50 hover:text-babyshopSky transition-colors"
-                  onClick={onClose}
-                >
-                  <Sparkles size={18} />
-                  <span>Maquillaje</span>
-                </Link>
-
-                <Link
-                  href="/shop?search=facial"
-                  className="flex items-center gap-3 py-2 px-3 rounded-lg hover:bg-gray-50 hover:text-babyshopSky transition-colors"
-                  onClick={onClose}
-                >
-                  <Heart size={18} />
-                  <span>Cuidado Facial</span>
-                </Link>
-
-                <Link
-                  href="/shop?search=perfumes"
-                  className="flex items-center gap-3 py-2 px-3 rounded-lg hover:bg-gray-50 hover:text-babyshopSky transition-colors"
-                  onClick={onClose}
-                >
-                  <Wind size={18} />
-                  <span>Perfumes</span>
-                </Link>
-
-                <Link
-                  href="/shop?search=joyeria"
-                  className="flex items-center gap-3 py-2 px-3 rounded-lg hover:bg-gray-50 hover:text-babyshopSky transition-colors"
-                  onClick={onClose}
-                >
-                  <Gem size={18} />
-                  <span>Joyería</span>
-                </Link>
-
-                <Link
-                  href="/shop?search=accesorios"
-                  className="flex items-center gap-3 py-2 px-3 rounded-lg hover:bg-gray-50 hover:text-babyshopSky transition-colors"
-                  onClick={onClose}
-                >
-                  <ShoppingBag size={18} />
-                  <span>Accesorios</span>
-                </Link>
+                {parentCategories.map((category) => (
+                  <Link
+                    key={category._id}
+                    href={{
+                      pathname: "/shop",
+                      query: { category: category._id },
+                    }}
+                    className="flex items-center gap-3 py-2 px-3 rounded-lg hover:bg-gray-50 hover:text-babyshopSky transition-colors"
+                    onClick={onClose}
+                  >
+                    {categoryIcons[category.name] || <span>📦</span>}
+                    <span className="flex-1">{category.name}</span>
+                    <ChevronRight size={16} className="text-gray-400" />
+                  </Link>
+                ))}
               </div>
             </div>
 

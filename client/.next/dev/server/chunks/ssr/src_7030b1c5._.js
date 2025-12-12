@@ -75,7 +75,7 @@ const __TURBOPACK__default__export__ = Container;
 }),
 "[project]/src/assets/images/logo.png (static in ecmascript, tag client)", ((__turbopack_context__) => {
 
-__turbopack_context__.v("/_next/static/media/logo.23ff6138.png");}),
+__turbopack_context__.v("/_next/static/media/logo.5d8fcb97.png");}),
 "[project]/src/assets/images/logo.png.mjs { IMAGE => \"[project]/src/assets/images/logo.png (static in ecmascript, tag client)\" } [app-rsc] (structured image object with data url, ecmascript)", ((__turbopack_context__) => {
 "use strict";
 
@@ -87,16 +87,16 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$assets$2f$images$2f$l
 ;
 const __TURBOPACK__default__export__ = {
     src: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$assets$2f$images$2f$logo$2e$png__$28$static__in__ecmascript$2c$__tag__client$29$__["default"],
-    width: 660,
-    height: 654,
+    width: 249,
+    height: 248,
     blurWidth: 8,
     blurHeight: 8,
-    blurDataURL: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAuUlEQVR42j2P3UrDQBSE9/2fS4SCV2oVwUqxsbRkk022m+Ts7+cmRecwN8McmE9RVdYrmZJjdahB5k9KvKD1D6fjK27UlCQk77byVugHw/7xgfP+jRwjMs3I7LDmSs4JlaLHtVea909me6P5ONCeznSXBj/dUDl5orgttJ3BmZHh0tIfjizDiFoHRbGEZSb6QBBP9/WNfnohLlILK0VJ92Fxwfaa592OqTf3kf88K2YK5GoRqU9li38BBnn2caTGjtQAAAAASUVORK5CYII="
+    blurDataURL: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAA2UlEQVR42h2P206DQABE9///xfjkQ6OGWKMNSa1E8QJVKrUIcoeysFDKceskk0kmJ5OMQKsfFA9vT7iuQ7cvOB66U82kLY6josw+OLs659G2aKuYrgoYh5ZpmhD22sZcXZLEPr1q6GVB35Y6M72kEK/Okk/PotEr+W5JvLmjjF5QTaqhFKHKL+rY43ez4sedE64XZIFDEe10eohDLylCnzpNkGVJlaRE2y33NwZh8I2YphG1DxnajK7Jsd6fmd1esDDnSCk1cLqjoaHNySKfmTHj2jRoZP3/4g//ve171uKB2gAAAABJRU5ErkJggg=="
 };
 }),
 "[project]/src/assets/images/smallLogo.png (static in ecmascript, tag client)", ((__turbopack_context__) => {
 
-__turbopack_context__.v("/_next/static/media/smallLogo.4247b449.png");}),
+__turbopack_context__.v("/_next/static/media/smallLogo.398bdb74.png");}),
 "[project]/src/assets/images/smallLogo.png.mjs { IMAGE => \"[project]/src/assets/images/smallLogo.png (static in ecmascript, tag client)\" } [app-rsc] (structured image object with data url, ecmascript)", ((__turbopack_context__) => {
 "use strict";
 
@@ -108,11 +108,11 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$assets$2f$images$2f$s
 ;
 const __TURBOPACK__default__export__ = {
     src: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$assets$2f$images$2f$smallLogo$2e$png__$28$static__in__ecmascript$2c$__tag__client$29$__["default"],
-    width: 62,
-    height: 66,
+    width: 222,
+    height: 219,
     blurWidth: 8,
     blurHeight: 8,
-    blurDataURL: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAABE0lEQVR42gEIAff+AH+jXp38xjT98rhC96Rkms6XWaPJlq8y7ZPTAP9uvi3TAE25jOKdwWH/mbhr/2+CrP9pfbT/Y7dr/2DQSv9EyW/+ABzDr+M/y8D/H8K1/xXEtf8Xx7f/Gsq4/0TRw/8dyrn/ABrCsON429T/LcC5/xTFtv8VyLj/Hcq7/4Lc1v8fv7b/ABfAsONf187/VM7G/xTDtv8Tx7n/N8/D/3vY0/8VvbP/ABa+sOMgyL3/cdjS/2rVz/9j1c7/e9nT/zLFvf8QwLb/ABS7sOMPwrn/FsK6/zDAu/82wbv/Hb+2/xC/tf8Pwbj/ABKtpeAMsq3/DLKt/wyxrP8Mr6v/DLCr/wyxrP8Msq3/65+nGe/vuLYAAAAASUVORK5CYII="
+    blurDataURL: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAlUlEQVR42m2PzQ7CIBCEef+30pMHD16MWsVo0SL94UeKPY4soI2JhwnJzMfOLvNWYPTyryhjo28wTQPoNe0eTp8RYpg9mQGSPC0g+RK2q2D7CiGoGXCaQ11XMGoH/dgmyDuRPrJPF5n9fYNOrGPVIQL1DLxCG8ceI1jjaS5wA09eqcgLUSeN9e6Wwu+Sv2c2ReXMCL8BBwHw2k5Qp1YAAAAASUVORK5CYII="
 };
 }),
 "[project]/src/assets/images/payment.webp (static in ecmascript, tag client)", ((__turbopack_context__) => {

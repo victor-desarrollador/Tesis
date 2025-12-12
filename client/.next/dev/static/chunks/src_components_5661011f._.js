@@ -497,8 +497,13 @@ const SignUpForm = ()=>{
                 role: data.role
             };
             await register(registerData);
-            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$sonner$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].success("¡Registro exitoso! Por favor, inicia sesión.");
-            router.push("/auth/signin");
+            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$sonner$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].success("¡Cuenta creada con éxito!");
+            // Mostrar mensaje de verificación en lugar de redirigir inmediatamente
+            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$sonner$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].info("Te hemos enviado un email de verificación. Por favor revisa tu bandeja de entrada.", {
+                duration: 5000
+            });
+            // Opcional: Redirigir a una página de "Revisa tu email" o al login
+            setTimeout(()=>router.push("/auth/signin"), 3000);
         } catch (error) {
             console.error("Error en el registro:", error);
             __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$sonner$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].error("Error en el registro. Por favor, intenta de nuevo.");
@@ -546,7 +551,7 @@ const SignUpForm = ()=>{
                                                                 children: "Nombre"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                                                                lineNumber: 105,
+                                                                lineNumber: 113,
                                                                 columnNumber: 25
                                                             }, void 0),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$form$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FormControl"], {
@@ -564,35 +569,35 @@ const SignUpForm = ()=>{
                                                                         ...field
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                                                                        lineNumber: 113,
+                                                                        lineNumber: 121,
                                                                         columnNumber: 29
                                                                     }, void 0)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                                                                    lineNumber: 109,
+                                                                    lineNumber: 117,
                                                                     columnNumber: 27
                                                                 }, void 0)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                                                                lineNumber: 108,
+                                                                lineNumber: 116,
                                                                 columnNumber: 25
                                                             }, void 0),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$form$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FormMessage"], {
                                                                 className: "text-red-500 text-xs"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                                                                lineNumber: 121,
+                                                                lineNumber: 129,
                                                                 columnNumber: 25
                                                             }, void 0)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                                                        lineNumber: 104,
+                                                        lineNumber: 112,
                                                         columnNumber: 23
                                                     }, void 0)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                                                lineNumber: 100,
+                                                lineNumber: 108,
                                                 columnNumber: 19
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$form$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FormField"], {
@@ -606,7 +611,7 @@ const SignUpForm = ()=>{
                                                                 children: "Apellido"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                                                                lineNumber: 130,
+                                                                lineNumber: 138,
                                                                 columnNumber: 25
                                                             }, void 0),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$form$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FormControl"], {
@@ -624,41 +629,41 @@ const SignUpForm = ()=>{
                                                                         ...field
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                                                                        lineNumber: 138,
+                                                                        lineNumber: 146,
                                                                         columnNumber: 29
                                                                     }, void 0)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                                                                    lineNumber: 134,
+                                                                    lineNumber: 142,
                                                                     columnNumber: 27
                                                                 }, void 0)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                                                                lineNumber: 133,
+                                                                lineNumber: 141,
                                                                 columnNumber: 25
                                                             }, void 0),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$form$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FormMessage"], {
                                                                 className: "text-red-500 text-xs"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                                                                lineNumber: 146,
+                                                                lineNumber: 154,
                                                                 columnNumber: 25
                                                             }, void 0)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                                                        lineNumber: 129,
+                                                        lineNumber: 137,
                                                         columnNumber: 23
                                                     }, void 0)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                                                lineNumber: 125,
+                                                lineNumber: 133,
                                                 columnNumber: 19
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                                        lineNumber: 99,
+                                        lineNumber: 107,
                                         columnNumber: 17
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$form$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FormField"], {
@@ -671,7 +676,7 @@ const SignUpForm = ()=>{
                                                         children: "Correo electrónico"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                                                        lineNumber: 156,
+                                                        lineNumber: 164,
                                                         columnNumber: 23
                                                     }, void 0),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$form$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FormControl"], {
@@ -690,35 +695,35 @@ const SignUpForm = ()=>{
                                                                 ...field
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                                                                lineNumber: 164,
+                                                                lineNumber: 172,
                                                                 columnNumber: 27
                                                             }, void 0)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                                                            lineNumber: 160,
+                                                            lineNumber: 168,
                                                             columnNumber: 25
                                                         }, void 0)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                                                        lineNumber: 159,
+                                                        lineNumber: 167,
                                                         columnNumber: 23
                                                     }, void 0),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$form$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FormMessage"], {
                                                         className: "text-red-500 text-xs"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                                                        lineNumber: 173,
+                                                        lineNumber: 181,
                                                         columnNumber: 23
                                                     }, void 0)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                                                lineNumber: 155,
+                                                lineNumber: 163,
                                                 columnNumber: 21
                                             }, void 0)
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                                        lineNumber: 151,
+                                        lineNumber: 159,
                                         columnNumber: 17
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$form$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FormField"], {
@@ -731,7 +736,7 @@ const SignUpForm = ()=>{
                                                         children: "Contraseña"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                                                        lineNumber: 182,
+                                                        lineNumber: 190,
                                                         columnNumber: 23
                                                     }, void 0),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$form$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FormControl"], {
@@ -750,35 +755,35 @@ const SignUpForm = ()=>{
                                                                 ...field
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                                                                lineNumber: 190,
+                                                                lineNumber: 198,
                                                                 columnNumber: 27
                                                             }, void 0)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                                                            lineNumber: 186,
+                                                            lineNumber: 194,
                                                             columnNumber: 25
                                                         }, void 0)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                                                        lineNumber: 185,
+                                                        lineNumber: 193,
                                                         columnNumber: 23
                                                     }, void 0),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$form$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FormMessage"], {
                                                         className: "text-red-500 text-xs"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                                                        lineNumber: 199,
+                                                        lineNumber: 207,
                                                         columnNumber: 23
                                                     }, void 0)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                                                lineNumber: 181,
+                                                lineNumber: 189,
                                                 columnNumber: 21
                                             }, void 0)
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                                        lineNumber: 177,
+                                        lineNumber: 185,
                                         columnNumber: 17
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$form$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FormField"], {
@@ -791,7 +796,7 @@ const SignUpForm = ()=>{
                                                         children: "Confirmar Contraseña"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                                                        lineNumber: 208,
+                                                        lineNumber: 216,
                                                         columnNumber: 23
                                                     }, void 0),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$form$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FormControl"], {
@@ -810,35 +815,35 @@ const SignUpForm = ()=>{
                                                                 ...field
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                                                                lineNumber: 216,
+                                                                lineNumber: 224,
                                                                 columnNumber: 27
                                                             }, void 0)
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                                                            lineNumber: 212,
+                                                            lineNumber: 220,
                                                             columnNumber: 25
                                                         }, void 0)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                                                        lineNumber: 211,
+                                                        lineNumber: 219,
                                                         columnNumber: 23
                                                     }, void 0),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$form$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FormMessage"], {
                                                         className: "text-red-500 text-xs"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                                                        lineNumber: 225,
+                                                        lineNumber: 233,
                                                         columnNumber: 23
                                                     }, void 0)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                                                lineNumber: 207,
+                                                lineNumber: 215,
                                                 columnNumber: 21
                                             }, void 0)
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                                        lineNumber: 203,
+                                        lineNumber: 211,
                                         columnNumber: 17
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$form$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FormField"], {
@@ -851,7 +856,7 @@ const SignUpForm = ()=>{
                                                         children: "Rol"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                                                        lineNumber: 234,
+                                                        lineNumber: 242,
                                                         columnNumber: 23
                                                     }, void 0),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$form$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FormControl"], {
@@ -863,30 +868,30 @@ const SignUpForm = ()=>{
                                                             value: "Cliente"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                                                            lineNumber: 238,
+                                                            lineNumber: 246,
                                                             columnNumber: 25
                                                         }, void 0)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                                                        lineNumber: 237,
+                                                        lineNumber: 245,
                                                         columnNumber: 23
                                                     }, void 0),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$form$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FormMessage"], {
                                                         className: "text-red-500 text-xs"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                                                        lineNumber: 246,
+                                                        lineNumber: 254,
                                                         columnNumber: 23
                                                     }, void 0)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                                                lineNumber: 233,
+                                                lineNumber: 241,
                                                 columnNumber: 21
                                             }, void 0)
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                                        lineNumber: 229,
+                                        lineNumber: 237,
                                         columnNumber: 17
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$form$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FormField"], {
@@ -903,12 +908,12 @@ const SignUpForm = ()=>{
                                                             className: "border-gray-300 data-[state=checked]:bg-indigo-600 data-[state=checked]:border-indigo-600"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                                                            lineNumber: 256,
+                                                            lineNumber: 264,
                                                             columnNumber: 25
                                                         }, void 0)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                                                        lineNumber: 255,
+                                                        lineNumber: 263,
                                                         columnNumber: 23
                                                     }, void 0),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$form$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FormLabel"], {
@@ -922,7 +927,7 @@ const SignUpForm = ()=>{
                                                                 children: "Política de Privacidad"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                                                                lineNumber: 265,
+                                                                lineNumber: 273,
                                                                 columnNumber: 25
                                                             }, void 0),
                                                             " ",
@@ -934,31 +939,31 @@ const SignUpForm = ()=>{
                                                                 children: "Términos de Uso"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                                                                lineNumber: 272,
+                                                                lineNumber: 280,
                                                                 columnNumber: 25
                                                             }, void 0)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                                                        lineNumber: 263,
+                                                        lineNumber: 271,
                                                         columnNumber: 23
                                                     }, void 0),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$form$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FormMessage"], {
                                                         className: "text-red-500 text-xs"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                                                        lineNumber: 279,
+                                                        lineNumber: 287,
                                                         columnNumber: 23
                                                     }, void 0)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                                                lineNumber: 254,
+                                                lineNumber: 262,
                                                 columnNumber: 21
                                             }, void 0)
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                                        lineNumber: 250,
+                                        lineNumber: 258,
                                         columnNumber: 17
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
@@ -982,54 +987,54 @@ const SignUpForm = ()=>{
                                                         className: "animate-spin"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                                                        lineNumber: 295,
+                                                        lineNumber: 303,
                                                         columnNumber: 25
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     " Creando cuenta..."
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                                                lineNumber: 294,
+                                                lineNumber: 302,
                                                 columnNumber: 23
                                             }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                 className: "flex items-center gap-2",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$user$2d$plus$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__UserPlus$3e$__["UserPlus"], {}, void 0, false, {
                                                         fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                                                        lineNumber: 300,
+                                                        lineNumber: 308,
                                                         columnNumber: 25
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     " Registrarse"
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                                                lineNumber: 299,
+                                                lineNumber: 307,
                                                 columnNumber: 23
                                             }, ("TURBOPACK compile-time value", void 0))
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                                            lineNumber: 288,
+                                            lineNumber: 296,
                                             columnNumber: 19
                                         }, ("TURBOPACK compile-time value", void 0))
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                                        lineNumber: 283,
+                                        lineNumber: 291,
                                         columnNumber: 17
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                                lineNumber: 95,
+                                lineNumber: 103,
                                 columnNumber: 15
                             }, ("TURBOPACK compile-time value", void 0))
                         }, void 0, false, {
                             fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                            lineNumber: 94,
+                            lineNumber: 102,
                             columnNumber: 13
                         }, ("TURBOPACK compile-time value", void 0))
                     }, void 0, false, {
                         fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                        lineNumber: 93,
+                        lineNumber: 101,
                         columnNumber: 11
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardFooter"], {
@@ -1045,34 +1050,34 @@ const SignUpForm = ()=>{
                                     children: "Iniciar sesión"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                                    lineNumber: 311,
+                                    lineNumber: 319,
                                     columnNumber: 15
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                            lineNumber: 309,
+                            lineNumber: 317,
                             columnNumber: 13
                         }, ("TURBOPACK compile-time value", void 0))
                     }, void 0, false, {
                         fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                        lineNumber: 308,
+                        lineNumber: 316,
                         columnNumber: 11
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-                lineNumber: 92,
+                lineNumber: 100,
                 columnNumber: 9
             }, ("TURBOPACK compile-time value", void 0))
         }, void 0, false, {
             fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-            lineNumber: 86,
+            lineNumber: 94,
             columnNumber: 7
         }, ("TURBOPACK compile-time value", void 0))
     }, void 0, false, {
         fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
-        lineNumber: 85,
+        lineNumber: 93,
         columnNumber: 5
     }, ("TURBOPACK compile-time value", void 0));
 };

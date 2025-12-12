@@ -13,10 +13,10 @@ const getCategories = asyncHandler(async (req, res) => {
     const perPage = parseInt(req.query.perPage) || 20;
     const skip = (page - 1) * perPage;
 
-    // Filtro opcional por tipo de categoría
+    // Filtro opcional por categoría padre
     const filter = {};
-    if (req.query.categoryType) {
-        filter.categoryType = req.query.categoryType;
+    if (req.query.parent) {
+        filter.parent = req.query.parent;
     }
 
     // Ordenamiento
@@ -68,11 +68,11 @@ const getCategoryById = asyncHandler(async (req, res) => {
  * @access  Private/Admin
  */
 const createCategory = asyncHandler(async (req, res) => {
-    const { name, image, categoryType } = req.body;
+    const { name, description, image, parent } = req.body;
 
-    if (!name || !categoryType) {
+    if (!name) {
         res.status(400);
-        throw new Error("Nombre y tipo de categoría son obligatorios");
+        throw new Error("El nombre es obligatorio");
     }
 
     // Verificar si ya existe
@@ -94,9 +94,10 @@ const createCategory = asyncHandler(async (req, res) => {
 
     const category = await Category.create({
         name,
+        description: description || "",
         // Usar la estructura { url, publicId } requerida por el modelo, o string vacío si no hay
         image: imageUrl ? { url: imageUrl, publicId: imagePublicId } : undefined,
-        categoryType,
+        parent: parent && parent !== "" ? parent : null,
     });
 
     res.status(201).json({
@@ -119,7 +120,7 @@ const updateCategory = asyncHandler(async (req, res) => {
         throw new Error("Categoría no encontrada");
     }
 
-    const { name, image, categoryType } = req.body;
+    const { name, description, image, parent } = req.body;
 
     // Manejo de imagen
     let imageUrl = category.image?.url || "";
@@ -147,7 +148,8 @@ const updateCategory = asyncHandler(async (req, res) => {
     // Construir objeto de actualización
     const updateData = {
         name: name || category.name,
-        categoryType: categoryType || category.categoryType,
+        description: description !== undefined ? description : category.description,
+        parent: parent === "" ? null : (parent !== undefined ? parent : category.parent),
         image: imageUrl ? { url: imageUrl, publicId: imagePublicId } : undefined,
     };
 

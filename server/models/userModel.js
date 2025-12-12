@@ -71,9 +71,11 @@ const userSchema = mongoose.Schema(
 
     // Verificación y recuperación de contraseña
     isVerified: { type: Boolean, default: false },
+    verificationToken: String,
+    verificationTokenExpires: Date,
     resetPasswordToken: String,
     resetPasswordExpires: Date,
-    
+
     /**
      * Preferencias del Usuario para Productos de Belleza
      * Permite personalización y recomendaciones

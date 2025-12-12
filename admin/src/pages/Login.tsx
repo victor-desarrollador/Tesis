@@ -137,6 +137,14 @@ export default function LoginPage() {
                     </FormItem>
                   )}
                 />
+                <div className="flex justify-end">
+                  <Link
+                    to="/forgot-password"
+                    className="text-sm text-indigo-600 hover:text-indigo-800 hover:underline transition-all duration-200"
+                  >
+                    ¿Olvidaste tu contraseña?
+                  </Link>
+                </div>
                 <motion.div
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}

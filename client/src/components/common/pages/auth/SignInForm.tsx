@@ -164,6 +164,14 @@ const SignInForm = () => {
                   </FormItem>
                 )}
               />
+              <div className="flex justify-end">
+                <Link
+                  href="/auth/forgot-password"
+                  className="text-sm text-indigo-600 hover:text-indigo-800 hover:underline transition-all duration-200"
+                >
+                  ¿Olvidaste tu contraseña?
+                </Link>
+              </div>
               <FormField
                 control={form.control}
                 name="termsAccepted"

@@ -75,6 +75,10 @@ export const createPaymentPreference = asyncHandler(async (req, res) => {
       currency_id: "ARS", // Pesos argentinos
     }));
 
+    // URL Base del cliente (con fallback seguro)
+    const clientUrl = (process.env.CLIENT_URL || "http://localhost:3000").trim().replace(/\/$/, "");
+    console.log("🔗 URL base para redirección:", clientUrl);
+
     // Crear preferencia de pago
     const preferenceData = {
       items: items,
@@ -83,12 +87,12 @@ export const createPaymentPreference = asyncHandler(async (req, res) => {
         email: req.user.email,
       },
       back_urls: {
-        success: `${process.env.CLIENT_URL}/payment/success`,
-        failure: `${process.env.CLIENT_URL}/payment/failure`,
-        pending: `${process.env.CLIENT_URL}/payment/pending`,
+        success: `${clientUrl}/payment/success`,
+        failure: `${clientUrl}/payment/failure`,
+        pending: `${clientUrl}/payment/pending`,
       },
-      auto_return: "approved", // Retorno automático al aprobar
-      external_reference: orderId.toString(), // Referencia a nuestra orden
+      auto_return: "approved",
+      external_reference: orderId.toString(),
       statement_descriptor: "L&V TIENDA BEBE",
       metadata: {
         order_id: orderId.toString(),
@@ -96,11 +100,14 @@ export const createPaymentPreference = asyncHandler(async (req, res) => {
         user_email: req.user.email,
       },
       payment_methods: {
-        excluded_payment_methods: [], // Permitir todos los métodos
-        excluded_payment_types: [], // Permitir todos los tipos
-        installments: 12, // Hasta 12 cuotas
+        excluded_payment_methods: [],
+        excluded_payment_types: [],
+        installments: 12,
       },
     };
+
+    console.log("📦 Payload enviado a Mercado Pago:", JSON.stringify(preferenceData, null, 2));
+    console.log("🔑 Access Token presente:", !!process.env.MERCADOPAGO_ACCESS_TOKEN);
 
     const response = await preference.create({ body: preferenceData });
 

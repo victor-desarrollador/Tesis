@@ -71,8 +71,16 @@ const SignUpForm = () => {
       };
 
       await register(registerData);
-      toast.success("¡Registro exitoso! Por favor, inicia sesión.");
-      router.push("/auth/signin");
+      toast.success("¡Cuenta creada con éxito!");
+
+      // Mostrar mensaje de verificación en lugar de redirigir inmediatamente
+      toast.info("Te hemos enviado un email de verificación. Por favor revisa tu bandeja de entrada.", {
+        duration: 5000,
+      });
+
+      // Opcional: Redirigir a una página de "Revisa tu email" o al login
+      setTimeout(() => router.push("/auth/signin"), 3000);
+
     } catch (error) {
       console.error("Error en el registro:", error);
       toast.error("Error en el registro. Por favor, intenta de nuevo.");

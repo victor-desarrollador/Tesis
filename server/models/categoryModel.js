@@ -42,11 +42,8 @@ const categorySchema = mongoose.Schema(
       type: Boolean,
       default: true,
     },
-    categoryType: {
-      type: String,
-      enum: ['Destacados', 'Más vendidos', 'Categorías populares', 'Ofertas', 'Nuevos ingresos'],
-      default: 'Nuevos ingresos',
-    },
+    // Eliminamos categoryType para evitar restricciones artificiales.
+    // Las secciones de marketing (Ofertas, Destacados) se manejan con flags en el Producto.
   },
   { timestamps: true }
 );
@@ -56,7 +53,7 @@ const categorySchema = mongoose.Schema(
  * Convierte el nombre en un slug URL-friendly
  */
 categorySchema.pre('save', function (next) {
-  if (this.isModified('name')) {
+  if (!this.slug || this.isModified('name')) {
     this.slug = this.name
       .toLowerCase()
       .normalize('NFD')

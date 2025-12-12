@@ -4,6 +4,8 @@ import './index.css'
 import App from './App.tsx'
 import Login from './pages/Login.tsx'
 import Register from './pages/Register.tsx'
+import ForgotPassword from './pages/ForgotPassword.tsx'
+import ResetPassword from './pages/ResetPassword.tsx'
 import Dashboard from './pages/Dashboard.tsx'
 import Invoices from './pages/Invoices.tsx'
 import Products from './pages/Products.tsx'
@@ -19,6 +21,8 @@ import AccessDenied from './pages/AccessDenied.tsx'
 const router = createBrowserRouter([
   { path: '/login', element: <Login /> },
   { path: '/register', element: <Register /> },
+  { path: '/forgot-password', element: <ForgotPassword /> },
+  { path: '/reset-password', element: <ResetPassword /> },
   { path: '/acceso-denegado', element: <AccessDenied /> },
 
   {
