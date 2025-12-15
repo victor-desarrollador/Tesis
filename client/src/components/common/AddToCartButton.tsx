@@ -43,7 +43,10 @@ const AddToCartButton = ({ product, className }: Props) => {
       onClick={handleAddToCart}
       variant="outline"
       disabled={localLoading} // Only use localLoading
-      className={cn("rounded-full px-6 mt-1", className)}
+      className={cn(
+        "w-full rounded-full border-gray-300 hover:bg-black hover:text-white transition-all duration-300 group-hover:border-black",
+        className
+      )}
     >
       {localLoading ? (
         <>

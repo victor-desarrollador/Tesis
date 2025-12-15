@@ -499,7 +499,7 @@ const informationTab = [
 const CustomerTab = [
     {
         title: "Mi Cuenta",
-        href: "/user/account"
+        href: "/user/profile"
     },
     {
         title: "Seguimiento de Pedido",
@@ -520,24 +520,24 @@ const CustomerTab = [
 ];
 const CategoriesTab = [
     {
-        title: "Cosmética",
-        href: "/shop?search=cosmetica"
+        title: "Maquillaje",
+        href: "/shop?category=Maquillaje"
     },
     {
-        title: "Perfumes",
-        href: "/shop?search=perfumes"
+        title: "Perfumería",
+        href: "/shop?category=Perfumería"
     },
     {
-        title: "Carteras",
-        href: "/shop?search=carteras"
+        title: "Carteras y Bolsos",
+        href: "/shop?category=Carteras y Bolsos"
     },
     {
-        title: "Accesorios",
-        href: "/shop?search=accesorios"
+        title: "Joyería y Accesorios",
+        href: "/shop?category=Joyería y Accesorios"
     },
     {
-        title: "Ofertas Especiales",
-        href: "/shop?discount=true"
+        title: "Cuidado de Piel",
+        href: "/shop?category=Cuidado de Piel"
     }
 ];
 const Footer = ()=>{

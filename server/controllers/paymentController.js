@@ -76,7 +76,7 @@ export const createPaymentPreference = asyncHandler(async (req, res) => {
     }));
 
     // URL Base del cliente (con fallback seguro)
-    const clientUrl = (process.env.CLIENT_URL || "http://localhost:3000").trim().replace(/\/$/, "");
+    const clientUrl = "http://localhost:3000"; // Hardcoded for debugging
     console.log("🔗 URL base para redirección:", clientUrl);
 
     // Crear preferencia de pago
@@ -87,11 +87,11 @@ export const createPaymentPreference = asyncHandler(async (req, res) => {
         email: req.user.email,
       },
       back_urls: {
-        success: `${clientUrl}/payment/success`,
+        success: `${clientUrl}/payment/success`, // Keep localhost to see if removing auto_return allows it
         failure: `${clientUrl}/payment/failure`,
         pending: `${clientUrl}/payment/pending`,
       },
-      auto_return: "approved",
+      // auto_return: "approved", // Comentado temporalmente para probar si esto causa el error con localhost
       external_reference: orderId.toString(),
       statement_descriptor: "L&V TIENDA BEBE",
       metadata: {
@@ -106,8 +106,12 @@ export const createPaymentPreference = asyncHandler(async (req, res) => {
       },
     };
 
-    console.log("📦 Payload enviado a Mercado Pago:", JSON.stringify(preferenceData, null, 2));
-    console.log("🔑 Access Token presente:", !!process.env.MERCADOPAGO_ACCESS_TOKEN);
+    console.log("📦 Payload DETALLADO enviado a Mercado Pago:", JSON.stringify(preferenceData, null, 2));
+
+    // Explicitly check back_urls
+    if (!preferenceData.back_urls || !preferenceData.back_urls.success) {
+      console.error("❌ CRÍTICO: back_urls.success no está definido antes de enviar");
+    }
 
     const response = await preference.create({ body: preferenceData });
 

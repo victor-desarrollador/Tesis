@@ -6,7 +6,10 @@ export interface CartItem {
     name: string;
     description: string;
     price: number;
-    images: string[];
+    images: Array<{
+      url: string;
+      publicId: string;
+    }>;
     category: string;
     brand: string;
     stock: number;

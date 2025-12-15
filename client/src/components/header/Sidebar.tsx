@@ -10,8 +10,12 @@ const Sidebar = () => {
   };
   return (
     <div className="md:hidden">
-      <button onClick={toggleSidebar}>
-        <Menu />
+      <button
+        onClick={toggleSidebar}
+        className="p-2 -ml-2 rounded-full text-slate-700 hover:bg-slate-100 transition-colors duration-200 active:scale-95"
+        aria-label="Abrir menú"
+      >
+        <Menu className="w-6 h-6" />
       </button>
       <HeaderLeftSideBar
         isOpen={isSidebarOpen}

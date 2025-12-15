@@ -26,7 +26,7 @@ const CartIcon = () => {
     );
   }
 
-  const totalItems = cartItemsWithQuantities.length; // Nubmer of unique products instead of total quantity
+  const totalItems = cartItemsWithQuantities.reduce((acc, item) => acc + item.quantity, 0);
 
   return (
     <Link

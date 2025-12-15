@@ -16,17 +16,17 @@ const SelectCurrency = () => {
 
   const currencies = [
     { code: "ARS", name: "Pesos Argentinos", symbol: "$", rate: 1.0 },
-    { code: "USD", name: "Dólar Estadounidense", symbol: "$", rate: 1 },
-    { code: "EUR", name: "Euro", symbol: "€", rate: 0.85 },
-    { code: "GBP", name: "Libra Esterlina", symbol: "£", rate: 0.75 },
-    { code: "AUD", name: "Dólar Australiano", symbol: "A$", rate: 1.35 },
-    { code: "CAD", name: "Dólar Canadiense", symbol: "C$", rate: 1.25 },
-    { code: "CHF", name: "Franco Suizo", symbol: "CHF", rate: 0.95 },
-    { code: "CNY", name: "Yuan Chino", symbol: "¥", rate: 6.5 },
-    { code: "HKD", name: "Dólar Hong Kong", symbol: "HK$", rate: 7.8 },
-    { code: "NZD", name: "Dólar Neozelandés", symbol: "NZ$", rate: 1.65 },
-    { code: "SGD", name: "Dólar Singapur", symbol: "S$", rate: 1.3 },
-    { code: "ZAR", name: "Rand Sudafricano", symbol: "R", rate: 17.5 },
+    { code: "USD", name: "Dólar Estadounidense", symbol: "$", rate: 0.0011 }, // Approx 1 USD = 900 ARS (Official) / 1100 (Blue). Let's use ~900-1000 conservative or 1/900 = 0.0011
+    { code: "EUR", name: "Euro", symbol: "€", rate: 0.0010 },
+    { code: "GBP", name: "Libra Esterlina", symbol: "£", rate: 0.0009 },
+    { code: "AUD", name: "Dólar Australiano", symbol: "A$", rate: 0.0017 },
+    { code: "CAD", name: "Dólar Canadiense", symbol: "C$", rate: 0.0015 },
+    { code: "CHF", name: "Franco Suizo", symbol: "CHF", rate: 0.0010 },
+    { code: "CNY", name: "Yuan Chino", symbol: "¥", rate: 0.0079 },
+    { code: "HKD", name: "Dólar Hong Kong", symbol: "HK$", rate: 0.0086 },
+    { code: "NZD", name: "Dólar Neozelandés", symbol: "NZ$", rate: 0.0018 },
+    { code: "SGD", name: "Dólar Singapur", symbol: "S$", rate: 0.0015 },
+    { code: "ZAR", name: "Rand Sudafricano", symbol: "R", rate: 0.021 },
   ];
 
   return (

@@ -1,7 +1,19 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-export const useCurrencyStore = create(
+interface Currency {
+    code: string;
+    name: string;
+    symbol: string;
+    rate: number;
+}
+
+interface CurrencyState {
+    selectedCurrency: Currency;
+    setCurrency: (currency: Currency) => void;
+}
+
+export const useCurrencyStore = create<CurrencyState>()(
     persist(
         (set) => ({
             selectedCurrency: {
@@ -14,7 +26,7 @@ export const useCurrencyStore = create(
             setCurrency: (currency) => set({ selectedCurrency: currency }),
         }),
         {
-            name: "currency-storage", // LocalStorage Key
+            name: "currency-storage",
         }
     )
 );

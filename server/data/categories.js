@@ -1,5 +1,10 @@
 const categories = [
     {
+        "name": "Promociones",
+        "description": "Ofertas especiales y descuentos exclusivos.",
+        "subcategories": []
+    },
+    {
         "name": "Perfumería",
         "description": "Fragancias exclusivas para todos los estilos.",
         "subcategories": [
@@ -14,73 +19,51 @@ const categories = [
         "name": "Maquillaje",
         "description": "Todo lo necesario para resaltar tu belleza.",
         "subcategories": [
-            { "name": "Rostro", "description": "Bases, correctores, polvos y rubores." },
-            { "name": "Ojos", "description": "Máscaras, sombras, delineadores y cejas." },
-            { "name": "Labios", "description": "Labiales, brillos y delineadores." },
+            { "name": "Rostro", "description": "Bases, correctores y polvos." },
+            { "name": "Ojos", "description": "Máscaras, sombras y delineadores." },
+            { "name": "Labios", "description": "Labiales y brillos." },
             { "name": "Uñas", "description": "Esmaltes y tratamientos." },
-            { "name": "Accesorios de Maquillaje", "description": "Brochas, esponjas y organizadores." }
+            { "name": "Accesorios", "description": "Brochas y esponjas." }
         ]
     },
     {
-        "name": "Cuidado de Piel",
-        "description": "Productos para mantener tu piel saludable y radiante.",
+        "name": "Cuidado para el Hombre",
+        "description": "Productos especializados para el cuidado masculino.",
         "subcategories": [
-            { "name": "Limpieza Facial", "description": "Geles, espumas y aguas micelares." },
-            { "name": "Hidratación", "description": "Cremas, geles y lociones." },
-            { "name": "Tratamientos", "description": "Serums, mascarillas y exfoliantes." },
-            { "name": "Protección Solar", "description": "Protectores solares faciales y corporales." },
-            { "name": "Cuidado Corporal", "description": "Cremas corporales y anticelulitis." }
-        ]
-    },
-    {
-        "name": "Cabello",
-        "description": "Todo para el cuidado y estilismo de tu cabello.",
-        "subcategories": [
-            { "name": "Shampoo y Acondicionador", "description": "Limpieza y cuidado diario." },
-            { "name": "Tratamientos Capilares", "description": "Máscaras, aceites y ampollas." },
-            { "name": "Coloración", "description": "Tinturas y accesorios de color." },
-            { "name": "Peinado y Modelado", "description": "Geles, ceras y fijadores." },
-            { "name": "Accesorios para Cabello", "description": "Cepillos, peines y hebillas." }
+            { "name": "Afeitado", "description": "Espumas y bálsamos." },
+            { "name": "Rostro Hombre", "description": "Cremas y limpieza." },
+            { "name": "Cabello Hombre", "description": "Shampoo y styling." }
         ]
     },
     {
         "name": "Cuidado Diario",
         "description": "Productos esenciales para tu higiene personal.",
         "subcategories": [
-            { "name": "Higiene Personal", "description": "Jabones, desodorantes y cuidado íntimo." },
-            { "name": "Depilación y Afeitado", "description": "Ceras, cremas y máquinas de afeitar." },
-            { "name": "Cuidado Bucal", "description": "Pastas, cepillos y enjuagues." },
-            { "name": "Bebés y Niños", "description": "Cuidado especial para los más pequeños." }
+            { "name": "Cuerpo", "description": "Jabones y cremas corporales." },
+            { "name": "Desodorantes", "description": "Protección diaria." }
         ]
     },
     {
-        "name": "Carteras y Bolsos",
-        "description": "Complementos perfectos para tu look.",
+        "name": "Cabello",
+        "description": "Todo para el cuidado y estilismo de tu cabello.",
         "subcategories": [
-            { "name": "Carteras de Mano", "description": "Elegancia para llevar lo justo." },
-            { "name": "Mochilas", "description": "Comodidad y estilo urbano." },
-            { "name": "Billeteras y Monederos", "description": "Organización con estilo." },
-            { "name": "Bolsos de Viaje", "description": "Para tus escapadas." }
+            { "name": "Shampoo y Acondicionador", "description": "Limpieza diaria." },
+            { "name": "Tratamientos", "description": "Máscaras y aceites." }
         ]
     },
     {
-        "name": "Joyería y Accesorios",
-        "description": "Detalles que marcan la diferencia.",
+        "name": "Accesorios de Damas",
+        "description": "Complementos perfectos para tu estilo.",
         "subcategories": [
-            { "name": "Aros", "description": "Pendientes para toda ocasión." },
-            { "name": "Collares y Cadenas", "description": "Toques de brillo para tu cuello." },
-            { "name": "Pulseras", "description": "Accesorios para tus muñecas." },
-            { "name": "Relojes", "description": "Tiempo con estilo." },
-            { "name": "Anillos", "description": "Detalles en tus manos." }
+            { "name": "Joyería", "description": "Collares, aros y pulseras." },
+            { "name": "Carteras", "description": "Bolsos y mochilas." },
+            { "name": "Relojes", "description": "Estilo y elegancia." }
         ]
     },
     {
         "name": "Otros",
-        "description": "Productos variados y novedades.",
-        "subcategories": [
-            { "name": "Regalería", "description": "Opciones perfectas para obsequiar." },
-            { "name": "Hogar y Deco", "description": "Detalles para tu espacio." }
-        ]
+        "description": "Variedades y novedades.",
+        "subcategories": []
     }
 ];
 

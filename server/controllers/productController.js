@@ -143,22 +143,84 @@ const getProducts = asyncHandler(async (req, res) => {
 
     const filter = {}; // Remover filtro isActive por defecto
 
+    console.log("DEBUG: Parameters received:", req.query);
+
+    // Enhanced Search: Includes Text, Category (Name/Type), and Brand lookup
     if (req.query.search) {
-        filter.$text = { $search: req.query.search };
+        const searchRegex = new RegExp(req.query.search, 'i');
+
+        // Find matching Brands
+        const matchingBrands = await Brand.find({ name: searchRegex }).select('_id');
+        const brandIds = matchingBrands.map(b => b._id);
+
+        // Find matching Categories (Name or Type)
+        const matchingCategories = await Category.find({
+            $or: [
+                { name: searchRegex },
+                { categoryType: searchRegex }
+            ]
+        }).select('_id');
+        const categoryIds = matchingCategories.map(c => c._id);
+
+        filter.$or = [
+            { name: searchRegex },
+            { description: searchRegex },
+            { brand: { $in: brandIds } },
+            { category: { $in: categoryIds } }
+        ];
     }
 
-    if (req.query.category) {
-        filter.category = req.query.category;
+    // Smart Category Filter (ID or Name/Type) - Handled previously, keeping logic but ensuring clean flow
+    if (req.query.category && !filter.$or) { // Only apply specific category filter if not searching globally OR combine? 
+        // Logic generally combines. If user searches "Red" AND selects "Lipstick", we want both.
+        // But the previous search logic above uses $or for the search term itself.
+        // Let's keep specific category filter as an AND condition if present.
+        // Note: The previous step inserted logic for req.query.category. We must ensure we don't overwrite it or conflict.
+
+        // Re-inserting the logic I just added in the previous turn to ensure it stays:
+        if (req.query.category.match(/^[0-9a-fA-F]{24}$/)) {
+            filter.category = req.query.category;
+        } else {
+            const categories = await Category.find({
+                $or: [
+                    { name: { $regex: req.query.category, $options: "i" } },
+                    { categoryType: { $regex: req.query.category, $options: "i" } }
+                ]
+            });
+            const categoryIds = categories.map(c => c._id);
+            // If we found categories, filter by them. If not, it might return empty, handled by the query returning 0.
+            if (categoryIds.length > 0) {
+                filter.category = { $in: categoryIds };
+            } else {
+                // Force empty result if strict category filter finds nothing
+                // But wait, if we are just building 'filter', we can set a dummy ID
+                filter.category = "000000000000000000000000";
+            }
+        }
     }
 
+    // Smart Brand Filter (ID or Name)
     if (req.query.brand) {
-        filter.brand = req.query.brand;
+        if (req.query.brand.match(/^[0-9a-fA-F]{24}$/)) {
+            filter.brand = req.query.brand;
+        } else {
+            const brand = await Brand.findOne({ name: { $regex: req.query.brand, $options: "i" } });
+            if (brand) {
+                filter.brand = brand._id;
+            } else {
+                filter.brand = "000000000000000000000000"; // Force empty if brand name not found
+            }
+        }
     }
 
-    if (req.query.minPrice || req.query.maxPrice) {
+    // Flexible Price Filter (minPrice/maxPrice OR priceMin/priceMax)
+    const minPrice = req.query.minPrice || req.query.priceMin;
+    const maxPrice = req.query.maxPrice || req.query.priceMax;
+
+    if (minPrice || maxPrice) {
         filter.price = {};
-        if (req.query.minPrice) filter.price.$gte = parseFloat(req.query.minPrice);
-        if (req.query.maxPrice) filter.price.$lte = parseFloat(req.query.maxPrice);
+        if (minPrice) filter.price.$gte = parseFloat(minPrice);
+        if (maxPrice) filter.price.$lte = parseFloat(maxPrice);
     }
 
     if (req.query.minRating) {
@@ -201,6 +263,8 @@ const getProducts = asyncHandler(async (req, res) => {
         default:
             sort = { createdAt: -1 };
     }
+
+    console.log("DEBUG: Final Mongo Filter:", JSON.stringify(filter, null, 2));
 
     const products = await Product.find(filter)
         .populate("category", "name slug")

@@ -4,7 +4,7 @@ import { createOrderFromCart, getOrderById, Order } from "@/lib/orderApi";
 import { useCartStore, useUserStore } from "@/lib/store";
 import { Address } from "@/types/type";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { toast } from "sonner";
 import CheckoutSkeleton from "../skeleton/CheckoutSkeleton";
 import { Button } from "../ui/button";
@@ -16,6 +16,7 @@ import { AlertCircle, CheckCircle, CreditCard, Lock } from "lucide-react";
 import AddressSelection from "./AddressSelection";
 import { Separator } from "../ui/separator";
 import { createPaymentPreference } from "@/lib/paymentApi";
+import authApi from "@/lib/authApi";
 
 const CheckoutPageClient = () => {
   const [order, setOrder] = useState<Order | null>(null);
@@ -27,15 +28,29 @@ const CheckoutPageClient = () => {
   const [isCreatingOrder, setIsCreatingOrder] = useState(false);
   const searchParams = useSearchParams();
   const router = useRouter();
-  const { auth_token, authUser, isAuthenticated, verifyAuth } = useUserStore();
+  const { auth_token, authUser, isAuthenticated, verifyAuth, updateUser } = useUserStore();
   const { cartItemsWithQuantities, clearCart } = useCartStore();
 
   const orderId = searchParams.get("orderId");
+  const hasRefreshedProfile = useRef(false);
 
-  //   Verify authentication on component mount
+  // Determine if we need to verify auth or refresh profile
   useEffect(() => {
     const checkAuth = async () => {
       setAuthLoading(true);
+      // Ensure we have the latest user data (addresses)
+      if (auth_token && !hasRefreshedProfile.current) {
+        hasRefreshedProfile.current = true;
+        try {
+            const response = await authApi.get("/auth/profile");
+            if (response.success && response.data) {
+                updateUser(response.data);
+            }
+        } catch (error) {
+            console.error("Failed to refresh profile:", error);
+        }
+      }
+
       if (auth_token && !authUser) {
         await verifyAuth();
       }
@@ -44,7 +59,19 @@ const CheckoutPageClient = () => {
     };
 
     checkAuth();
-  }, [auth_token, authUser, verifyAuth]);
+  }, [auth_token, verifyAuth, updateUser]);
+
+  // Helper to ensure we get a valid image
+  const getProductImage = (product: any) => {
+    if (product?.images && Array.isArray(product.images) && product.images.length > 0) {
+      const first = product.images[0];
+      return typeof first === 'string' ? first : first.url;
+    }
+    if (product?.image) {
+      return typeof product.image === 'string' ? product.image : product.image.url;
+    }
+    return null;
+  };
 
   useEffect(() => {
     // Wait for auth check to complete
@@ -105,7 +132,7 @@ const CheckoutPageClient = () => {
               name: item.product.name,
               price: item.product.price,
               quantity: item.quantity,
-              image: item.product.image,
+              image: getProductImage(item.product),
             })),
             total: cartItemsWithQuantities.reduce(
               (total, item) => total + item.product.price * item.quantity,
@@ -208,7 +235,7 @@ const CheckoutPageClient = () => {
           name: item.product.name,
           price: item.product.price,
           quantity: item.quantity,
-          image: item.product.image,
+          image: getProductImage(item.product), // Use helper here too
         }));
 
         const shippingPayload = {
@@ -262,192 +289,230 @@ const CheckoutPageClient = () => {
   if (!order) {
     return (
       <Container className="py-16">
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-8">
-          <div className="text-center">
-            <h1 className="text-2xl font-bold text-gray-900 mb-4">
-              Pedido no encontrado
-            </h1>
-            <p className="text-gray-600 mb-6">
-              El pedido que estás buscando no existe o ha sido eliminado.
-            </p>
-            <Button onClick={() => router.push("/cart")}>Volver al carrito</Button>
-          </div>
+        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-8 max-w-2xl mx-auto text-center">
+          <h1 className="text-3xl font-bold text-gray-900 mb-4">
+            Pedido no encontrado
+          </h1>
+          <p className="text-gray-600 mb-8 text-lg">
+            El pedido que estás buscando no existe o ha sido eliminado.
+          </p>
+          <Button onClick={() => router.push("/cart")} size="lg" className="hoverEffect">
+            Volver al carrito
+          </Button>
         </div>
       </Container>
     );
   }
 
   return (
-    <Container className="py-8">
+    <Container className="py-10">
       <PageBreadcrumb
         items={[{ label: "Carrito", href: "/user/cart" }]}
         currentPage="Finalizar Compra"
       />
-      <div className="mb-8">
-        <h1 className="text-4xl font-bold text-gray-900 mb-2">Finalizar Compra</h1>
-        <p className="text-gray-600">Complete su pedido</p>
+
+      <div className="mb-10">
+        <h1 className="text-4xl font-bold text-gray-900 mb-3 tracking-tight">Finalizar Compra</h1>
+        <p className="text-gray-600 text-lg">Revisa tu pedido y completa el pago de forma segura</p>
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 xl:gap-12">
         {/* Order details */}
-        <div className="lg:col-span-2 space-y-6">
-          {/* Addresss */}
+        <div className="lg:col-span-2 space-y-8">
 
-          <AddressSelection
-            selectedAddress={selectedAddress}
-            onAddressSelect={setSelectedAddress}
-            addresses={addresses}
-            onAddressesUpdate={handleAddressesUpdate}
-          />
-          {/* Order items */}
-          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
-            <h2 className="text-xl font-bold text-gray-900 mb-6">
-              Detalles del pedido
-            </h2>
-            <div>
+          {/* Address Selection with Premium Touch */}
+          <section>
+            <AddressSelection
+              selectedAddress={selectedAddress}
+              onAddressSelect={setSelectedAddress}
+              addresses={addresses}
+              onAddressesUpdate={handleAddressesUpdate}
+            />
+          </section>
+
+          {/* Order items List */}
+          <section className="bg-white rounded-3xl border border-gray-100 shadow-lg shadow-gray-100/50 overflow-hidden">
+            <div className="p-6 md:p-8 border-b border-gray-50">
+              <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-3">
+                <span className="flex items-center justify-center w-8 h-8 rounded-full bg-black text-white text-sm">2</span>
+                Detalles del pedido
+              </h2>
+            </div>
+
+            <div className="divide-y divide-gray-50">
               {order?.items.map((item, index) => (
-                <div key={index.toString()}>
-                  <div className="relative w-16 h-16 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
-                    {item.image ? (
-                      <Image
-                        src={item.image}
-                        alt={item.name}
-                        fill
-                        className="object-cover"
-                      />
-                    ) : (
-                      <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-                        <CreditCard className="w-6 h-6 text-gray-400" />
+                <div key={index.toString()} className="p-6 group hover:bg-gray-50/50 transition-colors">
+                  <div className="flex items-center gap-6">
+                    {/* Image Container - Premium Style */}
+                    <div className="relative w-24 h-24 bg-white border border-gray-100 rounded-2xl overflow-hidden shrink-0 shadow-sm group-hover:shadow-md transition-all duration-300">
+                      {item.image ? (
+                        <Image
+                          src={item.image}
+                          alt={item.name}
+                          fill
+                          className="object-contain p-2"
+                        />
+                      ) : (
+                        <div className="w-full h-full bg-gray-50 flex items-center justify-center">
+                          <CreditCard className="w-8 h-8 text-gray-300" />
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="flex-1 min-w-0 flex flex-col justify-between py-1">
+                      <div>
+                        <h3 className="text-lg font-bold text-gray-900 mb-1 group-hover:text-black transition-colors line-clamp-1">
+                          {item.name}
+                        </h3>
+                        <p className="text-sm text-gray-500 font-medium">
+                          Cantidad: {item.quantity}
+                        </p>
                       </div>
-                    )}
-                  </div>
-
-                  <div className="flex-1 min-w-0">
-                    <h3 className="font-medium text-gray-900 mb-1">
-                      {item.name}
-                    </h3>
-                    <p className="text-sm text-gray-600">
-                      Cantidad: {item.quantity} ×{" "}
-                      <PriceFormatter amount={item.price} />
-                    </p>
-                  </div>
-
-                  <div className="text-right">
-                    <PriceFormatter
-                      amount={item.price * item.quantity}
-                      className="text-base font-semibold text-gray-900"
-                    />
+                      <div className="flex items-center justify-between mt-2">
+                        <div className="text-sm text-gray-400">Precio unitario</div>
+                        <PriceFormatter
+                          amount={item.price * item.quantity}
+                          className="text-lg font-bold text-gray-900"
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
               ))}
             </div>
-          </div>
+
+            <div className="bg-gray-50 px-8 py-4 border-t border-gray-100 flex justify-between items-center text-sm text-gray-600">
+              <span className="font-medium">Total de artículos</span>
+              <span className="font-bold text-gray-900">{order.items.reduce((acc, curr) => acc + curr.quantity, 0)}</span>
+            </div>
+          </section>
 
           {/* Payment Information */}
-          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
-            <h2 className="text-xl font-bold text-gray-900 mb-6">
+          <section className="bg-white rounded-3xl border border-gray-100 shadow-lg shadow-gray-100/50 p-6 md:p-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+              <span className="flex items-center justify-center w-8 h-8 rounded-full bg-black text-white text-sm">3</span>
               Información de pago
             </h2>
 
             <div className="space-y-4">
-              <div className="flex items-center gap-3 p-4 border-2 border-blue-200 bg-blue-50 rounded-lg">
-                <CreditCard className="w-5 h-5 text-blue-600" />
+              <div className="relative overflow-hidden flex items-center gap-4 p-5 border border-gray-200 bg-white rounded-2xl cursor-pointer hover:border-black transition-all duration-300 group">
+                <div className="absolute inset-0 bg-gray-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
+                <div className="w-12 h-12 flex items-center justify-center bg-blue-50 text-blue-600 rounded-full">
+                  <CreditCard className="w-6 h-6" />
+                </div>
                 <div className="flex-1">
-                  <h3 className="font-medium text-gray-900">Mercado Pago</h3>
-                  <p className="text-sm text-gray-600">
-                    Pago seguro con Mercado Pago
+                  <h3 className="font-bold text-gray-900">Mercado Pago</h3>
+                  <p className="text-sm text-gray-500">
+                    Tarjetas de crédito, débito y otros medios
                   </p>
                 </div>
-                <CheckCircle className="w-5 h-5 text-blue-600" />
+                <div className="w-6 h-6 rounded-full border-2 border-gray-300 group-hover:border-black group-hover:bg-black flex items-center justify-center transition-colors">
+                  <CheckCircle className="w-4 h-4 text-white opacity-0 group-hover:opacity-100" />
+                </div>
               </div>
 
-              <div className="flex items-center gap-2 text-sm text-gray-600">
-                <Lock className="w-4 h-4" />
-                <span>Información de pago segura y encriptada</span>
+              <div className="flex items-center justify-center gap-2 text-sm text-gray-500 pt-2">
+                <Lock className="w-3.5 h-3.5" />
+                <span>Sus datos están protegidos con encriptación SSL de 256 bits</span>
               </div>
             </div>
-          </div>
+          </section>
         </div>
 
-        {/* Order summary */}
+        {/* Order summary - Right Column */}
         <div className="lg:col-span-1">
-          <div className="bg-babyshopWhite rounded-2xl border border-gray-100 shadow-sm p-6 sticky top-4">
-            <h2 className="text-xl font-bold text-gray-900 mb-6">
+          <div className="bg-white rounded-3xl border border-gray-100 shadow-xl shadow-gray-200/50 p-6 md:p-8 sticky top-24">
+            <h2 className="text-xl font-bold text-gray-900 mb-6 pb-4 border-b border-gray-100">
               Resumen del pedido
             </h2>
-            <div className="space-y-4">
-              <div className="flex items-center justify-between py-2">
-                <span className="text-gray-600">Subtotal</span>
+
+            <div className="space-y-4 text-base">
+              <div className="flex items-center justify-between text-gray-600">
+                <span>Subtotal</span>
                 <PriceFormatter
                   amount={calculateSubtotal()}
-                  className="text-base font-medium text-gray-900"
+                  className="font-medium text-gray-900"
                 />
               </div>
-              <div className="flex justify-between items-center py-2">
-                <span className="text-gray-600">Envío</span>
-                <span className="text-base font-medium">
+
+              <div className="flex justify-between items-center text-gray-600">
+                <span>Envío</span>
+                <span className="font-medium">
                   {calculateShipping() === 0 ? (
-                    <span className="text-green-600">Envío gratuito</span>
+                    <span className="text-green-600 bg-green-50 px-2 py-1 rounded-md text-sm font-bold">Gratis</span>
                   ) : (
                     <PriceFormatter
                       amount={calculateShipping()}
-                      className="text-base font-medium text-gray-900"
+                      className="text-gray-900"
                     />
                   )}
                 </span>
               </div>
 
-              <div className="flex justify-between items-center py-2">
-                <span className="text-gray-600">Impuestos</span>
+              <div className="flex justify-between items-center text-gray-600">
+                <span>Impuestos (8%)</span>
                 <PriceFormatter
                   amount={calculateTax()}
-                  className="text-base font-medium text-gray-900"
+                  className="font-medium text-gray-900"
                 />
               </div>
+
               {calculateShipping() === 0 && (
-                <div className="bg-green-50 border border-green-200 rounded-lg p-3">
-                  <p className="text-green-700 text-sm font-medium">
-                    🎉 ¡Tienes envío gratis!
-                  </p>
+                <div className="bg-linear-to-r from-green-50 to-emerald-50 border border-green-100 rounded-xl p-4 flex items-start gap-3">
+                  <div className="text-xl">🎉</div>
+                  <div>
+                    <h4 className="font-bold text-green-800 text-sm mb-0.5">¡Envío Gratuito Calificado!</h4>
+                    <p className="text-green-700 text-xs leading-relaxed">
+                      Ahorraste el costo de envío en este pedido.
+                    </p>
+                  </div>
                 </div>
               )}
 
-              <Separator className="my-4" />
-              <div className="flex justify-between items-center py-2">
-                <span className="text-lg font-bold text-gray-900">Total</span>
+              <Separator className="my-6 bg-gray-100" />
+
+              <div className="flex justify-between items-end mb-2">
+                <span className="text-lg font-bold text-gray-900">Total a Pagar</span>
                 <PriceFormatter
                   amount={calculateTotal()}
-                  className="text-xl font-bold text-gray-900"
+                  className="text-2xl font-black text-gray-900"
                 />
               </div>
+              <p className="text-xs text-gray-400 text-right mb-6">IVA incluido</p>
             </div>
+
             <Button
               size={"lg"}
-              className="w-full mt-6 font-semibold hover:text-babyshopWhite hoverEffect disabled:opacity-50"
+              className="w-full py-7 text-lg font-bold rounded-xl shadow-lg shadow-black/10 hover:shadow-black/20 hover:scale-[1.02] transition-all duration-300 bg-black text-white hover:bg-gray-900"
               disabled={processing || isCreatingOrder || !selectedAddress}
               onClick={handlePayment}
             >
               {processing ? (
-                <>
-                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
+                <span className="flex items-center gap-2">
+                  <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                   Procesando...
-                </>
+                </span>
               ) : isCreatingOrder ? (
-                <>
-                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
+                <span className="flex items-center gap-2">
+                  <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                   Creando pedido...
-                </>
+                </span>
               ) : !selectedAddress ? (
-                <>
-                  <AlertCircle className="w-4 h-4 mr-2" />
-                  Seleccionar dirección para continuar
-                </>
+                <span className="flex items-center gap-2">
+                  <AlertCircle className="w-5 h-5" />
+                  Seleccionar dirección
+                </span>
               ) : (
-                <>
-                  <Lock className="w-4 h-4 mr-2" />
+                <span className="flex items-center gap-2">
                   Pagar con Mercado Pago
-                </>
+                </span>
               )}
             </Button>
+
+            <p className="text-center mt-4 text-xs text-gray-400">
+              Al completar la compra aceptas nuestros
+              <a href="#" className="underline hover:text-gray-900 ml-1">Términos y condiciones</a>
+            </p>
           </div>
         </div>
       </div>

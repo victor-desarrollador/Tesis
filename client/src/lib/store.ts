@@ -16,6 +16,10 @@ interface CartServerItem {
     stock: number;
     averageRating?: number;
     image?: string;
+    images?: Array<{
+      url: string;
+      publicId: string;
+    }>;
     category:
     | string
     | {
@@ -52,6 +56,7 @@ const mapCartItemToProduct = (
     stock: item.productId.stock,
     averageRating: item.productId.averageRating || 0,
     image: item.productId.image || "",
+    images: item.productId.images || [],
     category:
       typeof item.productId.category === "string"
         ? {
@@ -134,6 +139,7 @@ interface OrderState {
 interface WishlistState {
   wishlistItems: Product[];
   wishlistIds: string[];
+  isLoading: boolean;
   addToWishlist: (product: Product) => Promise<void>;
   removeFromWishlist: (productId: string) => Promise<void>;
   setWishlistItems: (products: Product[]) => void;
@@ -328,8 +334,6 @@ export const useUserStore = create<UserState>()(
     }
   )
 );
-
-// ... (rest of the file remains unchanged: useCartStore, useOrderStore, useWishlistStore, and loadAllUserData)
 
 export const useCartStore = create<CartState>()(
   persist(
@@ -543,6 +547,7 @@ export const useWishlistStore = create<WishlistState>()(
     (set, get) => ({
       wishlistItems: [],
       wishlistIds: [],
+      isLoading: false,
       addToWishlist: async (product) => {
         const { auth_token } = useUserStore.getState();
 
@@ -559,10 +564,13 @@ export const useWishlistStore = create<WishlistState>()(
 
         if (auth_token) {
           try {
+            set({ isLoading: true });
             const { addToWishlist } = await import("./wishlistApi");
             await addToWishlist(product._id, auth_token);
           } catch (error) {
             console.error("Store: Failed to add to server wishlist:", error);
+          } finally {
+            set({ isLoading: false });
           }
         }
       },
@@ -579,10 +587,13 @@ export const useWishlistStore = create<WishlistState>()(
 
         if (auth_token) {
           try {
+            set({ isLoading: true });
             const { removeFromWishlist } = await import("./wishlistApi");
             await removeFromWishlist(productId, auth_token);
           } catch (error) {
             console.error("Store: Failed to remove from server wishlist:", error);
+          } finally {
+            set({ isLoading: false });
           }
         }
       },

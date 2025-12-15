@@ -20,8 +20,14 @@ import { useSearchParams } from "next/navigation";
 import React, { useCallback, useEffect, useState } from "react";
 
 interface ProductsResponse {
-  products: Product[];
-  total: number;
+  success: boolean;
+  data: Product[];
+  pagination: {
+    total: number;
+    pages: number;
+    page: number;
+    limit: number;
+  };
 }
 
 interface Props {
@@ -51,6 +57,7 @@ const ShopPageClient = ({ categories, brands }: Props) => {
   const productsPerPage = 10;
 
   useEffect(() => {
+    // 1. Sync Category (existing logic + fix)
     const cotegoryFromUrl = searchParams.get("category");
     if (cotegoryFromUrl) {
       const categoryExits = categories.some(
@@ -63,13 +70,43 @@ const ShopPageClient = ({ categories, brands }: Props) => {
         );
 
         if (categoryName) {
-          setCategory(cotegoryFromUrl);
+          setCategory(categoryName._id);
         } else {
           setInvalidCategory(cotegoryFromUrl);
           setCategory("");
         }
+      } else {
+        setCategory(cotegoryFromUrl);
       }
+    } else {
+      setCategory("");
     }
+
+    // 2. Sync Brand
+    const brandFromUrl = searchParams.get("brand");
+    setBrand(brandFromUrl || "");
+
+    // 3. Sync Search
+    const searchFromUrl = searchParams.get("search");
+    setSearch(searchFromUrl || "");
+
+    // 4. Sync Price Range
+    const priceMin = searchParams.get("priceMin");
+    const priceMax = searchParams.get("priceMax");
+    if (priceMin && priceMax) {
+      setPriceRange([Number(priceMin), Number(priceMax)]);
+    } else {
+      setPriceRange(null);
+    }
+
+    // 5. Sync Sort
+    const sortFromUrl = searchParams.get("sort");
+    if (sortFromUrl) {
+      setSortOrder(sortFromUrl);
+    } else {
+      setSortOrder("newest");
+    }
+
   }, [searchParams, categories]);
 
   const fetchProducts = useCallback(
@@ -113,13 +150,13 @@ const ShopPageClient = ({ categories, brands }: Props) => {
         const response: ProductsResponse = await fetchData(
           `/products?${params.toString()}`
         );
-        setTotal(response?.total || 0);
+        setTotal(response?.pagination?.total || 0);
         if (loadMore) {
-          setNewlyLoadedProducts(response?.products || []);
-          setProducts((prev) => [...prev, ...(response?.products || [])]);
+          setNewlyLoadedProducts(response?.data || []);
+          setProducts((prev) => [...prev, ...(response?.data || [])]);
         } else {
           setNewlyLoadedProducts([]);
-          setProducts(response?.products || []);
+          setProducts(response?.data || []);
         }
       } catch (error) {
         console.log("Failed to fetch products:", error);
@@ -317,15 +354,26 @@ const ShopPageClient = ({ categories, brands }: Props) => {
                   <SelectValue placeholder="Seleccionar categoría" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectGroup>
-                    <SelectLabel>Categorías</SelectLabel>
-                    <SelectItem value="All">Todas las categorías</SelectItem>
-                    {categories?.map((cat: Category) => (
-                      <SelectItem key={cat?._id} value={cat?._id}>
-                        {cat?.name}
-                      </SelectItem>
-                    ))}
-                  </SelectGroup>
+                  <SelectItem value="All">Todas las categorías</SelectItem>
+                  {Object.entries(
+                    categories?.reduce((acc: { [key: string]: Category[] }, cat) => {
+                      const type = cat.categoryType || "Otros";
+                      if (!acc[type]) acc[type] = [];
+                      acc[type].push(cat);
+                      return acc;
+                    }, {}) || {}
+                  ).map(([type, cats]) => (
+                    <SelectGroup key={type}>
+                      <SelectLabel className="font-bold text-gray-900 bg-gray-50 px-2 py-1">
+                        {type}
+                      </SelectLabel>
+                      {cats.map((cat) => (
+                        <SelectItem key={cat?._id} value={cat?._id} className="pl-6">
+                          {cat?.name}
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  ))}
                 </SelectContent>
               </Select>
             </div>
@@ -459,7 +507,7 @@ const ShopPageClient = ({ categories, brands }: Props) => {
             <ShopSkeleton />
           ) : products?.length > 0 ? (
             <div className="w-full">
-              <div className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-3">
+              <div className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-5">
                 {products?.map((product, index) => {
                   const isNewlyLoaded = newlyLoadedProducts.some(
                     (newProduct) => newProduct._id === product._id

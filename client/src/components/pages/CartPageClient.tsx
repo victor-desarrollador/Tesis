@@ -76,6 +76,22 @@ const CartPageClient = () => {
     }
   };
 
+  // Helper function to get product image safely
+  const getProductImage = (product: any) => {
+    // 1. Try 'images' array (new format)
+    if (product?.images && Array.isArray(product.images) && product.images.length > 0) {
+      const first = product.images[0];
+      if (typeof first === 'string') return first;
+      if (typeof first === 'object' && first.url) return first.url;
+    }
+    // 2. Try 'image' field (old format)
+    if (product?.image) {
+      if (typeof product.image === 'string') return product.image;
+      if (typeof product.image === 'object' && product.image.url) return product.image.url;
+    }
+    return null;
+  };
+
   const handleQuantityChange = async (itemId: string, newQuantity: number) => {
     if (newQuantity < 1) {
       await handleRemoveItem(itemId);
@@ -135,7 +151,7 @@ const CartPageClient = () => {
   if (cartItemsWithQuantities.length === 0) {
     return (
       <Container className="py-16">
-        <div className="bg-babyshopWhite rounded-2xl border border-gray-100 shadow-sm p-8">
+        <div className="bg-babyshopWhite rounded-md border border-gray-200 shadow-sm p-8">
           <div className="flex flex-col items-center justify-center min-h-[500px] text-center">
             <div className="w-32 h-32 bg-gray-100 rounded-full flex items-center justify-center mb-8">
               <ShoppingCart className="w-16 h-16 text-gray-300" />
@@ -211,13 +227,13 @@ const CartPageClient = () => {
           url: typeof window !== "undefined" ? window.location.href : "",
         }}
       />
-      <div className="mb-8">
-        <h1 className="text-4xl font-bold text-babyshopBlack mb-2">Mi Carrito</h1>
+      <div className="mb-6">
+        <h1 className="text-3xl font-bold text-babyshopBlack">Mi Carrito</h1>
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 lg:gap-8">
         {/* Cart items section */}
         <div className="lg:col-span-3">
-          <div className="bg-babyshopWhite rounded-2xl border border-gray-100 shadow-sm p-6">
+          <div className="bg-babyshopWhite rounded-md border border-gray-200 shadow-sm p-6">
             {/* Cart Table Header - Only visible on larger screens */}
             <div className="hidden lg:grid grid-cols-12 gap-4 py-4 border-b border-gray-200 mb-6">
               <div className="col-span-6 text-sm font-medium text-gray-900 uppercase tracking-wide">
@@ -245,17 +261,17 @@ const CartPageClient = () => {
                     <div className="flex items-start gap-4">
                       {/* Product Image */}
                       <Link href={`/product/${cartItem.product._id}`}>
-                        <div className="relative w-20 h-20 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0 hover:scale-105 transition-transform duration-200 cursor-pointer">
-                          {cartItem.product.image ? (
+                        <div className="relative w-24 h-24 bg-white border border-gray-100 rounded-xl overflow-hidden shrink-0 hover:shadow-md transition-all duration-300 cursor-pointer">
+                          {getProductImage(cartItem.product) ? (
                             <Image
-                              src={cartItem.product.image}
+                              src={getProductImage(cartItem.product)}
                               alt={cartItem.product.name}
                               fill
-                              className="object-cover"
+                              className="object-contain p-2"
                             />
                           ) : (
-                            <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-                              <ShoppingCart className="w-6 h-6 text-gray-400" />
+                            <div className="w-full h-full bg-gray-50 flex items-center justify-center">
+                              <ShoppingCart className="w-8 h-8 text-gray-300" />
                             </div>
                           )}
                         </div>
@@ -349,17 +365,17 @@ const CartPageClient = () => {
                     {/* product info */}
                     <div className="lg:col-span-6 flex items-center gap-4">
                       <Link href={`/product/${cartItem.product._id}`}>
-                        <div className="relative w-20 h-20 bg-gray-100 rounded-lg overflow-hidden shrink-0 hover:scale-105 hoverEffect">
-                          {cartItem?.product?.image ? (
+                        <div className="relative w-24 h-24 bg-white border border-gray-100 rounded-xl overflow-hidden shrink-0 hover:shadow-md transition-all duration-300">
+                          {getProductImage(cartItem.product) ? (
                             <Image
-                              src={cartItem.product.image}
+                              src={getProductImage(cartItem.product)}
                               alt={cartItem.product.name}
                               fill
-                              className="object-cover"
+                              className="object-contain p-2"
                             />
                           ) : (
-                            <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-                              <ShoppingCart className="w-8 h-8 text-gray-400" />
+                            <div className="w-full h-full bg-gray-50 flex items-center justify-center">
+                              <ShoppingCart className="w-8 h-8 text-gray-300" />
                             </div>
                           )}
                         </div>

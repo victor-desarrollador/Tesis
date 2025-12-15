@@ -84,7 +84,8 @@ const SignInForm = () => {
     const success = await login(data);
     if (success) {
       toast.success("Inicio de sesión exitoso");
-      router.push("/");
+      // Use window.location.href to force a full reload and ensure auth state is picked up
+      window.location.href = "/";
       setIsLoading(false);
     }
   };

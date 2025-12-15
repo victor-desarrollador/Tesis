@@ -24,7 +24,7 @@ export type Category = {
   _id: string;
   name: string;
   description?: string;
-  parent?: string;
+  categoryType: string;
   image?:
   | string
   | {
@@ -63,13 +63,13 @@ export type Banner = {
   title: string;
   startFrom: number;
   image:
-  | string;
+  | string
   | {
     url: string;
     publicId: string;
   };
-bannerType: string;
-createdAt: string;
+  bannerType: string;
+  createdAt: string;
 };
 
 // ... existing types

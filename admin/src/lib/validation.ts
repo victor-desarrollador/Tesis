@@ -44,7 +44,17 @@ export const categorySchema = z.object({
   name: z.string().min(1, "El nombre es requerido"),
   description: z.string().optional(),
   image: z.string().optional(),
-  parent: z.string().optional(), // ID de categoría padre (opcional)
+  categoryType: z.enum([
+    "Perfumería",
+    "Maquillaje",
+    "Cuidado para el Hombre",
+    "Cuidado Diario",
+    "Cabello",
+    "Accesorios de Damas",
+    "Otros"
+  ], {
+    message: "Tipo de categoría inválido",
+  }),
 });
 
 export const productSchema = z.object({

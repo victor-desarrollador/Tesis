@@ -142,12 +142,20 @@ __turbopack_context__.s([
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/lib/utils.ts [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Store$2f$currencyStore$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/Store/currencyStore.ts [app-client] (ecmascript)");
+;
+var _s = __turbopack_context__.k.signature();
+"use client";
 ;
 ;
 const PriceFormatter = ({ amount, className })=>{
+    _s();
+    const { selectedCurrency } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Store$2f$currencyStore$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCurrencyStore"])();
+    // Convert amount based on selected currency rate
+    const convertedAmount = amount ? amount * (selectedCurrency?.rate || 1) : 0;
     if (!amount) return null;
-    const formattedPrice = new Number(amount).toLocaleString("es-AR", {
-        currency: "ARS",
+    const formattedPrice = new Number(convertedAmount).toLocaleString("es-AR", {
+        currency: selectedCurrency?.code || "ARS",
         style: "currency",
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
@@ -157,10 +165,15 @@ const PriceFormatter = ({ amount, className })=>{
         children: formattedPrice
     }, void 0, false, {
         fileName: "[project]/src/components/common/PriceFormatter.tsx",
-        lineNumber: 20,
+        lineNumber: 27,
         columnNumber: 5
     }, ("TURBOPACK compile-time value", void 0));
 };
+_s(PriceFormatter, "dFmA0xrqDUfixM6CA1epJhCgfvo=", false, function() {
+    return [
+        __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$Store$2f$currencyStore$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCurrencyStore"]
+    ];
+});
 _c = PriceFormatter;
 const __TURBOPACK__default__export__ = PriceFormatter;
 var _c;
@@ -274,11 +287,11 @@ const ProductCard = ({ product })=>{
     const [imageError, setImageError] = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].useState(false);
     const imageUrl = getFirstImageUrl();
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "border rounded-md group overflow-hidden w-full relative",
+        className: "border border-gray-200 rounded-lg group overflow-hidden w-full relative bg-white transition-shadow duration-300 hover:shadow-lg",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                 href: `/product/${product?._id}`,
-                className: "p-2 overflow-hidden relative block",
+                className: "overflow-hidden relative block bg-gray-50",
                 children: [
                     imageUrl && !imageError ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                         src: imageUrl,
@@ -287,16 +300,16 @@ const ProductCard = ({ product })=>{
                         height: 500,
                         loading: "eager",
                         priority: true,
-                        className: "w-full h-32 object-cover group-hover:scale-110 hoverEffect",
+                        className: "w-full h-48 sm:h-60 object-contain p-4 group-hover:scale-110 hoverEffect transition-transform duration-300 ease-in-out mix-blend-multiply",
                         onError: ()=>setImageError(true)
                     }, void 0, false, {
                         fileName: "[project]/src/components/common/ProductCard.tsx",
                         lineNumber: 41,
                         columnNumber: 11
                     }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "w-full h-32 bg-gray-100 flex items-center justify-center",
+                        className: "w-full h-48 sm:h-60 bg-gray-50 flex items-center justify-center",
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "text-4xl",
+                            className: "text-4xl opacity-50",
                             children: "🛍️"
                         }, void 0, false, {
                             fileName: "[project]/src/components/common/ProductCard.tsx",
@@ -312,7 +325,7 @@ const ProductCard = ({ product })=>{
                         price: product?.price,
                         comparePrice: product?.comparePrice,
                         discountPercentage: product?.discountPercentage,
-                        className: "absolute top-4 left-2"
+                        className: "absolute top-2 left-2 shadow-sm"
                     }, void 0, false, {
                         fileName: "[project]/src/components/common/ProductCard.tsx",
                         lineNumber: 57,
@@ -324,16 +337,18 @@ const ProductCard = ({ product })=>{
                 lineNumber: 36,
                 columnNumber: 7
             }, ("TURBOPACK compile-time value", void 0)),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("hr", {}, void 0, false, {
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("hr", {
+                className: "border-gray-100"
+            }, void 0, false, {
                 fileName: "[project]/src/components/common/ProductCard.tsx",
                 lineNumber: 65,
                 columnNumber: 7
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "px-4 py-2 space-y-1",
+                className: "p-4 space-y-2",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                        className: "uppercase text-xs font-medium text-gray-500",
+                        className: "uppercase text-xs font-semibold text-gray-500 tracking-wider",
                         children: product?.category?.name
                     }, void 0, false, {
                         fileName: "[project]/src/components/common/ProductCard.tsx",
@@ -341,7 +356,7 @@ const ProductCard = ({ product })=>{
                         columnNumber: 9
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                        className: "line-clamp-2 text-sm h-10",
+                        className: "line-clamp-2 text-base font-medium text-gray-900 h-10 leading-snug group-hover:text-black transition-colors",
                         children: product?.name
                     }, void 0, false, {
                         fileName: "[project]/src/components/common/ProductCard.tsx",
@@ -354,14 +369,21 @@ const ProductCard = ({ product })=>{
                         discountPercentage: product?.discountPercentage
                     }, void 0, false, {
                         fileName: "[project]/src/components/common/ProductCard.tsx",
-                        lineNumber: 71,
+                        lineNumber: 73,
                         columnNumber: 9
                     }, ("TURBOPACK compile-time value", void 0)),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$AddToCartButton$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                        product: product
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "pt-2",
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$AddToCartButton$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                            product: product
+                        }, void 0, false, {
+                            fileName: "[project]/src/components/common/ProductCard.tsx",
+                            lineNumber: 79,
+                            columnNumber: 11
+                        }, ("TURBOPACK compile-time value", void 0))
                     }, void 0, false, {
                         fileName: "[project]/src/components/common/ProductCard.tsx",
-                        lineNumber: 76,
+                        lineNumber: 78,
                         columnNumber: 9
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
@@ -515,6 +537,7 @@ const ShopPageClient = ({ categories, brands })=>{
     const productsPerPage = 10;
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "ShopPageClient.useEffect": ()=>{
+            // 1. Sync Category (existing logic + fix)
             const cotegoryFromUrl = searchParams.get("category");
             if (cotegoryFromUrl) {
                 const categoryExits = categories.some({
@@ -525,12 +548,40 @@ const ShopPageClient = ({ categories, brands })=>{
                         "ShopPageClient.useEffect.categoryName": (cat)=>cat.name.toLocaleLowerCase() === cotegoryFromUrl.toLocaleLowerCase()
                     }["ShopPageClient.useEffect.categoryName"]);
                     if (categoryName) {
-                        setCategory(cotegoryFromUrl);
+                        setCategory(categoryName._id);
                     } else {
                         setInvalidCategory(cotegoryFromUrl);
                         setCategory("");
                     }
+                } else {
+                    setCategory(cotegoryFromUrl);
                 }
+            } else {
+                setCategory("");
+            }
+            // 2. Sync Brand
+            const brandFromUrl = searchParams.get("brand");
+            setBrand(brandFromUrl || "");
+            // 3. Sync Search
+            const searchFromUrl = searchParams.get("search");
+            setSearch(searchFromUrl || "");
+            // 4. Sync Price Range
+            const priceMin = searchParams.get("priceMin");
+            const priceMax = searchParams.get("priceMax");
+            if (priceMin && priceMax) {
+                setPriceRange([
+                    Number(priceMin),
+                    Number(priceMax)
+                ]);
+            } else {
+                setPriceRange(null);
+            }
+            // 5. Sync Sort
+            const sortFromUrl = searchParams.get("sort");
+            if (sortFromUrl) {
+                setSortOrder(sortFromUrl);
+            } else {
+                setSortOrder("newest");
             }
         }
     }["ShopPageClient.useEffect"], [
@@ -575,18 +626,18 @@ const ShopPageClient = ({ categories, brands })=>{
                     params.append("sort", sortOrder);
                 }
                 const response = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$api$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["fetchData"])(`/products?${params.toString()}`);
-                setTotal(response?.total || 0);
+                setTotal(response?.pagination?.total || 0);
                 if (loadMore) {
-                    setNewlyLoadedProducts(response?.products || []);
+                    setNewlyLoadedProducts(response?.data || []);
                     setProducts({
                         "ShopPageClient.useCallback[fetchProducts]": (prev)=>[
                                 ...prev,
-                                ...response?.products || []
+                                ...response?.data || []
                             ]
                     }["ShopPageClient.useCallback[fetchProducts]"]);
                 } else {
                     setNewlyLoadedProducts([]);
-                    setProducts(response?.products || []);
+                    setProducts(response?.data || []);
                 }
             } catch (error) {
                 console.log("Failed to fetch products:", error);
@@ -714,7 +765,7 @@ const ShopPageClient = ({ categories, brands })=>{
                                 children: "Comprar productos"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                lineNumber: 223,
+                                lineNumber: 260,
                                 columnNumber: 11
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -722,7 +773,7 @@ const ShopPageClient = ({ categories, brands })=>{
                                 children: loading ? "Cargando" : `Mostrando ${products?.length} de ${total} productos`
                             }, void 0, false, {
                                 fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                lineNumber: 224,
+                                lineNumber: 261,
                                 columnNumber: 11
                             }, ("TURBOPACK compile-time value", void 0)),
                             invalidCategory && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -736,18 +787,18 @@ const ShopPageClient = ({ categories, brands })=>{
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                    lineNumber: 231,
+                                    lineNumber: 268,
                                     columnNumber: 15
                                 }, ("TURBOPACK compile-time value", void 0))
                             }, void 0, false, {
                                 fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                lineNumber: 230,
+                                lineNumber: 267,
                                 columnNumber: 13
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                        lineNumber: 222,
+                        lineNumber: 259,
                         columnNumber: 9
                     }, ("TURBOPACK compile-time value", void 0)),
                     (category || brand || search || priceRange || sortOrder !== "newest") && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -758,13 +809,13 @@ const ShopPageClient = ({ categories, brands })=>{
                         children: "Resetear filtros"
                     }, void 0, false, {
                         fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                        lineNumber: 239,
+                        lineNumber: 276,
                         columnNumber: 11
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                lineNumber: 221,
+                lineNumber: 258,
                 columnNumber: 7
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -785,31 +836,31 @@ const ShopPageClient = ({ categories, brands })=>{
                                             children: "Filtros"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                            lineNumber: 258,
+                                            lineNumber: 295,
                                             columnNumber: 15
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         isFiltersOpen ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$up$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronUp$3e$__["ChevronUp"], {
                                             size: 20
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                            lineNumber: 260,
+                                            lineNumber: 297,
                                             columnNumber: 17
                                         }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$down$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronDown$3e$__["ChevronDown"], {
                                             size: 20
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                            lineNumber: 262,
+                                            lineNumber: 299,
                                             columnNumber: 17
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                    lineNumber: 253,
+                                    lineNumber: 290,
                                     columnNumber: 13
                                 }, ("TURBOPACK compile-time value", void 0))
                             }, void 0, false, {
                                 fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                lineNumber: 252,
+                                lineNumber: 289,
                                 columnNumber: 11
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -822,7 +873,7 @@ const ShopPageClient = ({ categories, brands })=>{
                                                 children: "Buscar"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                                lineNumber: 274,
+                                                lineNumber: 311,
                                                 columnNumber: 17
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -841,29 +892,29 @@ const ShopPageClient = ({ categories, brands })=>{
                                                                 size: 14
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                                                lineNumber: 283,
+                                                                lineNumber: 320,
                                                                 columnNumber: 23
                                                             }, ("TURBOPACK compile-time value", void 0))
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                                            lineNumber: 278,
+                                                            lineNumber: 315,
                                                             columnNumber: 21
                                                         }, ("TURBOPACK compile-time value", void 0))
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                                    lineNumber: 276,
+                                                    lineNumber: 313,
                                                     columnNumber: 19
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                                lineNumber: 275,
+                                                lineNumber: 312,
                                                 columnNumber: 17
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                        lineNumber: 273,
+                                        lineNumber: 310,
                                         columnNumber: 15
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -877,7 +928,7 @@ const ShopPageClient = ({ categories, brands })=>{
                                                         children: "Categoría"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                                        lineNumber: 292,
+                                                        lineNumber: 329,
                                                         columnNumber: 17
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     category && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -889,13 +940,13 @@ const ShopPageClient = ({ categories, brands })=>{
                                                         children: "Reset"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                                        lineNumber: 296,
+                                                        lineNumber: 333,
                                                         columnNumber: 19
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                                lineNumber: 291,
+                                                lineNumber: 328,
                                                 columnNumber: 15
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Select"], {
@@ -913,61 +964,70 @@ const ShopPageClient = ({ categories, brands })=>{
                                                             placeholder: "Seleccionar categoría"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                                            lineNumber: 317,
+                                                            lineNumber: 354,
                                                             columnNumber: 19
                                                         }, ("TURBOPACK compile-time value", void 0))
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                                        lineNumber: 316,
+                                                        lineNumber: 353,
                                                         columnNumber: 17
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectContent"], {
-                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectGroup"], {
-                                                            children: [
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectLabel"], {
-                                                                    children: "Categorías"
-                                                                }, void 0, false, {
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectItem"], {
+                                                                value: "All",
+                                                                children: "Todas las categorías"
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
+                                                                lineNumber: 357,
+                                                                columnNumber: 19
+                                                            }, ("TURBOPACK compile-time value", void 0)),
+                                                            Object.entries(categories?.reduce((acc, cat)=>{
+                                                                const type = cat.categoryType || "Otros";
+                                                                if (!acc[type]) acc[type] = [];
+                                                                acc[type].push(cat);
+                                                                return acc;
+                                                            }, {}) || {}).map(([type, cats])=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectGroup"], {
+                                                                    children: [
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectLabel"], {
+                                                                            className: "font-bold text-gray-900 bg-gray-50 px-2 py-1",
+                                                                            children: type
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
+                                                                            lineNumber: 367,
+                                                                            columnNumber: 23
+                                                                        }, ("TURBOPACK compile-time value", void 0)),
+                                                                        cats.map((cat)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectItem"], {
+                                                                                value: cat?._id,
+                                                                                className: "pl-6",
+                                                                                children: cat?.name
+                                                                            }, cat?._id, false, {
+                                                                                fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
+                                                                                lineNumber: 371,
+                                                                                columnNumber: 25
+                                                                            }, ("TURBOPACK compile-time value", void 0)))
+                                                                    ]
+                                                                }, type, true, {
                                                                     fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                                                    lineNumber: 321,
+                                                                    lineNumber: 366,
                                                                     columnNumber: 21
-                                                                }, ("TURBOPACK compile-time value", void 0)),
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectItem"], {
-                                                                    value: "All",
-                                                                    children: "Todas las categorías"
-                                                                }, void 0, false, {
-                                                                    fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                                                    lineNumber: 322,
-                                                                    columnNumber: 21
-                                                                }, ("TURBOPACK compile-time value", void 0)),
-                                                                categories?.map((cat)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectItem"], {
-                                                                        value: cat?._id,
-                                                                        children: cat?.name
-                                                                    }, cat?._id, false, {
-                                                                        fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                                                        lineNumber: 324,
-                                                                        columnNumber: 23
-                                                                    }, ("TURBOPACK compile-time value", void 0)))
-                                                            ]
-                                                        }, void 0, true, {
-                                                            fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                                            lineNumber: 320,
-                                                            columnNumber: 19
-                                                        }, ("TURBOPACK compile-time value", void 0))
-                                                    }, void 0, false, {
+                                                                }, ("TURBOPACK compile-time value", void 0)))
+                                                        ]
+                                                    }, void 0, true, {
                                                         fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                                        lineNumber: 319,
+                                                        lineNumber: 356,
                                                         columnNumber: 17
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                                lineNumber: 307,
+                                                lineNumber: 344,
                                                 columnNumber: 15
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                        lineNumber: 290,
+                                        lineNumber: 327,
                                         columnNumber: 13
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -981,7 +1041,7 @@ const ShopPageClient = ({ categories, brands })=>{
                                                         children: "Marca"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                                        lineNumber: 335,
+                                                        lineNumber: 383,
                                                         columnNumber: 17
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     brand && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -993,13 +1053,13 @@ const ShopPageClient = ({ categories, brands })=>{
                                                         children: "Resetear"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                                        lineNumber: 337,
+                                                        lineNumber: 385,
                                                         columnNumber: 19
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                                lineNumber: 334,
+                                                lineNumber: 382,
                                                 columnNumber: 15
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Select"], {
@@ -1016,12 +1076,12 @@ const ShopPageClient = ({ categories, brands })=>{
                                                             placeholder: "Seleccionar marca"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                                            lineNumber: 357,
+                                                            lineNumber: 405,
                                                             columnNumber: 19
                                                         }, ("TURBOPACK compile-time value", void 0))
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                                        lineNumber: 356,
+                                                        lineNumber: 404,
                                                         columnNumber: 17
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectContent"], {
@@ -1031,7 +1091,7 @@ const ShopPageClient = ({ categories, brands })=>{
                                                                     children: "Marcas"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                                                    lineNumber: 361,
+                                                                    lineNumber: 409,
                                                                     columnNumber: 21
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectItem"], {
@@ -1039,7 +1099,7 @@ const ShopPageClient = ({ categories, brands })=>{
                                                                     children: "Todas las marcas"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                                                    lineNumber: 362,
+                                                                    lineNumber: 410,
                                                                     columnNumber: 21
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 brands.map((brd)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectItem"], {
@@ -1047,30 +1107,30 @@ const ShopPageClient = ({ categories, brands })=>{
                                                                         children: brd?.name
                                                                     }, brd?._id, false, {
                                                                         fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                                                        lineNumber: 364,
+                                                                        lineNumber: 412,
                                                                         columnNumber: 23
                                                                     }, ("TURBOPACK compile-time value", void 0)))
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                                            lineNumber: 360,
+                                                            lineNumber: 408,
                                                             columnNumber: 19
                                                         }, ("TURBOPACK compile-time value", void 0))
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                                        lineNumber: 359,
+                                                        lineNumber: 407,
                                                         columnNumber: 17
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                                lineNumber: 348,
+                                                lineNumber: 396,
                                                 columnNumber: 15
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                        lineNumber: 333,
+                                        lineNumber: 381,
                                         columnNumber: 13
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1084,7 +1144,7 @@ const ShopPageClient = ({ categories, brands })=>{
                                                         children: "Rango de precio"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                                        lineNumber: 375,
+                                                        lineNumber: 423,
                                                         columnNumber: 17
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     priceRange && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -1096,13 +1156,13 @@ const ShopPageClient = ({ categories, brands })=>{
                                                         children: "Resetear"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                                        lineNumber: 379,
+                                                        lineNumber: 427,
                                                         columnNumber: 19
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                                lineNumber: 374,
+                                                lineNumber: 422,
                                                 columnNumber: 15
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Select"], {
@@ -1127,12 +1187,12 @@ const ShopPageClient = ({ categories, brands })=>{
                                                             placeholder: "Seleccionar rango de precio"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                                            lineNumber: 404,
+                                                            lineNumber: 452,
                                                             columnNumber: 19
                                                         }, ("TURBOPACK compile-time value", void 0))
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                                        lineNumber: 403,
+                                                        lineNumber: 451,
                                                         columnNumber: 17
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectContent"], {
@@ -1142,7 +1202,7 @@ const ShopPageClient = ({ categories, brands })=>{
                                                                     children: "Rangos de precio"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                                                    lineNumber: 408,
+                                                                    lineNumber: 456,
                                                                     columnNumber: 21
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectItem"], {
@@ -1150,7 +1210,7 @@ const ShopPageClient = ({ categories, brands })=>{
                                                                     children: "Todos los precios"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                                                    lineNumber: 409,
+                                                                    lineNumber: 457,
                                                                     columnNumber: 21
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 priceRanges.map(([min, max])=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectItem"], {
@@ -1163,30 +1223,30 @@ const ShopPageClient = ({ categories, brands })=>{
                                                                         ]
                                                                     }, `${min}-${max}`, true, {
                                                                         fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                                                        lineNumber: 411,
+                                                                        lineNumber: 459,
                                                                         columnNumber: 23
                                                                     }, ("TURBOPACK compile-time value", void 0)))
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                                            lineNumber: 407,
+                                                            lineNumber: 455,
                                                             columnNumber: 19
                                                         }, ("TURBOPACK compile-time value", void 0))
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                                        lineNumber: 406,
+                                                        lineNumber: 454,
                                                         columnNumber: 17
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                                lineNumber: 390,
+                                                lineNumber: 438,
                                                 columnNumber: 15
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                        lineNumber: 373,
+                                        lineNumber: 421,
                                         columnNumber: 13
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1199,7 +1259,7 @@ const ShopPageClient = ({ categories, brands })=>{
                                                         children: "Ordenar por"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                                        lineNumber: 422,
+                                                        lineNumber: 470,
                                                         columnNumber: 17
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     sortOrder !== "newest" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -1211,13 +1271,13 @@ const ShopPageClient = ({ categories, brands })=>{
                                                         children: "Resetear"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                                        lineNumber: 426,
+                                                        lineNumber: 474,
                                                         columnNumber: 19
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                                lineNumber: 421,
+                                                lineNumber: 469,
                                                 columnNumber: 15
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Select"], {
@@ -1234,12 +1294,12 @@ const ShopPageClient = ({ categories, brands })=>{
                                                             placeholder: "Ordenar por"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                                            lineNumber: 446,
+                                                            lineNumber: 494,
                                                             columnNumber: 19
                                                         }, ("TURBOPACK compile-time value", void 0))
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                                        lineNumber: 445,
+                                                        lineNumber: 493,
                                                         columnNumber: 17
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectContent"], {
@@ -1249,7 +1309,7 @@ const ShopPageClient = ({ categories, brands })=>{
                                                                 children: "Mas reciente"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                                                lineNumber: 449,
+                                                                lineNumber: 497,
                                                                 columnNumber: 19
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectItem"], {
@@ -1257,7 +1317,7 @@ const ShopPageClient = ({ categories, brands })=>{
                                                                 children: "Precio: Bajo a Alto"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                                                lineNumber: 450,
+                                                                lineNumber: 498,
                                                                 columnNumber: 19
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectItem"], {
@@ -1265,50 +1325,50 @@ const ShopPageClient = ({ categories, brands })=>{
                                                                 children: "Precio: Alto a Bajo"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                                                lineNumber: 451,
+                                                                lineNumber: 499,
                                                                 columnNumber: 19
                                                             }, ("TURBOPACK compile-time value", void 0))
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                                        lineNumber: 448,
+                                                        lineNumber: 496,
                                                         columnNumber: 17
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                                lineNumber: 437,
+                                                lineNumber: 485,
                                                 columnNumber: 15
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                        lineNumber: 420,
+                                        lineNumber: 468,
                                         columnNumber: 13
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                lineNumber: 266,
+                                lineNumber: 303,
                                 columnNumber: 11
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                        lineNumber: 250,
+                        lineNumber: 287,
                         columnNumber: 9
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "bg-babyshopWhite p-5 rounded-md w-full border",
                         children: loading ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$skeleton$2f$ShopSkeleton$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                             fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                            lineNumber: 459,
+                            lineNumber: 507,
                             columnNumber: 13
                         }, ("TURBOPACK compile-time value", void 0)) : products?.length > 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "w-full",
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-3",
+                                    className: "grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-5",
                                     children: products?.map((product, index)=>{
                                         const isNewlyLoaded = newlyLoadedProducts.some((newProduct)=>newProduct._id === product._id);
                                         return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1320,18 +1380,18 @@ const ShopPageClient = ({ categories, brands })=>{
                                                 product: product
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                                lineNumber: 481,
+                                                lineNumber: 529,
                                                 columnNumber: 23
                                             }, ("TURBOPACK compile-time value", void 0))
                                         }, `${product?._id}-${index}`, false, {
                                             fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                            lineNumber: 468,
+                                            lineNumber: 516,
                                             columnNumber: 21
                                         }, ("TURBOPACK compile-time value", void 0));
                                     })
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                    lineNumber: 462,
+                                    lineNumber: 510,
                                     columnNumber: 15
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 hasMoreProducts && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1346,17 +1406,17 @@ const ShopPageClient = ({ categories, brands })=>{
                                             size: 20
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                            lineNumber: 495,
+                                            lineNumber: 543,
                                             columnNumber: 23
                                         }, ("TURBOPACK compile-time value", void 0)) : "Load More Products"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                        lineNumber: 488,
+                                        lineNumber: 536,
                                         columnNumber: 19
                                     }, ("TURBOPACK compile-time value", void 0))
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                    lineNumber: 487,
+                                    lineNumber: 535,
                                     columnNumber: 17
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 !hasMoreProducts && products.length > 0 && total > 0 && !loadingMore && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1367,7 +1427,7 @@ const ShopPageClient = ({ categories, brands })=>{
                                             children: "🎉 Has visto todo! No hay más productos para mostrar."
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                            lineNumber: 507,
+                                            lineNumber: 555,
                                             columnNumber: 21
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1379,43 +1439,43 @@ const ShopPageClient = ({ categories, brands })=>{
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                            lineNumber: 510,
+                                            lineNumber: 558,
                                             columnNumber: 21
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                                    lineNumber: 506,
+                                    lineNumber: 554,
                                     columnNumber: 19
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                            lineNumber: 461,
+                            lineNumber: 509,
                             columnNumber: 13
                         }, ("TURBOPACK compile-time value", void 0)) : !loading && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$pages$2f$product$2f$EmptyListDesign$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                             message: "No hay productos que coincidan con tus filtros seleccionados.",
                             resetFilters: resetAllFilters
                         }, void 0, false, {
                             fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                            lineNumber: 518,
+                            lineNumber: 566,
                             columnNumber: 15
                         }, ("TURBOPACK compile-time value", void 0))
                     }, void 0, false, {
                         fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                        lineNumber: 457,
+                        lineNumber: 505,
                         columnNumber: 9
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-                lineNumber: 249,
+                lineNumber: 286,
                 columnNumber: 7
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
-        lineNumber: 220,
+        lineNumber: 257,
         columnNumber: 5
     }, ("TURBOPACK compile-time value", void 0));
 };

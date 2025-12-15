@@ -32,10 +32,10 @@ const ProductCard = ({ product }: { product: Product }) => {
   const imageUrl = getFirstImageUrl();
 
   return (
-    <div className="border rounded-md group overflow-hidden w-full relative">
+    <div className="border border-gray-200 rounded-lg group overflow-hidden w-full relative bg-white transition-shadow duration-300 hover:shadow-lg">
       <Link
         href={`/product/${product?._id}`}
-        className="p-2 overflow-hidden relative block"
+        className="overflow-hidden relative block bg-gray-50"
       >
         {imageUrl && !imageError ? (
           <Image
@@ -45,35 +45,39 @@ const ProductCard = ({ product }: { product: Product }) => {
             height={500}
             loading="eager"
             priority
-            className="w-full h-32 object-cover group-hover:scale-110 hoverEffect"
+            className="w-full h-48 sm:h-60 object-contain p-4 group-hover:scale-110 hoverEffect transition-transform duration-300 ease-in-out mix-blend-multiply"
             onError={() => setImageError(true)}
           />
         ) : (
-          <div className="w-full h-32 bg-gray-100 flex items-center justify-center">
+          <div className="w-full h-48 sm:h-60 bg-gray-50 flex items-center justify-center">
             {/* Show a placeholder if image missing or error */}
-            <div className="text-4xl">🛍️</div>
+            <div className="text-4xl opacity-50">🛍️</div>
           </div>
         )}
         <DiscountBadge
           price={product?.price}
           comparePrice={product?.comparePrice}
           discountPercentage={product?.discountPercentage}
-          className="absolute top-4 left-2"
+          className="absolute top-2 left-2 shadow-sm"
         />
       </Link>
       {/* Wishlist button */}
-      <hr />
-      <div className="px-4 py-2 space-y-1">
-        <p className="uppercase text-xs font-medium text-gray-500">
+      <hr className="border-gray-100" />
+      <div className="p-4 space-y-2">
+        <p className="uppercase text-xs font-semibold text-gray-500 tracking-wider">
           {product?.category?.name}
         </p>
-        <p className="line-clamp-2 text-sm h-10">{product?.name}</p>
+        <p className="line-clamp-2 text-base font-medium text-gray-900 h-10 leading-snug group-hover:text-black transition-colors">
+          {product?.name}
+        </p>
         <PriceContainer
           price={product?.price}
           comparePrice={product?.comparePrice}
           discountPercentage={product?.discountPercentage}
         />
-        <AddToCartButton product={product} />
+        <div className="pt-2">
+          <AddToCartButton product={product} />
+        </div>
       </div>
     </div>
   );

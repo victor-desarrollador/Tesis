@@ -67,6 +67,16 @@ import { motion } from "framer-motion";
 
 type FormData = z.infer<typeof categorySchema>;
 
+const VALID_CATEGORIES = [
+    "Perfumería",
+    "Maquillaje",
+    "Cuidado para el Hombre",
+    "Cuidado Diario",
+    "Cabello",
+    "Accesorios de Damas",
+    "Otros"
+];
+
 const Categories = () => {
     const [categories, setCategories] = useState<Category[]>([]);
     const [total, setTotal] = useState(0);
@@ -92,7 +102,7 @@ const Categories = () => {
             name: "",
             description: "",
             image: "",
-            parent: "",
+            categoryType: "" as any,
         },
     });
 
@@ -102,7 +112,7 @@ const Categories = () => {
             name: "",
             description: "",
             image: "",
-            parent: "",
+            categoryType: "" as any,
         },
     });
 
@@ -164,7 +174,7 @@ const Categories = () => {
             name: category.name,
             description: category.description || "",
             image: getImageUrl(category.image),
-            parent: category.parent || "",
+            categoryType: (category.categoryType as any) || "",
         });
         setIsEditModalOpen(true);
     };
@@ -237,11 +247,17 @@ const Categories = () => {
         setPage(1);
     };
 
-    const parentCategories = categories.filter(cat => !cat.parent);
-    const getCategoryName = (categoryId: string | null | undefined) => {
-        if (!categoryId) return "—";
-        const cat = categories.find(c => c._id === categoryId);
-        return cat?.name || "Desconocida";
+    const getCategoryColor = (type: string) => {
+        switch (type) {
+            case "Perfumería": return "bg-purple-100 text-purple-800 border-purple-200";
+            case "Maquillaje": return "bg-pink-100 text-pink-800 border-pink-200";
+            case "Cuidado para el Hombre": return "bg-blue-100 text-blue-800 border-blue-200";
+            case "Cuidado Diario": return "bg-emerald-100 text-emerald-800 border-emerald-200";
+            case "Cabello": return "bg-amber-100 text-amber-800 border-amber-200";
+            case "Accesorios de Damas": return "bg-rose-100 text-rose-800 border-rose-200";
+            case "Otros": return "bg-slate-100 text-slate-800 border-slate-200";
+            default: return "bg-gray-100 text-gray-800 border-gray-200";
+        }
     };
 
     return (
@@ -251,7 +267,7 @@ const Categories = () => {
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
                     <div>
                         <h1 className="text-3xl font-bold tracking-tight text-gray-900">Categorías</h1>
-                        <p className="mt-1 text-muted-foreground">Gestiona y organiza el catálogo jerárquico de categorías.</p>
+                        <p className="mt-1 text-muted-foreground">Gestiona y organiza el catálogo de categorías.</p>
                     </div>
                     <div className="flex items-center gap-3">
                         <Button
@@ -305,7 +321,7 @@ const Categories = () => {
                                 <TableRow>
                                     <TableHead className="w-[100px] font-semibold text-gray-700 pl-6">Imagen</TableHead>
                                     <TableHead className="font-semibold text-gray-700">Nombre</TableHead>
-                                    <TableHead className="font-semibold text-gray-700">Categoría Padre</TableHead>
+                                    <TableHead className="font-semibold text-gray-700">Tipo</TableHead>
                                     <TableHead className="font-semibold text-gray-700">Descripción</TableHead>
                                     {isAdmin && (
                                         <TableHead className="text-right font-semibold text-gray-700 pr-6">Acciones</TableHead>
@@ -330,7 +346,11 @@ const Categories = () => {
                                                 </div>
                                             </TableCell>
                                             <TableCell className="font-medium text-gray-900">{category.name}</TableCell>
-                                            <TableCell className="text-gray-600">{getCategoryName(category.parent)}</TableCell>
+                                            <TableCell className="text-gray-600">
+                                                <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${getCategoryColor(category.categoryType)}`}>
+                                                    {category.categoryType}
+                                                </span>
+                                            </TableCell>
                                             <TableCell className="text-gray-500 max-w-xs truncate">
                                                 {category.description || "—"}
                                             </TableCell>
@@ -419,12 +439,34 @@ const Categories = () => {
                                 <form onSubmit={formAdd.handleSubmit(handleAddCategory)} className="space-y-6">
                                     <FormField
                                         control={formAdd.control}
+                                        name="categoryType"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel className="text-gray-700 font-medium">Tipo de Categoría</FormLabel>
+                                                <Select onValueChange={field.onChange} value={field.value} disabled={formLoading}>
+                                                    <FormControl>
+                                                        <SelectTrigger className="h-11 bg-gray-50 border-gray-200">
+                                                            <SelectValue placeholder="Selecciona el tipo" />
+                                                        </SelectTrigger>
+                                                    </FormControl>
+                                                    <SelectContent>
+                                                        {VALID_CATEGORIES.map((type) => (
+                                                            <SelectItem key={type} value={type}>{type}</SelectItem>
+                                                        ))}
+                                                    </SelectContent>
+                                                </Select>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+                                    <FormField
+                                        control={formAdd.control}
                                         name="name"
                                         render={({ field }) => (
                                             <FormItem>
                                                 <FormLabel className="text-gray-700 font-medium">Nombre</FormLabel>
                                                 <FormControl>
-                                                    <Input {...field} disabled={formLoading} className="h-11 bg-gray-50 border-gray-200 focus:bg-white transition-colors" placeholder="Ej. Electrónica" />
+                                                    <Input {...field} disabled={formLoading} className="h-11 bg-gray-50 border-gray-200 focus:bg-white transition-colors" placeholder="Ej. Labiales Mate" />
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>
@@ -443,30 +485,6 @@ const Categories = () => {
                                             </FormItem>
                                         )}
                                     />
-                                    {parentCategories.length > 0 && (
-                                        <FormField
-                                            control={formAdd.control}
-                                            name="parent"
-                                            render={({ field }) => (
-                                                <FormItem>
-                                                    <FormLabel className="text-gray-700 font-medium">Categoría Padre (Opcional)</FormLabel>
-                                                    <Select onValueChange={field.onChange} value={field.value} disabled={formLoading}>
-                                                        <FormControl>
-                                                            <SelectTrigger className="h-11 bg-gray-50 border-gray-200">
-                                                                <SelectValue placeholder="Selecciona una categoría padre" />
-                                                            </SelectTrigger>
-                                                        </FormControl>
-                                                        <SelectContent>
-                                                            {parentCategories.map((cat) => (
-                                                                <SelectItem key={cat._id} value={cat._id}>{cat.name}</SelectItem>
-                                                            ))}
-                                                        </SelectContent>
-                                                    </Select>
-                                                    <FormMessage />
-                                                </FormItem>
-                                            )}
-                                        />
-                                    )}
                                     <FormField
                                         control={formAdd.control}
                                         name="image"
@@ -527,6 +545,28 @@ const Categories = () => {
                                 <form onSubmit={formEdit.handleSubmit(handleUpdateCategory)} className="space-y-6">
                                     <FormField
                                         control={formEdit.control}
+                                        name="categoryType"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel className="text-gray-700 font-medium">Tipo de Categoría</FormLabel>
+                                                <Select onValueChange={field.onChange} value={field.value} disabled={formLoading}>
+                                                    <FormControl>
+                                                        <SelectTrigger className="h-11 bg-gray-50 border-gray-200">
+                                                            <SelectValue placeholder="Selecciona el tipo" />
+                                                        </SelectTrigger>
+                                                    </FormControl>
+                                                    <SelectContent>
+                                                        {VALID_CATEGORIES.map((type) => (
+                                                            <SelectItem key={type} value={type}>{type}</SelectItem>
+                                                        ))}
+                                                    </SelectContent>
+                                                </Select>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+                                    <FormField
+                                        control={formEdit.control}
                                         name="name"
                                         render={({ field }) => (
                                             <FormItem>
@@ -551,30 +591,6 @@ const Categories = () => {
                                             </FormItem>
                                         )}
                                     />
-                                    {parentCategories.filter(cat => cat._id !== selectedCategory?._id).length > 0 && (
-                                        <FormField
-                                            control={formEdit.control}
-                                            name="parent"
-                                            render={({ field }) => (
-                                                <FormItem>
-                                                    <FormLabel className="text-gray-700 font-medium">Categoría Padre (Opcional)</FormLabel>
-                                                    <Select onValueChange={field.onChange} value={field.value} disabled={formLoading}>
-                                                        <FormControl>
-                                                            <SelectTrigger className="h-11 bg-gray-50 border-gray-200">
-                                                                <SelectValue placeholder="Selecciona una categoría padre" />
-                                                            </SelectTrigger>
-                                                        </FormControl>
-                                                        <SelectContent>
-                                                            {parentCategories.filter(cat => cat._id !== selectedCategory?._id).map((cat) => (
-                                                                <SelectItem key={cat._id} value={cat._id}>{cat.name}</SelectItem>
-                                                            ))}
-                                                        </SelectContent>
-                                                    </Select>
-                                                    <FormMessage />
-                                                </FormItem>
-                                            )}
-                                        />
-                                    )}
                                     <FormField
                                         control={formEdit.control}
                                         name="image"

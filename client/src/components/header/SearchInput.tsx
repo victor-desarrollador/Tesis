@@ -11,8 +11,14 @@ import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 
 interface ProductsResponse {
-  products: Product[];
-  total: number;
+  success: boolean;
+  data: Product[];
+  pagination: {
+    total: number;
+    pages: number;
+    page: number;
+    limit: number;
+  };
 }
 
 const SearchInput = () => {
@@ -30,7 +36,7 @@ const SearchInput = () => {
   const fetchFeaturedProducts = async () => {
     try {
       const response = await fetchData<ProductsResponse>("/products");
-      setFeaturedProducts(response.products);
+      setFeaturedProducts(response.data);
     } catch (error) {
       console.error("Error al obtener productos destacados:", error);
     }
@@ -52,7 +58,7 @@ const SearchInput = () => {
       const response = await fetchData<ProductsResponse>(
         `/products?page=1&limit=10&search=${encodeURIComponent(searchTerm)}`
       );
-      setProducts(response.products);
+      setProducts(response.data);
     } catch (error) {
       setError("Error al buscar productos. Inténtelo nuevamente.");
       console.error("Error buscando productos:", error);
@@ -212,11 +218,11 @@ const SearchInput = () => {
                               )}
                               {(product.category?.name ||
                                 product.brand?.name) && (
-                                <p className="text-sm text-babyshopTextLight">
-                                  {product.category?.name || "Sin categoría"} -{" "}
-                                  {product.brand?.name || "Sin marca"}
-                                </p>
-                              )}
+                                  <p className="text-sm text-babyshopTextLight">
+                                    {product.category?.name || "Sin categoría"} -{" "}
+                                    {product.brand?.name || "Sin marca"}
+                                  </p>
+                                )}
                             </div>
                           </Link>
                         </div>

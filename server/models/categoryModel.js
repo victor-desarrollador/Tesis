@@ -1,76 +1,40 @@
 import mongoose from "mongoose";
 
-/**
- * Schema de Categorías
- * Soporta categorías jerárquicas (parent-child) y gestión de imágenes
- */
 const categorySchema = mongoose.Schema(
   {
     name: {
       type: String,
-      required: [true, 'El nombre de la categoría es obligatorio'],
+      required: true,
       unique: true,
-      trim: true,
-      maxlength: [100, 'El nombre no puede exceder 100 caracteres'],
     },
     slug: {
       type: String,
       unique: true,
-      lowercase: true,
-    },
-    description: {
-      type: String,
-      trim: true,
-      maxlength: [500, 'La descripción no puede exceder 500 caracteres'],
+      required: true,
     },
     image: {
-      url: {
-        type: String,
-        default: '',
-      },
-      publicId: {
-        type: String,
-        default: '',
-      },
+      type: String,
+      required: false, // Image is optional
     },
-    parent: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Category',
-      default: null, // null = categoría raíz
+    categoryType: {
+      type: String,
+      required: true,
+      enum: [
+        "Perfumería",
+        "Maquillaje",
+        "Cuidado para el Hombre",
+        "Cuidado Diario",
+        "Cabello",
+        "Accesorios de Damas",
+        "Otros"
+      ], // Mandatory with specific values
     },
-    isActive: {
-      type: Boolean,
-      default: true,
-    },
-    // Eliminamos categoryType para evitar restricciones artificiales.
-    // Las secciones de marketing (Ofertas, Destacados) se manejan con flags en el Producto.
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+  }
 );
 
-/**
- * Middleware Pre-Save: Generación automática de slug
- * Convierte el nombre en un slug URL-friendly
- */
-categorySchema.pre('save', function (next) {
-  if (!this.slug || this.isModified('name')) {
-    this.slug = this.name
-      .toLowerCase()
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '') // Eliminar acentos
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/(^-|-$)/g, '');
-  }
-  next();
-});
-
-/**
- * Índices para búsquedas optimizadas
- */
-categorySchema.index({ name: 'text' });
-categorySchema.index({ parent: 1 });
-categorySchema.index({ isActive: 1 });
-
-const Category = mongoose.model('Category', categorySchema);
+const Category = mongoose.model("Category", categorySchema);
 
 export default Category;
