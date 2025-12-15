@@ -8,16 +8,19 @@
 @theme inline {
   /* Custom Colors Start */
 
- --color-babyshopSky: #3A4ED3;         /* Nuevo primario elegante */
-  --color-babyshopBlack: #1A1A1A;       /* Negro suave, más premium */
-  --color-babyshopWhite: #FFFFFF;       /* Blanco */
-  --color-babyShopLightWhite: #F5F7FB;  /* Gris moderno y limpio */
-
-  --color-babyshopRed: #FFB43B;         /* Nuevo secundario (dorado/naranja alegre) */
-  --color-babyshopTextLight: #4A4A4A;   /* Texto gris moderno */
-
-  --color-babyshopPurple: #54D6BB;      /* Acento moderno agua */
-  --color-babyshopLightBg: #F6D7F7;     /* Fondo pastel suave y elegante */
+  /* Custom Colors Start - Tienda L&V Palette */
+  --color-tiendaLVPrimary: #E6B7C6;
+  /* Nude Rosado (Principal - Femenino y Elegante) */
+  --color-tiendaLVSecondary: #C9A24D;
+  /* Champagne/Dorado (Secundario - Premium) */
+  --color-tiendaLVAccent: #1E1E1E;
+  /* Negro Suave (Acentos) */
+  --color-tiendaLVText: #3B2F2F;
+  /* Marrón Oscuro (Texto Principal - Legibilidad y calidez) */
+  --color-tiendaLVLight: #FFFDF9;
+  /* Blanco Crema (Fondos - Cálido) */
+  --color-tiendaLVSoft: #FFF0F5;
+  /* Rosa muy suave (Alternativa de fondo) */
 
   /* Custom Colors End */
   --radius-sm: calc(var(--radius) - 4px);
@@ -130,12 +133,15 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
+
   .hoverEffect {
     @apply ease-in-out duration-300;
   }
+
   button {
     @apply hover:cursor-pointer;
   }

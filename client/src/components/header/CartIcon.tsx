@@ -16,10 +16,10 @@ const CartIcon = () => {
     return (
       <Link
         href={"/user/cart"}
-        className="relative hover:text-babyshopSky hoverEffect"
+        className="relative hover:text-tiendaLVPrimary hoverEffect"
       >
         <ShoppingBag />
-        <span className="absolute -right-2 -top-2 bg-babyshopSky text-babyshopWhite text-[11px] font-medium w-4 h-4 rounded-full flex items-center justify-center">
+        <span className="absolute -right-2 -top-2 bg-tiendaLVPrimary text-tiendaLVLight text-[11px] font-medium w-4 h-4 rounded-full flex items-center justify-center">
           0
         </span>
       </Link>
@@ -31,10 +31,10 @@ const CartIcon = () => {
   return (
     <Link
       href={"/user/cart"}
-      className="relative hover:text-babyshopSky hoverEffect"
+      className="relative hover:text-tiendaLVPrimary hoverEffect"
     >
       <ShoppingBag size={24} />
-      <span className="absolute -right-2 -top-2 bg-babyshopSky text-babyshopWhite text-[11px] font-medium w-4 h-4 rounded-full flex items-center justify-center">
+      <span className="absolute -right-2 -top-2 bg-tiendaLVPrimary text-tiendaLVLight text-[11px] font-medium w-4 h-4 rounded-full flex items-center justify-center">
         {totalItems > 99 ? "99+" : totalItems}
       </span>
     </Link>

@@ -12,7 +12,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$b
 ;
 const EmptyListDesign = ({ message, resetFilters })=>{
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "py-10 flex flex-col items-center justify-center w-96 min-h-[400px] bg-babyshopWhite rounded-lg border",
+        className: "py-10 flex flex-col items-center justify-center w-96 min-h-[400px] bg-tiendaLVLight rounded-lg border",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "mb-6",
@@ -72,7 +72,7 @@ const EmptyListDesign = ({ message, resetFilters })=>{
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
                 onClick: resetFilters,
-                className: "px-6 py-2 bg-blue-600 text-white hover:bg-blue-700",
+                className: "px-6 py-2 bg-tiendaLVPrimary text-tiendaLVLight hover:bg-tiendaLVPrimary/90",
                 children: "Restablecer filtros"
             }, void 0, false, {
                 fileName: "[project]/src/components/common/pages/product/EmptyListDesign.tsx",
@@ -161,7 +161,7 @@ const PriceFormatter = ({ amount, className })=>{
         maximumFractionDigits: 2
     });
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-        className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["cn"])("text-sm font-semibold text-babyshopRed", className),
+        className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["cn"])("text-sm font-semibold text-tiendaLVSecondary", className),
         children: formattedPrice
     }, void 0, false, {
         fileName: "[project]/src/components/common/PriceFormatter.tsx",
@@ -468,7 +468,7 @@ const ShopSkeleton = ()=>{
             columnNumber: 5
         }, ("TURBOPACK compile-time value", void 0)));
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 w-full bg-babyshopWhite",
+        className: "grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 w-full bg-tiendaLVLight",
         children: skeletonCards
     }, void 0, false, {
         fileName: "[project]/src/components/skeleton/ShopSkeleton.tsx",
@@ -769,7 +769,7 @@ const ShopPageClient = ({ categories, brands })=>{
                                 columnNumber: 11
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                className: "text-babyshopBlack/70 fiont-medium",
+                                className: "text-tiendaLVAccent/70 fiont-medium",
                                 children: loading ? "Cargando" : `Mostrando ${products?.length} de ${total} productos`
                             }, void 0, false, {
                                 fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
@@ -822,7 +822,7 @@ const ShopPageClient = ({ categories, brands })=>{
                 className: "flex flex-col md:flex-row gap-5",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "p-5 bg-babyshopWhite w-full md:max-w-64 min-w-60 rounded-lg border",
+                        className: "p-5 bg-tiendaLVLight w-full md:max-w-64 min-w-60 rounded-lg border",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "md:hidden",
@@ -1306,7 +1306,7 @@ const ShopPageClient = ({ categories, brands })=>{
                                                         children: [
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectItem"], {
                                                                 value: "newest",
-                                                                children: "Mas reciente"
+                                                                children: "Más reciente"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
                                                                 lineNumber: 497,
@@ -1359,7 +1359,7 @@ const ShopPageClient = ({ categories, brands })=>{
                         columnNumber: 9
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "bg-babyshopWhite p-5 rounded-md w-full border",
+                        className: "bg-tiendaLVLight p-5 rounded-md w-full border",
                         children: loading ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$skeleton$2f$ShopSkeleton$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                             fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
                             lineNumber: 507,
@@ -1400,7 +1400,7 @@ const ShopPageClient = ({ categories, brands })=>{
                                         onClick: loadMoreProducts,
                                         disabled: loadingMore,
                                         variant: "outline",
-                                        className: "w-full rounded-sm hover:bg-babyshopSky hover:text-babyshopWhite hoverEffect py-5 mt-2",
+                                        className: "w-full rounded-sm hover:bg-tiendaLVPrimary hover:text-tiendaLVLight hoverEffect py-5 mt-2",
                                         children: loadingMore ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$loader$2d$circle$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Loader2$3e$__["Loader2"], {
                                             className: "animate-spin",
                                             size: 20
@@ -1408,7 +1408,7 @@ const ShopPageClient = ({ categories, brands })=>{
                                             fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
                                             lineNumber: 543,
                                             columnNumber: 23
-                                        }, ("TURBOPACK compile-time value", void 0)) : "Load More Products"
+                                        }, ("TURBOPACK compile-time value", void 0)) : "Cargar más productos"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/pages/shop/ShopPageClient.tsx",
                                         lineNumber: 536,

@@ -67,7 +67,7 @@ const PageBreadcrumb: React.FC<PageBreadcrumbProps> = ({
     }
   };
   return (
-    <div className="bg-babyshopWhite rounded-2xl border border-gray-100 shadow-sm p-4 mb-8">
+    <div className="bg-tiendaLVLight rounded-2xl border border-gray-100 shadow-sm p-4 mb-8">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2 text-sm text-gray-500">
           <Link href={"/"}>

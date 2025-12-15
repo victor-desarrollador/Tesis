@@ -19,7 +19,7 @@ const Header = () => {
   }, [verifyAuth]);
 
   return (
-    <header className="border-b sticky top-0 z-50 bg-babyshopWhite">
+    <header className="border-b sticky top-0 z-50 bg-tiendaLVLight">
       <TopHeader />
       <Container className="flex items-center justify-between gap-10 py-4">
         <div className="flex flex-1 items-center justify-between md:justify-start md:gap-12">

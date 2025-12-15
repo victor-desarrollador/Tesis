@@ -146,7 +146,7 @@ const HeaderLeftSideBar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
                       onClick={onClose}
                       className="flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-gray-50 transition-all duration-200 group text-gray-700 font-medium"
                     >
-                      <link.icon className={`w-5 h-5 ${link.color || "text-gray-400 group-hover:text-babyshopSky"} transition-colors`} />
+                      <link.icon className={`w-5 h-5 ${link.color || "text-gray-400 group-hover:text-tiendaLVPrimary"} transition-colors`} />
                       <span className="group-hover:translate-x-1 transition-transform">{link.label}</span>
                     </Link>
                   ))}
@@ -174,10 +174,10 @@ const HeaderLeftSideBar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
                               query: { category: category.name }, // Frontend expects name for initial search in ShopPageClient
                             }}
                             onClick={onClose}
-                            className="flex items-center justify-between px-3 py-2 rounded-lg text-gray-600 hover:text-babyshopSky hover:bg-sky-50 transition-all text-sm group"
+                            className="flex items-center justify-between px-3 py-2 rounded-lg text-gray-600 hover:text-tiendaLVPrimary hover:bg-sky-50 transition-all text-sm group"
                           >
                             <span>{category.name}</span>
-                            <ChevronRight size={14} className="opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all text-babyshopSky" />
+                            <ChevronRight size={14} className="opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all text-tiendaLVPrimary" />
                           </Link>
                         ))}
                       </div>
@@ -210,7 +210,7 @@ const HeaderLeftSideBar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
               {isAuthenticated && authUser ? (
                 <div className="space-y-3">
                   <div className="flex items-center gap-3 mb-4 p-3 bg-white rounded-xl shadow-sm border border-gray-100">
-                    <div className="bg-babyshopSky/10 p-2 rounded-full text-babyshopSky">
+                    <div className="bg-tiendaLVPrimary/10 p-2 rounded-full text-tiendaLVPrimary">
                       <UserCircle size={24} />
                     </div>
                     <div>
@@ -220,19 +220,19 @@ const HeaderLeftSideBar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
                   </div>
 
                   <nav className="grid grid-cols-2 gap-2">
-                    <Link href="/user/profile" onClick={onClose} className="flex flex-col items-center justify-center gap-1 p-2 bg-white rounded-lg border border-gray-100 hover:border-babyshopSky/50 hover:bg-sky-50/30 transition-all">
+                    <Link href="/user/profile" onClick={onClose} className="flex flex-col items-center justify-center gap-1 p-2 bg-white rounded-lg border border-gray-100 hover:border-tiendaLVPrimary/50 hover:bg-sky-50/30 transition-all">
                       <User size={18} className="text-gray-600" />
                       <span className="text-[10px] font-medium text-gray-600">Perfil</span>
                     </Link>
-                    <Link href="/user/orders" onClick={onClose} className="flex flex-col items-center justify-center gap-1 p-2 bg-white rounded-lg border border-gray-100 hover:border-babyshopSky/50 hover:bg-sky-50/30 transition-all">
+                    <Link href="/user/orders" onClick={onClose} className="flex flex-col items-center justify-center gap-1 p-2 bg-white rounded-lg border border-gray-100 hover:border-tiendaLVPrimary/50 hover:bg-sky-50/30 transition-all">
                       <Package size={18} className="text-gray-600" />
                       <span className="text-[10px] font-medium text-gray-600">Pedidos</span>
                     </Link>
-                    <Link href="/user/wishlist" onClick={onClose} className="flex flex-col items-center justify-center gap-1 p-2 bg-white rounded-lg border border-gray-100 hover:border-babyshopSky/50 hover:bg-sky-50/30 transition-all">
+                    <Link href="/user/wishlist" onClick={onClose} className="flex flex-col items-center justify-center gap-1 p-2 bg-white rounded-lg border border-gray-100 hover:border-tiendaLVPrimary/50 hover:bg-sky-50/30 transition-all">
                       <Heart size={18} className="text-gray-600" />
                       <span className="text-[10px] font-medium text-gray-600">Deseos</span>
                     </Link>
-                    <Link href="/user/cart" onClick={onClose} className="flex flex-col items-center justify-center gap-1 p-2 bg-white rounded-lg border border-gray-100 hover:border-babyshopSky/50 hover:bg-sky-50/30 transition-all">
+                    <Link href="/user/cart" onClick={onClose} className="flex flex-col items-center justify-center gap-1 p-2 bg-white rounded-lg border border-gray-100 hover:border-tiendaLVPrimary/50 hover:bg-sky-50/30 transition-all">
                       <ShoppingBag size={18} className="text-gray-600" />
                       <span className="text-[10px] font-medium text-gray-600">Carrito</span>
                     </Link>
@@ -264,7 +264,7 @@ const HeaderLeftSideBar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
                     Inicia sesión para acceder a tu cuenta y pedidos.
                   </p>
                   <Link href="/auth/signin" onClick={onClose} className="block">
-                    <Button className="w-full bg-babyshopBlack hover:bg-gray-800 text-white py-6 rounded-xl shadow-lg shadow-gray-200">
+                    <Button className="w-full bg-tiendaLVAccent hover:bg-gray-800 text-white py-6 rounded-xl shadow-lg shadow-gray-200">
                       Iniciar Sesión
                     </Button>
                   </Link>

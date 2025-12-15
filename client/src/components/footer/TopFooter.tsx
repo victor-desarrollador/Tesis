@@ -16,7 +16,7 @@ const TopFooter = () => {
             <h3 className="text-lg font-semibold capitalize mb-1.5">
               {item?.title}
             </h3>
-            <p className="font-medium text-babyshopBlack/60 leading-5">
+            <p className="font-medium text-tiendaLVAccent/60 leading-5">
               {item?.subTitle}
             </p>
           </div>

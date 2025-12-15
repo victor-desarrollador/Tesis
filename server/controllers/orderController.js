@@ -34,7 +34,7 @@ export const getOrderById = asyncHandler(async (req, res) => {
 // @route   POST /api/orders
 // @access  Private
 export const createOrderFromCart = asyncHandler(async (req, res) => {
-  const { items, shippingAddress } = req.body;
+  const { items, shippingAddress, deliveryMethod, paymentMethod } = req.body;
 
   // Validate that items are provided
   if (!items || !Array.isArray(items) || items.length === 0) {
@@ -42,17 +42,17 @@ export const createOrderFromCart = asyncHandler(async (req, res) => {
     throw new Error("Cart items are required");
   }
 
-  // Validate shipping address
-  if (
+  // Validate shipping address only if delivery method is shipping (default) or not specified
+  if ((!deliveryMethod || deliveryMethod === 'shipping') && (
     !shippingAddress ||
     !shippingAddress.street ||
     !shippingAddress.city ||
     !shippingAddress.country ||
     !shippingAddress.postalCode
-  ) {
+  )) {
     res.status(400);
     throw new Error(
-      "Shipping address is required with all fields (street, city, country, postalCode)"
+      "Shipping address is required for shipping orders (street, city, country, postalCode)"
     );
   }
 
@@ -82,7 +82,9 @@ export const createOrderFromCart = asyncHandler(async (req, res) => {
     items: validItems,
     total,
     status: "pending",
-    shippingAddress,
+    shippingAddress: deliveryMethod === 'pickup' ? undefined : shippingAddress,
+    deliveryMethod: deliveryMethod || 'shipping',
+    paymentMethod: paymentMethod || 'mercadopago',
   });
 
   res.status(201).json({
@@ -272,8 +274,8 @@ export const getAllOrdersAdmin = asyncHandler(async (req, res) => {
       order.status === "paid" || order.status === "completed"
         ? "paid"
         : order.status === "cancelled"
-        ? "failed"
-        : "pending",
+          ? "failed"
+          : "pending",
     shippingAddress: order.shippingAddress || {
       street: "N/A",
       city: "N/A",

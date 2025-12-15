@@ -9,13 +9,13 @@ interface Props {
   hrefTitle: string;
 }
 
-const SectionView = ({title, href, hrefTitle}:Props) => {
+const SectionView = ({ title, href, hrefTitle }: Props) => {
   return (
-      <div className="flex items-center gap-5 justify-between">
+    <div className="flex items-center gap-5 justify-between">
       <Title className="text-xl">{title}</Title>
       <Link
         href={href}
-        className="text-babyshopSky text-sm font-medium hover:text-babyshopRed hoverEffect"
+        className="text-tiendaLVPrimary text-sm font-medium hover:text-tiendaLVSecondary hoverEffect"
       >
         <p className="flex items-center gap-0.5">
           {hrefTitle} <ChevronRight size={18} />

@@ -15,10 +15,10 @@ const WishlistIcon = () => {
     return (
       <Link
         href={"/user/wishlist"}
-        className="relative hover:text-babyshopSky hoverEffect"
+        className="relative hover:text-tiendaLVPrimary hoverEffect"
       >
         <Heart size={24} />
-        <span className="absolute -right-2 -top-2 bg-babyshopSky text-babyshopWhite text-[11px] font-medium w-4 h-4 rounded-full flex items-center justify-center">
+        <span className="absolute -right-2 -top-2 bg-tiendaLVPrimary text-tiendaLVLight text-[11px] font-medium w-4 h-4 rounded-full flex items-center justify-center">
           0
         </span>
       </Link>
@@ -28,10 +28,10 @@ const WishlistIcon = () => {
   return (
     <Link
       href={"/user/wishlist"}
-      className="relative hover:text-babyshopSky hoverEffect"
+      className="relative hover:text-tiendaLVPrimary hoverEffect"
     >
       <Heart size={24} />
-      <span className="absolute -right-2 -top-2 bg-babyshopSky text-babyshopWhite text-[11px] font-medium w-4 h-4 rounded-full flex items-center justify-center">
+      <span className="absolute -right-2 -top-2 bg-tiendaLVPrimary text-tiendaLVLight text-[11px] font-medium w-4 h-4 rounded-full flex items-center justify-center">
         {wishlistItems?.length || 0}
       </span>
     </Link>

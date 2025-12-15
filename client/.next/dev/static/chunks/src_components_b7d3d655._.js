@@ -156,7 +156,7 @@ const CartSkeleton = ()=>{
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "xl:col-span-3",
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "bg-babyshopWhite rounded-2xl border border-gray-100 shadow-sm p-6",
+                            className: "bg-tiendaLVLight rounded-2xl border border-gray-100 shadow-sm p-6",
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     className: "hidden lg:grid grid-cols-12 gap-4 py-4 border-b border-gray-200 mb-6",
@@ -487,7 +487,7 @@ const CartSkeleton = ()=>{
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "xl:col-span-1",
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "bg-babyshopWhite rounded-2xl p-6 sticky top-4 border border-gray-100 shadow-sm",
+                            className: "bg-tiendaLVLight rounded-2xl p-6 sticky top-4 border border-gray-100 shadow-sm",
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$skeleton$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Skeleton"], {
                                     className: "h-6 w-24 mb-6"
@@ -679,7 +679,7 @@ const PageBreadcrumb = ({ items, currentPage, showSocialShare = false, shareData
         }
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "bg-babyshopWhite rounded-2xl border border-gray-100 shadow-sm p-4 mb-8",
+        className: "bg-tiendaLVLight rounded-2xl border border-gray-100 shadow-sm p-4 mb-8",
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
             className: "flex items-center justify-between",
             children: [
@@ -870,7 +870,7 @@ const PriceFormatter = ({ amount, className })=>{
         maximumFractionDigits: 2
     });
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-        className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["cn"])("text-sm font-semibold text-babyshopRed", className),
+        className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["cn"])("text-sm font-semibold text-tiendaLVSecondary", className),
         children: formattedPrice
     }, void 0, false, {
         fileName: "[project]/src/components/common/PriceFormatter.tsx",
@@ -1207,10 +1207,10 @@ const CartPageClient = ()=>{
     const handleRemoveItem = async (itemId)=>{
         try {
             await removeFromCart(itemId);
-            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$sonner$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].success("Artículo eliminado del carrito");
+            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$sonner$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].success("Producto eliminado del carrito");
         } catch (error) {
-            console.error("No se ha podido eliminar el artículo del carrito:", error);
-            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$sonner$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].error("No se ha podido eliminar el artículo del carrito");
+            console.error("Error al eliminar:", error);
+            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$sonner$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].error("No se pudo eliminar el producto");
         }
     };
     // Helper function to get product image safely
@@ -1237,8 +1237,8 @@ const CartPageClient = ()=>{
             await updateCartItemQuantity(itemId, newQuantity);
             __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$sonner$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].success("Cantidad actualizada");
         } catch (error) {
-            console.error("No se ha podido actualizar la cantidad:", error);
-            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$sonner$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].error("No se ha podido actualizar la cantidad");
+            console.error("Error al actualizar cantidad:", error);
+            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$sonner$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].error("No se pudo actualizar la cantidad");
         }
     };
     const handleClearCart = ()=>{
@@ -1249,10 +1249,10 @@ const CartPageClient = ()=>{
         try {
             await clearCart();
             setShowClearDialog(false);
-            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$sonner$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].success("Carrito vaciado");
+            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$sonner$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].success("Tu carrito ha sido vaciado");
         } catch (error) {
-            console.error("No se ha podido vaciar el carrito:", error);
-            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$sonner$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].error("No se ha podido vaciar el carrito");
+            console.error("Error al vaciar carrito:", error);
+            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$sonner$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].error("No se pudo vaciar el carrito");
         } finally{
             setIsLoading(false);
         }
@@ -1261,16 +1261,16 @@ const CartPageClient = ()=>{
         setIsCheckingOut(true);
         try {
             if (!auth_token) {
-                __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$sonner$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].error("Debe iniciar sesión para realizar un pedido.");
+                __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$sonner$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].error("Inicia sesión para finalizar tu compra");
                 setIsCheckingOut(false);
                 return;
             }
             // Redirect to checkout page with cart items
             router.push(`/user/checkout`);
-            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$sonner$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].success("Redirigiendo a la página de pago...");
+        // toast.success("Iniciando proceso de pago..."); // Optional, visually noisy if redirect is fast
         } catch (error) {
-            console.error("Error redirigiendo a la página de pago:", error);
-            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$sonner$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].error("Error redirigiendo a la página de pago. Por favor, intenta de nuevo.");
+            console.error("Checkout redirect error:", error);
+            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$sonner$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["toast"].error("Error al iniciar el pago. Intenta nuevamente.");
         } finally{
             setIsCheckingOut(false);
         }
@@ -1286,7 +1286,7 @@ const CartPageClient = ()=>{
         return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$Container$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
             className: "py-16",
             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "bg-babyshopWhite rounded-md border border-gray-200 shadow-sm p-8",
+                className: "bg-tiendaLVLight rounded-md border border-gray-200 shadow-sm p-8",
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "flex flex-col items-center justify-center min-h-[500px] text-center",
                     children: [
@@ -1306,7 +1306,7 @@ const CartPageClient = ()=>{
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
                             className: "text-3xl font-bold text-gray-900 mb-4",
-                            children: "Tu carrito está vacío."
+                            children: "Tu carrito está vacío"
                         }, void 0, false, {
                             fileName: "[project]/src/components/pages/CartPageClient.tsx",
                             lineNumber: 159,
@@ -1314,7 +1314,7 @@ const CartPageClient = ()=>{
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                             className: "text-gray-500 text-lg mb-8 max-w-md",
-                            children: "Puedes comprar todos los productos disponibles y comprar algunos en la tienda."
+                            children: "Explora nuestro catálogo y encuentra lo mejor para tu bebé."
                         }, void 0, false, {
                             fileName: "[project]/src/components/pages/CartPageClient.tsx",
                             lineNumber: 162,
@@ -1325,7 +1325,7 @@ const CartPageClient = ()=>{
                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
                                 size: "lg",
                                 className: "bg-black hover:bg-gray-800 text-white px-8 py-3 rounded-full font-medium",
-                                children: "Volver a la tienda"
+                                children: "Ir a la Tienda"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/pages/CartPageClient.tsx",
                                 lineNumber: 166,
@@ -1358,7 +1358,7 @@ const CartPageClient = ()=>{
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
                                             className: "font-semibold text-gray-900 mb-2",
-                                            children: "Selección de alta calidad"
+                                            children: "Calidad Premium"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/pages/CartPageClient.tsx",
                                             lineNumber: 180,
@@ -1366,7 +1366,7 @@ const CartPageClient = ()=>{
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                             className: "text-sm text-gray-600",
-                                            children: "Control total de calidad del producto para la tranquilidad"
+                                            children: "Productos seleccionados con los más altos estándares"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/pages/CartPageClient.tsx",
                                             lineNumber: 183,
@@ -1397,7 +1397,7 @@ const CartPageClient = ()=>{
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
                                             className: "font-semibold text-gray-900 mb-2",
-                                            children: "Precios asequibles"
+                                            children: "Mejores Precios"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/pages/CartPageClient.tsx",
                                             lineNumber: 191,
@@ -1405,7 +1405,7 @@ const CartPageClient = ()=>{
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                             className: "text-sm text-gray-600",
-                                            children: "Precios directos al fabricante para el mayor ahorro"
+                                            children: "Directo de fábrica para cuidar tu economía"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/pages/CartPageClient.tsx",
                                             lineNumber: 194,
@@ -1436,7 +1436,7 @@ const CartPageClient = ()=>{
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
                                             className: "font-semibold text-gray-900 mb-2",
-                                            children: "Envío Express"
+                                            children: "Envío Rápido"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/pages/CartPageClient.tsx",
                                             lineNumber: 202,
@@ -1444,7 +1444,7 @@ const CartPageClient = ()=>{
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                             className: "text-sm text-gray-600",
-                                            children: "Envío rápido y confiable desde almacén global"
+                                            children: "Entregas seguras y confiables a todo el país"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/pages/CartPageClient.tsx",
                                             lineNumber: 205,
@@ -1499,7 +1499,7 @@ const CartPageClient = ()=>{
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "mb-6",
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
-                    className: "text-3xl font-bold text-babyshopBlack",
+                    className: "text-3xl font-bold text-tiendaLVAccent",
                     children: "Mi Carrito"
                 }, void 0, false, {
                     fileName: "[project]/src/components/pages/CartPageClient.tsx",
@@ -1517,7 +1517,7 @@ const CartPageClient = ()=>{
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "lg:col-span-3",
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "bg-babyshopWhite rounded-md border border-gray-200 shadow-sm p-6",
+                            className: "bg-tiendaLVLight rounded-md border border-gray-200 shadow-sm p-6",
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     className: "hidden lg:grid grid-cols-12 gap-4 py-4 border-b border-gray-200 mb-6",
@@ -1828,7 +1828,7 @@ const CartPageClient = ()=>{
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                                                                             href: `/product/${cartItem.product._id}`,
                                                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                                                                className: "font-medium text-gray-900 mb-1 line-clamp-2 hover:text-babyshopSky hoverEffect",
+                                                                                className: "font-medium text-gray-900 mb-1 line-clamp-2 hover:text-tiendaLVPrimary hoverEffect",
                                                                                 children: cartItem?.product.name
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/components/pages/CartPageClient.tsx",
@@ -2033,7 +2033,7 @@ const CartPageClient = ()=>{
                         columnNumber: 9
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "lg:col-span-1 bg-babyshopWhite rounded-2xl border border-gray-100 shadow-sm p-6 h-fit",
+                        className: "lg:col-span-1 bg-tiendaLVLight rounded-2xl border border-gray-100 shadow-sm p-6 h-fit",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
                                 className: "text-xl font-bold text-gray-900 mb-6",
@@ -2192,7 +2192,7 @@ const CartPageClient = ()=>{
                                 size: "lg",
                                 onClick: handleCheckout,
                                 disabled: isCheckingOut || cartItemsWithQuantities?.length === 0,
-                                className: "w-full mt-6 bg-babyshopBlack hover:bg-gray-800 text-babyshopWhite rounded-full py-3 font-medium disabled:opacity-50 disabled:cursor-not-allowed",
+                                className: "w-full mt-6 bg-tiendaLVAccent hover:bg-gray-800 text-tiendaLVLight rounded-full py-3 font-medium disabled:opacity-50 disabled:cursor-not-allowed",
                                 children: isCheckingOut ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2280,7 +2280,7 @@ const CartPageClient = ()=>{
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$alert$2d$dialog$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AlertDialogCancel"], {
                                     onClick: confirmClearCart,
-                                    className: "bg-babyshopRed/80 hover:bg-babyshopRed hoverEffect text-babyshopWhite hover:text-babyshopWhite",
+                                    className: "bg-tiendaLVSecondary/80 hover:bg-tiendaLVSecondary hoverEffect text-tiendaLVLight hover:text-tiendaLVLight",
                                     children: "Sí, Limpiar carrito"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/pages/CartPageClient.tsx",

@@ -31,7 +31,7 @@ const CartSkeleton = () => {
       <div className="grid grid-cols-1 xl:grid-cols-4 gap-6 lg:gap-8">
         {/* Cart Items Section Skeleton */}
         <div className="xl:col-span-3">
-          <div className="bg-babyshopWhite rounded-2xl border border-gray-100 shadow-sm p-6">
+          <div className="bg-tiendaLVLight rounded-2xl border border-gray-100 shadow-sm p-6">
             {/* Table Header Skeleton - Desktop */}
             <div className="hidden lg:grid grid-cols-12 gap-4 py-4 border-b border-gray-200 mb-6">
               <div className="col-span-6">
@@ -112,7 +112,7 @@ const CartSkeleton = () => {
 
         {/* Cart Totals Skeleton */}
         <div className="xl:col-span-1">
-          <div className="bg-babyshopWhite rounded-2xl p-6 sticky top-4 border border-gray-100 shadow-sm">
+          <div className="bg-tiendaLVLight rounded-2xl p-6 sticky top-4 border border-gray-100 shadow-sm">
             <Skeleton className="h-6 w-24 mb-6" />
 
             <div className="space-y-4">

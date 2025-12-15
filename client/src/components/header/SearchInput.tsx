@@ -104,12 +104,12 @@ const SearchInput = () => {
       {/* Botón buscar en pantallas pequeñas */}
       <button
         onClick={toggleMobileSearch}
-        className="lg:hidden mt-1.5 border p-2 rounded-full hover:border-babyshopSky hover:bg-babyshopSky/10 group hoverEffect"
+        className="lg:hidden mt-1.5 border p-2 rounded-full hover:border-tiendaLVPrimary hover:bg-tiendaLVPrimary/10 group hoverEffect"
       >
         {showSearch ? (
-          <X className="w-5 h-5 text-babyshopBlack group-hover:text-babyshopRed hoverEffect" />
+          <X className="w-5 h-5 text-tiendaLVAccent group-hover:text-tiendaLVSecondary hoverEffect" />
         ) : (
-          <Search className="w-5 h-5 text-babyshopBlack group-hover:text-babyshopRed hoverEffect" />
+          <Search className="w-5 h-5 text-tiendaLVAccent group-hover:text-tiendaLVSecondary hoverEffect" />
         )}
       </button>
 
@@ -120,7 +120,7 @@ const SearchInput = () => {
       >
         <Input
           placeholder="Buscar productos..."
-          className="flex-1 rounded-md py-5 focus-visible:ring-0 focus-visible:border-babyshopRed bg-white text-babyshopText placeholder:font-semibold placeholder:tracking-wide pr-16"
+          className="flex-1 rounded-md py-5 focus-visible:ring-0 focus-visible:border-tiendaLVSecondary bg-white text-tiendaLVText placeholder:font-semibold placeholder:tracking-wide pr-16"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           onFocus={() => setShowResults(true)}
@@ -128,10 +128,10 @@ const SearchInput = () => {
         {search ? (
           <X
             onClick={() => setSearch("")}
-            className="w-5 h-5 absolute right-3 top-2.5 text-babyshopText hover:text-babyshopRed hoverEffect cursor-pointer"
+            className="w-5 h-5 absolute right-3 top-2.5 text-tiendaLVText hover:text-tiendaLVSecondary hoverEffect cursor-pointer"
           />
         ) : (
-          <Search className="absolute right-3 top-3 w-5 h-5 text-babyshopText" />
+          <Search className="absolute right-3 top-3 w-5 h-5 text-tiendaLVText" />
         )}
       </form>
 
@@ -150,7 +150,7 @@ const SearchInput = () => {
                 <Input
                   ref={mobileInputRef}
                   placeholder="Buscar productos..."
-                  className="w-full pr-16 py-5 rounded-md focus-visible:ring-0 focus-visible:border-babyshopRed bg-white text-babyshopText placeholder:font-semibold"
+                  className="w-full pr-16 py-5 rounded-md focus-visible:ring-0 focus-visible:border-tiendaLVSecondary bg-white text-tiendaLVText placeholder:font-semibold"
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   onFocus={() => setShowResults(true)}
@@ -158,10 +158,10 @@ const SearchInput = () => {
                 {search ? (
                   <X
                     onClick={() => setSearch("")}
-                    className="absolute right-4 w-5 h-5 text-babyshopText hover:text-babyshopRed hoverEffect cursor-pointer"
+                    className="absolute right-4 w-5 h-5 text-tiendaLVText hover:text-tiendaLVSecondary hoverEffect cursor-pointer"
                   />
                 ) : (
-                  <Search className="absolute right-4 w-5 h-5 text-babyshopText" />
+                  <Search className="absolute right-4 w-5 h-5 text-tiendaLVText" />
                 )}
               </div>
 
@@ -170,7 +170,7 @@ const SearchInput = () => {
                 <div className="mt-2 bg-white rounded-md shadow-lg overflow-y-auto border border-gray-200 max-h-[50vh]">
                   {loading ? (
                     <div className="flex items-center justify-center px-6 gap-2 py-4 text-center">
-                      <Loader2 className="w-5 h-5 animate-spin text-babyshopRed" />
+                      <Loader2 className="w-5 h-5 animate-spin text-tiendaLVSecondary" />
                       <span className="font-medium text-gray-600">
                         Buscando...
                       </span>
@@ -197,7 +197,7 @@ const SearchInput = () => {
                             className="flex items-center gap-3"
                           >
                             {product.image && (
-                              <div className="w-12 h-12 bg-gray-50 rounded flex-shrink-0 overflow-hidden">
+                              <div className="w-12 h-12 bg-gray-50 rounded shrink-0 overflow-hidden">
                                 <Image
                                   height={200}
                                   width={200}
@@ -212,13 +212,13 @@ const SearchInput = () => {
                                 {product.name}
                               </h3>
                               {product.price && (
-                                <p className="text-sm font-semibold text-babyshopSky mt-0.5">
+                                <p className="text-sm font-semibold text-tiendaLVPrimary mt-0.5">
                                   ${product.price}
                                 </p>
                               )}
                               {(product.category?.name ||
                                 product.brand?.name) && (
-                                  <p className="text-sm text-babyshopTextLight">
+                                  <p className="text-sm text-tiendaLVText">
                                     {product.category?.name || "Sin categoría"} -{" "}
                                     {product.brand?.name || "Sin marca"}
                                   </p>
@@ -234,7 +234,7 @@ const SearchInput = () => {
                             setShowResults(false);
                             setShowSearch(false);
                           }}
-                          className="text-sm text-babyshopSky font-medium hover:underline"
+                          className="text-sm text-tiendaLVPrimary font-medium hover:underline"
                         >
                           Ver todos los resultados
                         </Link>
@@ -250,7 +250,7 @@ const SearchInput = () => {
                         ) : (
                           <p className="text-sm font-medium text-gray-700">
                             No hay resultados para "
-                            <span className="text-babyshopRed">{search}</span>"
+                            <span className="text-tiendaLVSecondary">{search}</span>"
                           </p>
                         )}
                       </div>
@@ -269,7 +269,7 @@ const SearchInput = () => {
                                 }}
                                 className="flex items-center gap-3 w-full text-left px-4 py-3 hover:cursor-pointer"
                               >
-                                <Search className="text-babyshopText w-5 h-5" />
+                                <Search className="text-tiendaLVText w-5 h-5" />
                                 <div>
                                   <h3 className="text-sm font-medium text-gray-800 line-clamp-1">
                                     {item.name}
@@ -293,7 +293,7 @@ const SearchInput = () => {
         <div className="absolute top-full mt-1 left-0 right-0 bg-white rounded-md shadow-lg z-50 max-h-[70vh] overflow-y-auto border border-gray-200 hidden lg:block">
           {loading ? (
             <div className="flex items-center justify-center px-6 gap-2 py-4 text-center">
-              <Loader2 className="w-5 h-5 animate-spin text-babyshopRed" />
+              <Loader2 className="w-5 h-5 animate-spin text-tiendaLVSecondary" />
               <span className="font-medium text-gray-600">Buscando...</span>
             </div>
           ) : products?.length > 0 ? (
@@ -303,7 +303,7 @@ const SearchInput = () => {
                   Resultados ({products.length})
                 </p>
                 {error && (
-                  <p className="text-sm font-medium text-babyshopRed">
+                  <p className="text-sm font-medium text-tiendaLVSecondary">
                     {error}
                   </p>
                 )}
@@ -341,12 +341,12 @@ const SearchInput = () => {
                           {product.name}
                         </h3>
                         {product.price && (
-                          <p className="text-sm font-semibold text-babyshopSky mt-0.5">
+                          <p className="text-sm font-semibold text-tiendaLVPrimary mt-0.5">
                             ${product.price}
                           </p>
                         )}
                         {(product.category?.name || product.brand?.name) && (
-                          <p className="text-sm text-babyshopTextLight">
+                          <p className="text-sm text-tiendaLVText">
                             {product.category?.name || "Sin categoría"} -{" "}
                             {product.brand?.name || "Sin marca"}
                           </p>
@@ -365,7 +365,7 @@ const SearchInput = () => {
                   onClick={() => {
                     setShowResults(false);
                   }}
-                  className="text-sm text-babyshopSky font-medium hover:underline"
+                  className="text-sm text-tiendaLVPrimary font-medium hover:underline"
                 >
                   Ver todos los resultados
                 </Link>
@@ -381,7 +381,7 @@ const SearchInput = () => {
                 ) : (
                   <p className="text-sm font-medium text-gray-700">
                     No hay resultados para "
-                    <span className="text-babyshopRed">{search}</span>"
+                    <span className="text-tiendaLVSecondary">{search}</span>"
                   </p>
                 )}
               </div>
@@ -400,7 +400,7 @@ const SearchInput = () => {
                         }}
                         className="flex items-center gap-3 text-left px-4 py-3 hover:cursor-pointer"
                       >
-                        <Search className="text-babyshopBlack/60 w-5 h-5" />
+                        <Search className="text-tiendaLVAccent/60 w-5 h-5" />
                         <h3 className="text-sm font-medium text-gray-800 line-clamp-1">
                           {item.name}
                         </h3>

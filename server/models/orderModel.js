@@ -45,25 +45,32 @@ const orderSchema = new mongoose.Schema(
     },
     items: [orderItemSchema],
 
-    // Dirección de envío
+    // Método de entrega
+    deliveryMethod: {
+      type: String,
+      enum: ['shipping', 'pickup'],
+      default: 'shipping',
+    },
+
+    // Dirección de envío (Obligatorio si deliveryMethod es 'shipping', opcional si es 'pickup')
     shippingAddress: {
       street: {
         type: String,
-        required: true,
+        // required: true, // Manejado en validator/controller
       },
       city: {
         type: String,
-        required: true,
+        // required: true,
       },
       state: String,
       zipCode: String,
       country: {
         type: String,
-        required: true,
+        // required: true,
       },
       postalCode: {
         type: String,
-        required: true,
+        // required: true,
       },
       phone: String,
     },
@@ -156,19 +163,23 @@ orderSchema.pre('save', async function (next) {
   if (!this.orderNumber) {
     const year = new Date().getFullYear();
 
-    // Contar órdenes del año actual
-    const startOfYear = new Date(`${year}-01-01T00:00:00.000Z`);
-    const endOfYear = new Date(`${year + 1}-01-01T00:00:00.000Z`);
+    // Find the last order of the current year (based on orderNumber pattern)
+    // This is safer than counting documents because it accounts for deletions.
+    const lastOrder = await mongoose.model('Order').findOne({
+      orderNumber: { $regex: `^LV-${year}-` }
+    }).sort({ orderNumber: -1 });
 
-    const count = await mongoose.model('Order').countDocuments({
-      createdAt: {
-        $gte: startOfYear,
-        $lt: endOfYear,
-      },
-    });
+    let nextSequence = 1;
+    if (lastOrder && lastOrder.orderNumber) {
+      const parts = lastOrder.orderNumber.split('-');
+      const lastSequence = parseInt(parts[2], 10);
+      if (!isNaN(lastSequence)) {
+        nextSequence = lastSequence + 1;
+      }
+    }
 
-    // Formato: LV-2024-00001 (5 dígitos con ceros a la izquierda)
-    this.orderNumber = `LV-${year}-${String(count + 1).padStart(5, '0')}`;
+    // Format: LV-2024-00001 (5 digits with leading zeros)
+    this.orderNumber = `LV-${year}-${String(nextSequence).padStart(5, '0')}`;
   }
   next();
 });

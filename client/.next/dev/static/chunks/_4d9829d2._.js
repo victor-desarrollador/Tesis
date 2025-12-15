@@ -56,7 +56,7 @@ const PageBreadcrumb = ({ items, currentPage, showSocialShare = false, shareData
         }
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "bg-babyshopWhite rounded-2xl border border-gray-100 shadow-sm p-4 mb-8",
+        className: "bg-tiendaLVLight rounded-2xl border border-gray-100 shadow-sm p-4 mb-8",
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
             className: "flex items-center justify-between",
             children: [
@@ -247,7 +247,7 @@ const PriceFormatter = ({ amount, className })=>{
         maximumFractionDigits: 2
     });
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-        className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["cn"])("text-sm font-semibold text-babyshopRed", className),
+        className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["cn"])("text-sm font-semibold text-tiendaLVSecondary", className),
         children: formattedPrice
     }, void 0, false, {
         fileName: "[project]/src/components/common/PriceFormatter.tsx",
@@ -377,7 +377,7 @@ const OrdersPageClient = ()=>{
         return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$Container$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
             className: "min-h-[60vh] flex items-center justify-center",
             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$loader$2d$circle$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Loader2$3e$__["Loader2"], {
-                className: "w-8 h-8 animate-spin text-pink-500"
+                className: "w-8 h-8 animate-spin text-tiendaLVSecondary"
             }, void 0, false, {
                 fileName: "[project]/src/components/pages/OrdersPageClient.tsx",
                 lineNumber: 30,
@@ -432,17 +432,52 @@ const OrdersPageClient = ()=>{
         }, ("TURBOPACK compile-time value", void 0));
     }
     const getStatusColor = (status)=>{
-        switch(status){
+        const lowerStatus = status.toLowerCase();
+        switch(lowerStatus){
+            case "paid":
             case "pagado":
-                return "bg-green-100 text-green-800 hover:bg-green-200";
+                return "bg-green-100 text-green-800 border-green-200";
+            case "pending":
             case "pendiente":
-                return "bg-yellow-100 text-yellow-800 hover:bg-yellow-200";
+                return "bg-amber-100 text-amber-800 border-amber-200";
+            case "cancelled":
             case "cancelado":
-                return "bg-red-100 text-red-800 hover:bg-red-200";
+                return "bg-red-100 text-red-800 border-red-200";
+            case "processing":
+            case "procesando":
+                return "bg-blue-100 text-blue-800 border-blue-200";
+            case "completed":
             case "completado":
-                return "bg-blue-100 text-blue-800 hover:bg-blue-200";
+                return "bg-emerald-100 text-emerald-800 border-emerald-200";
+            case "delivered":
+            case "entregado":
+                return "bg-purple-100 text-purple-800 border-purple-200";
+            case "shipped":
+            case "enviado":
+                return "bg-indigo-100 text-indigo-800 border-indigo-200";
             default:
-                return "bg-gray-100 text-gray-800";
+                return "bg-gray-100 text-gray-800 border-gray-200";
+        }
+    };
+    const getStatusLabel = (status)=>{
+        const lowerStatus = status.toLowerCase();
+        switch(lowerStatus){
+            case "paid":
+                return "Pagado";
+            case "pending":
+                return "Pendiente";
+            case "cancelled":
+                return "Cancelado";
+            case "processing":
+                return "Procesando";
+            case "completed":
+                return "Completado";
+            case "delivered":
+                return "Entregado";
+            case "shipped":
+                return "Enviado";
+            default:
+                return status;
         }
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$Container$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -458,7 +493,7 @@ const OrdersPageClient = ()=>{
                 currentPage: "Mis Pedidos"
             }, void 0, false, {
                 fileName: "[project]/src/components/pages/OrdersPageClient.tsx",
-                lineNumber: 59,
+                lineNumber: 91,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
@@ -466,7 +501,7 @@ const OrdersPageClient = ()=>{
                 children: "Mis Pedidos"
             }, void 0, false, {
                 fileName: "[project]/src/components/pages/OrdersPageClient.tsx",
-                lineNumber: 64,
+                lineNumber: 96,
                 columnNumber: 13
             }, ("TURBOPACK compile-time value", void 0)),
             orders && orders.length > 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -490,12 +525,12 @@ const OrdersPageClient = ()=>{
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/components/pages/OrdersPageClient.tsx",
-                                                    lineNumber: 74,
+                                                    lineNumber: 106,
                                                     columnNumber: 41
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/pages/OrdersPageClient.tsx",
-                                                lineNumber: 73,
+                                                lineNumber: 105,
                                                 columnNumber: 37
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -505,13 +540,13 @@ const OrdersPageClient = ()=>{
                                                 })
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/pages/OrdersPageClient.tsx",
-                                                lineNumber: 76,
+                                                lineNumber: 108,
                                                 columnNumber: 37
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/pages/OrdersPageClient.tsx",
-                                        lineNumber: 72,
+                                        lineNumber: 104,
                                         columnNumber: 33
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -525,7 +560,7 @@ const OrdersPageClient = ()=>{
                                                         children: "Total:"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/pages/OrdersPageClient.tsx",
-                                                        lineNumber: 83,
+                                                        lineNumber: 115,
                                                         columnNumber: 41
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$PriceFormatter$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -533,33 +568,33 @@ const OrdersPageClient = ()=>{
                                                         className: "text-lg"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/pages/OrdersPageClient.tsx",
-                                                        lineNumber: 84,
+                                                        lineNumber: 116,
                                                         columnNumber: 41
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/components/pages/OrdersPageClient.tsx",
-                                                lineNumber: 82,
+                                                lineNumber: 114,
                                                 columnNumber: 37
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$badge$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Badge"], {
-                                                className: `${getStatusColor(order.status)} border-0 px-3 py-1 capitalize`,
-                                                children: order.status
+                                                className: `${getStatusColor(order.status)} border px-3 py-1 capitalize shadow-sm`,
+                                                children: getStatusLabel(order.status)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/pages/OrdersPageClient.tsx",
-                                                lineNumber: 86,
+                                                lineNumber: 118,
                                                 columnNumber: 37
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/pages/OrdersPageClient.tsx",
-                                        lineNumber: 81,
+                                        lineNumber: 113,
                                         columnNumber: 33
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/pages/OrdersPageClient.tsx",
-                                lineNumber: 71,
+                                lineNumber: 103,
                                 columnNumber: 29
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -578,7 +613,7 @@ const OrdersPageClient = ()=>{
                                                         className: "object-cover"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/pages/OrdersPageClient.tsx",
-                                                        lineNumber: 99,
+                                                        lineNumber: 131,
                                                         columnNumber: 53
                                                     }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         className: "w-full h-full flex items-center justify-center text-gray-400",
@@ -586,17 +621,17 @@ const OrdersPageClient = ()=>{
                                                             size: 20
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/pages/OrdersPageClient.tsx",
-                                                            lineNumber: 107,
+                                                            lineNumber: 139,
                                                             columnNumber: 57
                                                         }, ("TURBOPACK compile-time value", void 0))
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/pages/OrdersPageClient.tsx",
-                                                        lineNumber: 106,
+                                                        lineNumber: 138,
                                                         columnNumber: 53
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/pages/OrdersPageClient.tsx",
-                                                    lineNumber: 97,
+                                                    lineNumber: 129,
                                                     columnNumber: 45
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -607,7 +642,7 @@ const OrdersPageClient = ()=>{
                                                             children: item.name
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/pages/OrdersPageClient.tsx",
-                                                            lineNumber: 112,
+                                                            lineNumber: 144,
                                                             columnNumber: 49
                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -618,13 +653,13 @@ const OrdersPageClient = ()=>{
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/src/components/pages/OrdersPageClient.tsx",
-                                                            lineNumber: 113,
+                                                            lineNumber: 145,
                                                             columnNumber: 49
                                                         }, ("TURBOPACK compile-time value", void 0))
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/components/pages/OrdersPageClient.tsx",
-                                                    lineNumber: 111,
+                                                    lineNumber: 143,
                                                     columnNumber: 45
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -634,39 +669,39 @@ const OrdersPageClient = ()=>{
                                                         className: "text-sm font-semibold"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/pages/OrdersPageClient.tsx",
-                                                        lineNumber: 116,
+                                                        lineNumber: 148,
                                                         columnNumber: 49
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/pages/OrdersPageClient.tsx",
-                                                    lineNumber: 115,
+                                                    lineNumber: 147,
                                                     columnNumber: 45
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, index, true, {
                                             fileName: "[project]/src/components/pages/OrdersPageClient.tsx",
-                                            lineNumber: 96,
+                                            lineNumber: 128,
                                             columnNumber: 41
                                         }, ("TURBOPACK compile-time value", void 0)))
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/pages/OrdersPageClient.tsx",
-                                    lineNumber: 94,
+                                    lineNumber: 126,
                                     columnNumber: 33
                                 }, ("TURBOPACK compile-time value", void 0))
                             }, void 0, false, {
                                 fileName: "[project]/src/components/pages/OrdersPageClient.tsx",
-                                lineNumber: 93,
+                                lineNumber: 125,
                                 columnNumber: 29
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, order._id, true, {
                         fileName: "[project]/src/components/pages/OrdersPageClient.tsx",
-                        lineNumber: 69,
+                        lineNumber: 101,
                         columnNumber: 25
                     }, ("TURBOPACK compile-time value", void 0)))
             }, void 0, false, {
                 fileName: "[project]/src/components/pages/OrdersPageClient.tsx",
-                lineNumber: 67,
+                lineNumber: 99,
                 columnNumber: 17
             }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "flex flex-col items-center justify-center py-16 bg-gray-50 rounded-md border border-dashed border-gray-200",
@@ -677,12 +712,12 @@ const OrdersPageClient = ()=>{
                             className: "w-10 h-10 text-gray-300"
                         }, void 0, false, {
                             fileName: "[project]/src/components/pages/OrdersPageClient.tsx",
-                            lineNumber: 134,
+                            lineNumber: 166,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0))
                     }, void 0, false, {
                         fileName: "[project]/src/components/pages/OrdersPageClient.tsx",
-                        lineNumber: 133,
+                        lineNumber: 165,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -690,7 +725,7 @@ const OrdersPageClient = ()=>{
                         children: "No tienes pedidos aún"
                     }, void 0, false, {
                         fileName: "[project]/src/components/pages/OrdersPageClient.tsx",
-                        lineNumber: 136,
+                        lineNumber: 168,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -698,34 +733,34 @@ const OrdersPageClient = ()=>{
                         children: "Parece que no has realizado ninguna compra todavía. ¡Explora nuestra tienda!"
                     }, void 0, false, {
                         fileName: "[project]/src/components/pages/OrdersPageClient.tsx",
-                        lineNumber: 137,
+                        lineNumber: 169,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                         href: "/shop",
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
-                            className: "rounded-full px-8 bg-black hover:bg-gray-800",
+                            className: "rounded-full px-8 bg-tiendaLVAccent hover:bg-tiendaLVAccent/90",
                             children: "Ir a la Tienda"
                         }, void 0, false, {
                             fileName: "[project]/src/components/pages/OrdersPageClient.tsx",
-                            lineNumber: 141,
+                            lineNumber: 173,
                             columnNumber: 25
                         }, ("TURBOPACK compile-time value", void 0))
                     }, void 0, false, {
                         fileName: "[project]/src/components/pages/OrdersPageClient.tsx",
-                        lineNumber: 140,
+                        lineNumber: 172,
                         columnNumber: 21
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/pages/OrdersPageClient.tsx",
-                lineNumber: 132,
+                lineNumber: 164,
                 columnNumber: 17
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/pages/OrdersPageClient.tsx",
-        lineNumber: 58,
+        lineNumber: 90,
         columnNumber: 9
     }, ("TURBOPACK compile-time value", void 0));
 };

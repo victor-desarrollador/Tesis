@@ -8,14 +8,14 @@ import TopSocialLinks from "./TopSocialLinks";
 
 const TopHeader = () => {
   return (
-    <div className="w-full bg-babyshopPurple text-babyShopLightWhite py-1 text-sm font-medium">
+    <div className="w-full bg-tiendaLVSecondary text-tiendaLVSoft py-1 text-sm font-medium">
       <Container className="grid grid-cols-1 md:grid-cols-3">
         <div className="flex items-center gap-5">
           {topHelpCenter?.map((item) => (
             <Link
               key={item?.title}
               href={item?.href}
-              className="hover:text-babyshopWhite hoverEffect"
+              className="hover:text-tiendaLVLight hoverEffect"
             >
               {item?.title}
             </Link>

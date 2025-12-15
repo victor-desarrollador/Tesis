@@ -76,7 +76,8 @@ export const createPaymentPreference = asyncHandler(async (req, res) => {
     }));
 
     // URL Base del cliente (con fallback seguro)
-    const clientUrl = "http://localhost:3000"; // Hardcoded for debugging
+    // URL Base del cliente (con fallback seguro)
+    const clientUrl = process.env.CLIENT_URL || "http://localhost:3000";
     console.log("🔗 URL base para redirección:", clientUrl);
 
     // Crear preferencia de pago
@@ -87,11 +88,11 @@ export const createPaymentPreference = asyncHandler(async (req, res) => {
         email: req.user.email,
       },
       back_urls: {
-        success: `${clientUrl}/payment/success`, // Keep localhost to see if removing auto_return allows it
-        failure: `${clientUrl}/payment/failure`,
-        pending: `${clientUrl}/payment/pending`,
+        success: `${clientUrl}/success`,
+        failure: `${clientUrl}/failure`,
+        pending: `${clientUrl}/pending`,
       },
-      // auto_return: "approved", // Comentado temporalmente para probar si esto causa el error con localhost
+      // auto_return: "approved", // User request: disable auto_return to allow manual return flow
       external_reference: orderId.toString(),
       statement_descriptor: "L&V TIENDA BEBE",
       metadata: {

@@ -7,7 +7,7 @@ interface EmptyListProps {
 
 const EmptyListDesign = ({ message, resetFilters }: EmptyListProps) => {
   return (
-    <div className="py-10 flex flex-col items-center justify-center w-96 min-h-[400px] bg-babyshopWhite rounded-lg border">
+    <div className="py-10 flex flex-col items-center justify-center w-96 min-h-[400px] bg-tiendaLVLight rounded-lg border">
       {/* Empty State Icon */}
       <div className="mb-6">
         <svg
@@ -44,7 +44,7 @@ const EmptyListDesign = ({ message, resetFilters }: EmptyListProps) => {
       {/* Call to Action */}
       <Button
         onClick={resetFilters}
-        className="px-6 py-2 bg-blue-600 text-white hover:bg-blue-700"
+        className="px-6 py-2 bg-tiendaLVPrimary text-tiendaLVLight hover:bg-tiendaLVPrimary/90"
       >
         Restablecer filtros
       </Button>

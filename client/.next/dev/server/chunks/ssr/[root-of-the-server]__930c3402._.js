@@ -784,7 +784,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$header$
 ;
 const TopHeader = ()=>{
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "w-full bg-babyshopPurple text-babyShopLightWhite py-1 text-sm font-medium",
+        className: "w-full bg-tiendaLVSecondary text-tiendaLVSoft py-1 text-sm font-medium",
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$common$2f$Container$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
             className: "grid grid-cols-1 md:grid-cols-3",
             children: [
@@ -792,7 +792,7 @@ const TopHeader = ()=>{
                     className: "flex items-center gap-5",
                     children: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$constants$2f$data$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["topHelpCenter"]?.map((item)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                             href: item?.href,
-                            className: "hover:text-babyshopWhite hoverEffect",
+                            className: "hover:text-tiendaLVLight hoverEffect",
                             children: item?.title
                         }, item?.title, false, {
                             fileName: "[project]/src/components/header/TopHeader.tsx",
@@ -2156,15 +2156,15 @@ const SearchInput = ()=>{
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                 onClick: toggleMobileSearch,
-                className: "lg:hidden mt-1.5 border p-2 rounded-full hover:border-babyshopSky hover:bg-babyshopSky/10 group hoverEffect",
+                className: "lg:hidden mt-1.5 border p-2 rounded-full hover:border-tiendaLVPrimary hover:bg-tiendaLVPrimary/10 group hoverEffect",
                 children: showSearch ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__["X"], {
-                    className: "w-5 h-5 text-babyshopBlack group-hover:text-babyshopRed hoverEffect"
+                    className: "w-5 h-5 text-tiendaLVAccent group-hover:text-tiendaLVSecondary hoverEffect"
                 }, void 0, false, {
                     fileName: "[project]/src/components/header/SearchInput.tsx",
                     lineNumber: 110,
                     columnNumber: 11
                 }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$search$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Search$3e$__["Search"], {
-                    className: "w-5 h-5 text-babyshopBlack group-hover:text-babyshopRed hoverEffect"
+                    className: "w-5 h-5 text-tiendaLVAccent group-hover:text-tiendaLVSecondary hoverEffect"
                 }, void 0, false, {
                     fileName: "[project]/src/components/header/SearchInput.tsx",
                     lineNumber: 112,
@@ -2181,7 +2181,7 @@ const SearchInput = ()=>{
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Input"], {
                         placeholder: "Buscar productos...",
-                        className: "flex-1 rounded-md py-5 focus-visible:ring-0 focus-visible:border-babyshopRed bg-white text-babyshopText placeholder:font-semibold placeholder:tracking-wide pr-16",
+                        className: "flex-1 rounded-md py-5 focus-visible:ring-0 focus-visible:border-tiendaLVSecondary bg-white text-tiendaLVText placeholder:font-semibold placeholder:tracking-wide pr-16",
                         value: search,
                         onChange: (e)=>setSearch(e.target.value),
                         onFocus: ()=>setShowResults(true)
@@ -2192,13 +2192,13 @@ const SearchInput = ()=>{
                     }, ("TURBOPACK compile-time value", void 0)),
                     search ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__["X"], {
                         onClick: ()=>setSearch(""),
-                        className: "w-5 h-5 absolute right-3 top-2.5 text-babyshopText hover:text-babyshopRed hoverEffect cursor-pointer"
+                        className: "w-5 h-5 absolute right-3 top-2.5 text-tiendaLVText hover:text-tiendaLVSecondary hoverEffect cursor-pointer"
                     }, void 0, false, {
                         fileName: "[project]/src/components/header/SearchInput.tsx",
                         lineNumber: 129,
                         columnNumber: 11
                     }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$search$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Search$3e$__["Search"], {
-                        className: "absolute right-3 top-3 w-5 h-5 text-babyshopText"
+                        className: "absolute right-3 top-3 w-5 h-5 text-tiendaLVText"
                     }, void 0, false, {
                         fileName: "[project]/src/components/header/SearchInput.tsx",
                         lineNumber: 134,
@@ -2237,7 +2237,7 @@ const SearchInput = ()=>{
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Input"], {
                                         ref: mobileInputRef,
                                         placeholder: "Buscar productos...",
-                                        className: "w-full pr-16 py-5 rounded-md focus-visible:ring-0 focus-visible:border-babyshopRed bg-white text-babyshopText placeholder:font-semibold",
+                                        className: "w-full pr-16 py-5 rounded-md focus-visible:ring-0 focus-visible:border-tiendaLVSecondary bg-white text-tiendaLVText placeholder:font-semibold",
                                         value: search,
                                         onChange: (e)=>setSearch(e.target.value),
                                         onFocus: ()=>setShowResults(true)
@@ -2248,13 +2248,13 @@ const SearchInput = ()=>{
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     search ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__["X"], {
                                         onClick: ()=>setSearch(""),
-                                        className: "absolute right-4 w-5 h-5 text-babyshopText hover:text-babyshopRed hoverEffect cursor-pointer"
+                                        className: "absolute right-4 w-5 h-5 text-tiendaLVText hover:text-tiendaLVSecondary hoverEffect cursor-pointer"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/header/SearchInput.tsx",
                                         lineNumber: 159,
                                         columnNumber: 19
                                     }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$search$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Search$3e$__["Search"], {
-                                        className: "absolute right-4 w-5 h-5 text-babyshopText"
+                                        className: "absolute right-4 w-5 h-5 text-tiendaLVText"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/header/SearchInput.tsx",
                                         lineNumber: 164,
@@ -2272,7 +2272,7 @@ const SearchInput = ()=>{
                                     className: "flex items-center justify-center px-6 gap-2 py-4 text-center",
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$loader$2d$circle$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Loader2$3e$__["Loader2"], {
-                                            className: "w-5 h-5 animate-spin text-babyshopRed"
+                                            className: "w-5 h-5 animate-spin text-tiendaLVSecondary"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/header/SearchInput.tsx",
                                             lineNumber: 173,
@@ -2325,7 +2325,7 @@ const SearchInput = ()=>{
                                                     className: "flex items-center gap-3",
                                                     children: [
                                                         product.image && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                            className: "w-12 h-12 bg-gray-50 rounded flex-shrink-0 overflow-hidden",
+                                                            className: "w-12 h-12 bg-gray-50 rounded shrink-0 overflow-hidden",
                                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                                                                 height: 200,
                                                                 width: 200,
@@ -2353,7 +2353,7 @@ const SearchInput = ()=>{
                                                                     columnNumber: 31
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 product.price && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                    className: "text-sm font-semibold text-babyshopSky mt-0.5",
+                                                                    className: "text-sm font-semibold text-tiendaLVPrimary mt-0.5",
                                                                     children: [
                                                                         "$",
                                                                         product.price
@@ -2364,7 +2364,7 @@ const SearchInput = ()=>{
                                                                     columnNumber: 33
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 (product.category?.name || product.brand?.name) && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                    className: "text-sm text-babyshopTextLight",
+                                                                    className: "text-sm text-tiendaLVText",
                                                                     children: [
                                                                         product.category?.name || "Sin categoría",
                                                                         " -",
@@ -2401,7 +2401,7 @@ const SearchInput = ()=>{
                                                     setShowResults(false);
                                                     setShowSearch(false);
                                                 },
-                                                className: "text-sm text-babyshopSky font-medium hover:underline",
+                                                className: "text-sm text-tiendaLVPrimary font-medium hover:underline",
                                                 children: "Ver todos los resultados"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/header/SearchInput.tsx",
@@ -2434,7 +2434,7 @@ const SearchInput = ()=>{
                                                 children: [
                                                     'No hay resultados para "',
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                        className: "text-babyshopRed",
+                                                        className: "text-tiendaLVSecondary",
                                                         children: search
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/header/SearchInput.tsx",
@@ -2464,7 +2464,7 @@ const SearchInput = ()=>{
                                                         className: "flex items-center gap-3 w-full text-left px-4 py-3 hover:cursor-pointer",
                                                         children: [
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$search$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Search$3e$__["Search"], {
-                                                                className: "text-babyshopText w-5 h-5"
+                                                                className: "text-tiendaLVText w-5 h-5"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/header/SearchInput.tsx",
                                                                 lineNumber: 272,
@@ -2529,7 +2529,7 @@ const SearchInput = ()=>{
                     className: "flex items-center justify-center px-6 gap-2 py-4 text-center",
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$loader$2d$circle$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Loader2$3e$__["Loader2"], {
-                            className: "w-5 h-5 animate-spin text-babyshopRed"
+                            className: "w-5 h-5 animate-spin text-tiendaLVSecondary"
                         }, void 0, false, {
                             fileName: "[project]/src/components/header/SearchInput.tsx",
                             lineNumber: 296,
@@ -2567,7 +2567,7 @@ const SearchInput = ()=>{
                                     columnNumber: 17
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                    className: "text-sm font-medium text-babyshopRed",
+                                    className: "text-sm font-medium text-tiendaLVSecondary",
                                     children: error
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/header/SearchInput.tsx",
@@ -2622,7 +2622,7 @@ const SearchInput = ()=>{
                                                             columnNumber: 25
                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                         product.price && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                            className: "text-sm font-semibold text-babyshopSky mt-0.5",
+                                                            className: "text-sm font-semibold text-tiendaLVPrimary mt-0.5",
                                                             children: [
                                                                 "$",
                                                                 product.price
@@ -2633,7 +2633,7 @@ const SearchInput = ()=>{
                                                             columnNumber: 27
                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                         (product.category?.name || product.brand?.name) && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                            className: "text-sm text-babyshopTextLight",
+                                                            className: "text-sm text-tiendaLVText",
                                                             children: [
                                                                 product.category?.name || "Sin categoría",
                                                                 " -",
@@ -2682,7 +2682,7 @@ const SearchInput = ()=>{
                                 onClick: ()=>{
                                     setShowResults(false);
                                 },
-                                className: "text-sm text-babyshopSky font-medium hover:underline",
+                                className: "text-sm text-tiendaLVPrimary font-medium hover:underline",
                                 children: "Ver todos los resultados"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/header/SearchInput.tsx",
@@ -2715,7 +2715,7 @@ const SearchInput = ()=>{
                                 children: [
                                     'No hay resultados para "',
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                        className: "text-babyshopRed",
+                                        className: "text-tiendaLVSecondary",
                                         children: search
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/header/SearchInput.tsx",
@@ -2745,7 +2745,7 @@ const SearchInput = ()=>{
                                         className: "flex items-center gap-3 text-left px-4 py-3 hover:cursor-pointer",
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$search$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Search$3e$__["Search"], {
-                                                className: "text-babyshopBlack/60 w-5 h-5"
+                                                className: "text-tiendaLVAccent/60 w-5 h-5"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/header/SearchInput.tsx",
                                                 lineNumber: 403,
@@ -2817,7 +2817,7 @@ const OrdersIcon = ()=>{
     if (!mounted) {
         return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
             href: "/user/orders",
-            className: "relative hover:text-babyshopSky hoverEffect",
+            className: "relative hover:text-tiendaLVPrimary hoverEffect",
             children: [
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$package$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Package$3e$__["Package"], {
                     size: 24
@@ -2827,7 +2827,7 @@ const OrdersIcon = ()=>{
                     columnNumber: 9
                 }, ("TURBOPACK compile-time value", void 0)),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                    className: "absolute -right-2 -top-2 bg-babyshopSky text-babyshopWhite text-[11px] font-medium w-4 h-4 rounded-full flex items-center justify-center",
+                    className: "absolute -right-2 -top-2 bg-tiendaLVPrimary text-tiendaLVLight text-[11px] font-medium w-4 h-4 rounded-full flex items-center justify-center",
                     children: "0"
                 }, void 0, false, {
                     fileName: "[project]/src/components/header/OrdersIcon.tsx",
@@ -2843,7 +2843,7 @@ const OrdersIcon = ()=>{
     }
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
         href: "/user/orders",
-        className: "relative hover:text-babyshopSky hoverEffect",
+        className: "relative hover:text-tiendaLVPrimary hoverEffect",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$package$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Package$3e$__["Package"], {
                 size: 24
@@ -2853,7 +2853,7 @@ const OrdersIcon = ()=>{
                 columnNumber: 7
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                className: "absolute -right-2 -top-2 bg-babyshopSky text-babyshopWhite text-[11px] font-medium w-4 h-4 rounded-full flex items-center justify-center",
+                className: "absolute -right-2 -top-2 bg-tiendaLVPrimary text-tiendaLVLight text-[11px] font-medium w-4 h-4 rounded-full flex items-center justify-center",
                 children: orders?.length || 0
             }, void 0, false, {
                 fileName: "[project]/src/components/header/OrdersIcon.tsx",
@@ -2895,7 +2895,7 @@ const WishlistIcon = ()=>{
     if (!mounted) {
         return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
             href: "/user/wishlist",
-            className: "relative hover:text-babyshopSky hoverEffect",
+            className: "relative hover:text-tiendaLVPrimary hoverEffect",
             children: [
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$heart$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Heart$3e$__["Heart"], {
                     size: 24
@@ -2905,7 +2905,7 @@ const WishlistIcon = ()=>{
                     columnNumber: 9
                 }, ("TURBOPACK compile-time value", void 0)),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                    className: "absolute -right-2 -top-2 bg-babyshopSky text-babyshopWhite text-[11px] font-medium w-4 h-4 rounded-full flex items-center justify-center",
+                    className: "absolute -right-2 -top-2 bg-tiendaLVPrimary text-tiendaLVLight text-[11px] font-medium w-4 h-4 rounded-full flex items-center justify-center",
                     children: "0"
                 }, void 0, false, {
                     fileName: "[project]/src/components/header/WishlistIcon.tsx",
@@ -2921,7 +2921,7 @@ const WishlistIcon = ()=>{
     }
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
         href: "/user/wishlist",
-        className: "relative hover:text-babyshopSky hoverEffect",
+        className: "relative hover:text-tiendaLVPrimary hoverEffect",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$heart$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Heart$3e$__["Heart"], {
                 size: 24
@@ -2931,7 +2931,7 @@ const WishlistIcon = ()=>{
                 columnNumber: 7
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                className: "absolute -right-2 -top-2 bg-babyshopSky text-babyshopWhite text-[11px] font-medium w-4 h-4 rounded-full flex items-center justify-center",
+                className: "absolute -right-2 -top-2 bg-tiendaLVPrimary text-tiendaLVLight text-[11px] font-medium w-4 h-4 rounded-full flex items-center justify-center",
                 children: wishlistItems?.length || 0
             }, void 0, false, {
                 fileName: "[project]/src/components/header/WishlistIcon.tsx",
@@ -2969,10 +2969,10 @@ const UserButton = ()=>{
     const { isAuthenticated, authUser } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$store$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useUserStore"])();
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
         href: isAuthenticated && authUser ? "/user/profile" : "/auth/signin",
-        className: "flex items-center gap-2 group hover:text-babyshopSky hoverEffect",
+        className: "flex items-center gap-2 group hover:text-tiendaLVPrimary hoverEffect",
         children: [
             isAuthenticated && authUser ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                className: "w-10 h-10 border rounded-full p-1 group-hover:border-babyshopSky hoverEffect",
+                className: "w-10 h-10 border rounded-full p-1 group-hover:border-tiendaLVPrimary hoverEffect",
                 children: authUser.avatar ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                     src: authUser.avatar,
                     alt: "userImage",
@@ -3064,7 +3064,7 @@ const CartIcon = ()=>{
     if (!mounted) {
         return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
             href: "/user/cart",
-            className: "relative hover:text-babyshopSky hoverEffect",
+            className: "relative hover:text-tiendaLVPrimary hoverEffect",
             children: [
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$shopping$2d$bag$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ShoppingBag$3e$__["ShoppingBag"], {}, void 0, false, {
                     fileName: "[project]/src/components/header/CartIcon.tsx",
@@ -3072,7 +3072,7 @@ const CartIcon = ()=>{
                     columnNumber: 9
                 }, ("TURBOPACK compile-time value", void 0)),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                    className: "absolute -right-2 -top-2 bg-babyshopSky text-babyshopWhite text-[11px] font-medium w-4 h-4 rounded-full flex items-center justify-center",
+                    className: "absolute -right-2 -top-2 bg-tiendaLVPrimary text-tiendaLVLight text-[11px] font-medium w-4 h-4 rounded-full flex items-center justify-center",
                     children: "0"
                 }, void 0, false, {
                     fileName: "[project]/src/components/header/CartIcon.tsx",
@@ -3089,7 +3089,7 @@ const CartIcon = ()=>{
     const totalItems = cartItemsWithQuantities.reduce((acc, item)=>acc + item.quantity, 0);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
         href: "/user/cart",
-        className: "relative hover:text-babyshopSky hoverEffect",
+        className: "relative hover:text-tiendaLVPrimary hoverEffect",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$shopping$2d$bag$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ShoppingBag$3e$__["ShoppingBag"], {
                 size: 24
@@ -3099,7 +3099,7 @@ const CartIcon = ()=>{
                 columnNumber: 7
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                className: "absolute -right-2 -top-2 bg-babyshopSky text-babyshopWhite text-[11px] font-medium w-4 h-4 rounded-full flex items-center justify-center",
+                className: "absolute -right-2 -top-2 bg-tiendaLVPrimary text-tiendaLVLight text-[11px] font-medium w-4 h-4 rounded-full flex items-center justify-center",
                 children: totalItems > 99 ? "99+" : totalItems
             }, void 0, false, {
                 fileName: "[project]/src/components/header/CartIcon.tsx",
@@ -3364,7 +3364,7 @@ const HeaderLeftSideBar = ({ isOpen, onClose })=>{
                                                     className: "flex items-center gap-4 px-4 py-3 rounded-xl hover:bg-gray-50 transition-all duration-200 group text-gray-700 font-medium",
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(link.icon, {
-                                                            className: `w-5 h-5 ${link.color || "text-gray-400 group-hover:text-babyshopSky"} transition-colors`
+                                                            className: `w-5 h-5 ${link.color || "text-gray-400 group-hover:text-tiendaLVPrimary"} transition-colors`
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/header/HeaderLeftSideBar.tsx",
                                                             lineNumber: 149,
@@ -3445,7 +3445,7 @@ const HeaderLeftSideBar = ({ isOpen, onClose })=>{
                                                                         }
                                                                     },
                                                                     onClick: onClose,
-                                                                    className: "flex items-center justify-between px-3 py-2 rounded-lg text-gray-600 hover:text-babyshopSky hover:bg-sky-50 transition-all text-sm group",
+                                                                    className: "flex items-center justify-between px-3 py-2 rounded-lg text-gray-600 hover:text-tiendaLVPrimary hover:bg-sky-50 transition-all text-sm group",
                                                                     children: [
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                                             children: category.name
@@ -3456,7 +3456,7 @@ const HeaderLeftSideBar = ({ isOpen, onClose })=>{
                                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$right$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronRight$3e$__["ChevronRight"], {
                                                                             size: 14,
-                                                                            className: "opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all text-babyshopSky"
+                                                                            className: "opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all text-tiendaLVPrimary"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/components/header/HeaderLeftSideBar.tsx",
                                                                             lineNumber: 180,
@@ -3588,7 +3588,7 @@ const HeaderLeftSideBar = ({ isOpen, onClose })=>{
                                         className: "flex items-center gap-3 mb-4 p-3 bg-white rounded-xl shadow-sm border border-gray-100",
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "bg-babyshopSky/10 p-2 rounded-full text-babyshopSky",
+                                                className: "bg-tiendaLVPrimary/10 p-2 rounded-full text-tiendaLVPrimary",
                                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$user$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__UserCircle$3e$__["UserCircle"], {
                                                     size: 24
                                                 }, void 0, false, {
@@ -3637,7 +3637,7 @@ const HeaderLeftSideBar = ({ isOpen, onClose })=>{
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                                                 href: "/user/profile",
                                                 onClick: onClose,
-                                                className: "flex flex-col items-center justify-center gap-1 p-2 bg-white rounded-lg border border-gray-100 hover:border-babyshopSky/50 hover:bg-sky-50/30 transition-all",
+                                                className: "flex flex-col items-center justify-center gap-1 p-2 bg-white rounded-lg border border-gray-100 hover:border-tiendaLVPrimary/50 hover:bg-sky-50/30 transition-all",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$user$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__User$3e$__["User"], {
                                                         size: 18,
@@ -3664,7 +3664,7 @@ const HeaderLeftSideBar = ({ isOpen, onClose })=>{
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                                                 href: "/user/orders",
                                                 onClick: onClose,
-                                                className: "flex flex-col items-center justify-center gap-1 p-2 bg-white rounded-lg border border-gray-100 hover:border-babyshopSky/50 hover:bg-sky-50/30 transition-all",
+                                                className: "flex flex-col items-center justify-center gap-1 p-2 bg-white rounded-lg border border-gray-100 hover:border-tiendaLVPrimary/50 hover:bg-sky-50/30 transition-all",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$package$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Package$3e$__["Package"], {
                                                         size: 18,
@@ -3691,7 +3691,7 @@ const HeaderLeftSideBar = ({ isOpen, onClose })=>{
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                                                 href: "/user/wishlist",
                                                 onClick: onClose,
-                                                className: "flex flex-col items-center justify-center gap-1 p-2 bg-white rounded-lg border border-gray-100 hover:border-babyshopSky/50 hover:bg-sky-50/30 transition-all",
+                                                className: "flex flex-col items-center justify-center gap-1 p-2 bg-white rounded-lg border border-gray-100 hover:border-tiendaLVPrimary/50 hover:bg-sky-50/30 transition-all",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$heart$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Heart$3e$__["Heart"], {
                                                         size: 18,
@@ -3718,7 +3718,7 @@ const HeaderLeftSideBar = ({ isOpen, onClose })=>{
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                                                 href: "/user/cart",
                                                 onClick: onClose,
-                                                className: "flex flex-col items-center justify-center gap-1 p-2 bg-white rounded-lg border border-gray-100 hover:border-babyshopSky/50 hover:bg-sky-50/30 transition-all",
+                                                className: "flex flex-col items-center justify-center gap-1 p-2 bg-white rounded-lg border border-gray-100 hover:border-tiendaLVPrimary/50 hover:bg-sky-50/30 transition-all",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$shopping$2d$bag$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ShoppingBag$3e$__["ShoppingBag"], {
                                                         size: 18,
@@ -3809,7 +3809,7 @@ const HeaderLeftSideBar = ({ isOpen, onClose })=>{
                                         onClick: onClose,
                                         className: "block",
                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
-                                            className: "w-full bg-babyshopBlack hover:bg-gray-800 text-white py-6 rounded-xl shadow-lg shadow-gray-200",
+                                            className: "w-full bg-tiendaLVAccent hover:bg-gray-800 text-white py-6 rounded-xl shadow-lg shadow-gray-200",
                                             children: "Iniciar Sesión"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/header/HeaderLeftSideBar.tsx",
@@ -3963,7 +3963,7 @@ const Header = ()=>{
         verifyAuth
     ]);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("header", {
-        className: "border-b sticky top-0 z-50 bg-babyshopWhite",
+        className: "border-b sticky top-0 z-50 bg-tiendaLVLight",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$header$2f$TopHeader$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/src/components/header/Header.tsx",

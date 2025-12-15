@@ -11,10 +11,10 @@ const UserButton = () => {
   return (
     <Link
       href={isAuthenticated && authUser ? "/user/profile" : "/auth/signin"}
-      className="flex items-center gap-2 group hover:text-babyshopSky hoverEffect"
+      className="flex items-center gap-2 group hover:text-tiendaLVPrimary hoverEffect"
     >
       {isAuthenticated && authUser ? (
-        <span className="w-10 h-10 border rounded-full p-1 group-hover:border-babyshopSky hoverEffect">
+        <span className="w-10 h-10 border rounded-full p-1 group-hover:border-tiendaLVPrimary hoverEffect">
           {authUser.avatar ? (
             <Image
               src={authUser.avatar}

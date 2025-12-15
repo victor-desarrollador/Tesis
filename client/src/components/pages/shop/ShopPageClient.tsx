@@ -258,7 +258,7 @@ const ShopPageClient = ({ categories, brands }: Props) => {
       <div className="flex items-center justify-between mb-5">
         <div>
           <h2 className="text-2xl font-semibold">Comprar productos</h2>
-          <p className="text-babyshopBlack/70 fiont-medium">
+          <p className="text-tiendaLVAccent/70 fiont-medium">
             {loading
               ? "Cargando"
               : `Mostrando ${products?.length} de ${total} productos`}
@@ -284,7 +284,7 @@ const ShopPageClient = ({ categories, brands }: Props) => {
         )}
       </div>
       <div className="flex flex-col md:flex-row gap-5">
-        <div className="p-5 bg-babyshopWhite w-full md:max-w-64 min-w-60 rounded-lg border">
+        <div className="p-5 bg-tiendaLVLight w-full md:max-w-64 min-w-60 rounded-lg border">
           {/* Small devices */}
           <div className="md:hidden">
             <Button
@@ -494,7 +494,7 @@ const ShopPageClient = ({ categories, brands }: Props) => {
                   <SelectValue placeholder="Ordenar por" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="newest">Mas reciente</SelectItem>
+                  <SelectItem value="newest">Más reciente</SelectItem>
                   <SelectItem value="price_asc">Precio: Bajo a Alto</SelectItem>
                   <SelectItem value="price_desc">Precio: Alto a Bajo</SelectItem>
                 </SelectContent>
@@ -502,7 +502,7 @@ const ShopPageClient = ({ categories, brands }: Props) => {
             </div>
           </div>
         </div>
-        <div className="bg-babyshopWhite p-5 rounded-md w-full border">
+        <div className="bg-tiendaLVLight p-5 rounded-md w-full border">
           {loading ? (
             <ShopSkeleton />
           ) : products?.length > 0 ? (
@@ -537,12 +537,12 @@ const ShopPageClient = ({ categories, brands }: Props) => {
                     onClick={loadMoreProducts}
                     disabled={loadingMore}
                     variant={"outline"}
-                    className="w-full rounded-sm hover:bg-babyshopSky hover:text-babyshopWhite hoverEffect py-5 mt-2"
+                    className="w-full rounded-sm hover:bg-tiendaLVPrimary hover:text-tiendaLVLight hoverEffect py-5 mt-2"
                   >
                     {loadingMore ? (
                       <Loader2 className="animate-spin" size={20} />
                     ) : (
-                      "Load More Products"
+                      "Cargar más productos"
                     )}
                   </Button>
                 </div>

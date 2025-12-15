@@ -23,7 +23,7 @@ const WishlistPageClient = () => {
     if (loading) {
         return (
             <Container className="min-h-[60vh] flex items-center justify-center">
-                <Loader2 className="w-8 h-8 animate-spin text-pink-500" />
+                <Loader2 className="w-8 h-8 animate-spin text-tiendaLVSecondary" />
             </Container>
         );
     }
@@ -52,7 +52,7 @@ const WishlistPageClient = () => {
                         Guarda los artículos que más te gusten para no perderlos de vista.
                     </p>
                     <Link href="/shop">
-                        <Button className="rounded-full px-8 bg-black hover:bg-gray-800">
+                        <Button className="rounded-full px-8 bg-tiendaLVAccent hover:bg-tiendaLVAccent/90">
                             Ir a la Tienda
                         </Button>
                     </Link>

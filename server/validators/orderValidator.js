@@ -21,26 +21,30 @@ export const createOrderValidation = [
         .isFloat({ min: 0 }).withMessage('El precio debe ser un número positivo'),
 
     body('shippingAddress')
-        .notEmpty().withMessage('La dirección de envío es obligatoria'),
+        .optional(), // Validado en cotroller según deliveryMethod
 
     body('shippingAddress.street')
+        .optional()
         .trim()
-        .notEmpty().withMessage('La calle es obligatoria')
+        // .notEmpty().withMessage('La calle es obligatoria')
         .isLength({ min: 5, max: 200 }).withMessage('La calle debe tener entre 5 y 200 caracteres'),
 
     body('shippingAddress.city')
+        .optional()
         .trim()
-        .notEmpty().withMessage('La ciudad es obligatoria')
+        // .notEmpty().withMessage('La ciudad es obligatoria')
         .isLength({ min: 2, max: 100 }).withMessage('La ciudad debe tener entre 2 y 100 caracteres'),
 
     body('shippingAddress.country')
+        .optional()
         .trim()
-        .notEmpty().withMessage('El país es obligatorio')
+        // .notEmpty().withMessage('El país es obligatorio')
         .isLength({ min: 2, max: 100 }).withMessage('El país debe tener entre 2 y 100 caracteres'),
 
     body('shippingAddress.postalCode')
+        .optional()
         .trim()
-        .notEmpty().withMessage('El código postal es obligatorio')
+        // .notEmpty().withMessage('El código postal es obligatorio')
         .matches(/^[0-9A-Z\s-]+$/i).withMessage('Código postal inválido'),
 ];
 

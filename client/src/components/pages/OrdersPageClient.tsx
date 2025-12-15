@@ -27,7 +27,7 @@ const OrdersPageClient = () => {
     if (!mounted || isLoading) {
         return (
             <Container className="min-h-[60vh] flex items-center justify-center">
-                <Loader2 className="w-8 h-8 animate-spin text-pink-500" />
+                <Loader2 className="w-8 h-8 animate-spin text-tiendaLVSecondary" />
             </Container>
         );
     }
@@ -45,12 +45,44 @@ const OrdersPageClient = () => {
     }
 
     const getStatusColor = (status: string) => {
-        switch (status) {
-            case "pagado": return "bg-green-100 text-green-800 hover:bg-green-200";
-            case "pendiente": return "bg-yellow-100 text-yellow-800 hover:bg-yellow-200";
-            case "cancelado": return "bg-red-100 text-red-800 hover:bg-red-200";
-            case "completado": return "bg-blue-100 text-blue-800 hover:bg-blue-200";
-            default: return "bg-gray-100 text-gray-800";
+        const lowerStatus = status.toLowerCase();
+        switch (lowerStatus) {
+            case "paid":
+            case "pagado":
+                return "bg-green-100 text-green-800 border-green-200";
+            case "pending":
+            case "pendiente":
+                return "bg-amber-100 text-amber-800 border-amber-200";
+            case "cancelled":
+            case "cancelado":
+                return "bg-red-100 text-red-800 border-red-200";
+            case "processing":
+            case "procesando":
+                return "bg-blue-100 text-blue-800 border-blue-200";
+            case "completed":
+            case "completado":
+                return "bg-emerald-100 text-emerald-800 border-emerald-200";
+            case "delivered":
+            case "entregado":
+                return "bg-purple-100 text-purple-800 border-purple-200";
+            case "shipped":
+            case "enviado":
+                return "bg-indigo-100 text-indigo-800 border-indigo-200";
+            default: return "bg-gray-100 text-gray-800 border-gray-200";
+        }
+    };
+
+    const getStatusLabel = (status: string) => {
+        const lowerStatus = status.toLowerCase();
+        switch (lowerStatus) {
+            case "paid": return "Pagado";
+            case "pending": return "Pendiente";
+            case "cancelled": return "Cancelado";
+            case "processing": return "Procesando";
+            case "completed": return "Completado";
+            case "delivered": return "Entregado";
+            case "shipped": return "Enviado";
+            default: return status;
         }
     };
 
@@ -83,8 +115,8 @@ const OrdersPageClient = () => {
                                         <span className="text-sm text-gray-500">Total:</span>
                                         <PriceFormatter amount={order.total} className="text-lg" />
                                     </div>
-                                    <Badge className={`${getStatusColor(order.status)} border-0 px-3 py-1 capitalize`}>
-                                        {order.status}
+                                    <Badge className={`${getStatusColor(order.status)} border px-3 py-1 capitalize shadow-sm`}>
+                                        {getStatusLabel(order.status)}
                                     </Badge>
                                 </div>
                             </div>
@@ -138,7 +170,7 @@ const OrdersPageClient = () => {
                         Parece que no has realizado ninguna compra todavía. ¡Explora nuestra tienda!
                     </p>
                     <Link href="/shop">
-                        <Button className="rounded-full px-8 bg-black hover:bg-gray-800">
+                        <Button className="rounded-full px-8 bg-tiendaLVAccent hover:bg-tiendaLVAccent/90">
                             Ir a la Tienda
                         </Button>
                     </Link>

@@ -14,7 +14,7 @@ const ShopSkeleton = () => {
   ));
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 w-full bg-babyshopWhite">
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 w-full bg-tiendaLVLight">
       {skeletonCards}
     </div>
   );

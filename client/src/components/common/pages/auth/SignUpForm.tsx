@@ -121,7 +121,7 @@ const SignUpForm = () => {
                             <Input
                               placeholder="Nombre"
                               disabled={isLoading}
-                              className="border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200"
+                              className="border-gray-300 focus:ring-2 focus:ring-tiendaLVSecondary focus:border-tiendaLVSecondary transition-all duration-200"
                               {...field}
                             />
                           </motion.div>
@@ -265,21 +265,21 @@ const SignUpForm = () => {
                           checked={field.value}
                           onCheckedChange={field.onChange}
                           disabled={isLoading}
-                          className="border-gray-300 data-[state=checked]:bg-indigo-600 data-[state=checked]:border-indigo-600"
+                          className="border-gray-300 data-[state=checked]:bg-tiendaLVSecondary data-[state=checked]:border-tiendaLVSecondary"
                         />
                       </FormControl>
                       <FormLabel className="text-sm text-gray-500 font-normal">
                         Estoy de acuerdo con la{" "}
                         <Link
                           href="/privacy"
-                          className="text-indigo-600 hover:text-indigo-800 hover:underline"
+                          className="text-tiendaLVSecondary hover:text-tiendaLVSecondary/80 hover:underline"
                         >
                           Política de Privacidad
                         </Link>{" "}
                         y los{" "}
                         <Link
                           href="/terms"
-                          className="text-indigo-600 hover:text-indigo-800 hover:underline"
+                          className="text-tiendaLVSecondary hover:text-tiendaLVSecondary/80 hover:underline"
                         >
                           Términos de Uso
                         </Link>
@@ -295,7 +295,7 @@ const SignUpForm = () => {
                 >
                   <Button
                     type="submit"
-                    className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold h-12 rounded-lg transition-all duration-200"
+                    className="w-full bg-tiendaLVAccent hover:bg-tiendaLVAccent/90 text-tiendaLVLight font-semibold h-12 rounded-lg transition-all duration-200"
                     disabled={isLoading || !form.watch("termsAccepted")}
                   >
                     {isLoading ? (
@@ -318,7 +318,7 @@ const SignUpForm = () => {
               ¿Ya tienes una cuenta?{" "}
               <Link
                 href="/auth/signin"
-                className="text-indigo-600 hover:text-indigo-800 hover:underline transition-all duration-200"
+                className="text-tiendaLVSecondary hover:text-tiendaLVSecondary/80 hover:underline transition-all duration-200"
               >
                 Iniciar sesión
               </Link>

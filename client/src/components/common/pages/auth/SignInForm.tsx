@@ -143,13 +143,13 @@ const SignInForm = () => {
                             placeholder="••••••••"
                             type={showPassword ? "text" : "password"}
                             disabled={isLoading}
-                            className="border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200 pr-10"
+                            className="border-gray-300 focus:ring-2 focus:ring-tiendaLVSecondary focus:border-tiendaLVSecondary transition-all duration-200 pr-10"
                             {...field}
                           />
                           <button
                             type="button"
                             onClick={() => setShowPassword(!showPassword)}
-                            className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-indigo-600"
+                            className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-tiendaLVSecondary"
                             disabled={isLoading}
                           >
                             {showPassword ? (
@@ -183,21 +183,21 @@ const SignInForm = () => {
                         checked={field.value}
                         onCheckedChange={field.onChange}
                         disabled={isLoading}
-                        className="border-gray-300 data-[state=checked]:bg-indigo-600 data-[state=checked]:border-indigo-600"
+                        className="border-gray-300 data-[state=checked]:bg-tiendaLVSecondary data-[state=checked]:border-tiendaLVSecondary"
                       />
                     </FormControl>
                     <FormLabel className="text-sm text-gray-500 font-normal">
                       Acepto la{" "}
                       <Link
                         href="/privacy"
-                        className="text-indigo-600 hover:text-indigo-800 hover:underline"
+                        className="text-tiendaLVSecondary hover:text-tiendaLVSecondary/80 hover:underline"
                       >
                         Política de Privacidad
                       </Link>{" "}
                       y los{" "}
                       <Link
                         href="/terms"
-                        className="text-indigo-600 hover:text-indigo-800 hover:underline"
+                        className="text-tiendaLVSecondary hover:text-tiendaLVSecondary/80 hover:underline"
                       >
                         Términos de Uso
                       </Link>
@@ -213,7 +213,7 @@ const SignInForm = () => {
               >
                 <Button
                   type="submit"
-                  className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold h-12 rounded-lg transition-all duration-200"
+                  className="w-full bg-tiendaLVAccent hover:bg-tiendaLVAccent/90 text-tiendaLVLight font-semibold h-12 rounded-lg transition-all duration-200"
                   disabled={isLoading || !form.watch("termsAccepted")}
                 >
                   {isLoading ? (
@@ -258,7 +258,7 @@ const SignInForm = () => {
               sin consentimiento. Para más detalles, consulta nuestra{" "}
               <Link
                 href="/privacy"
-                className="text-indigo-600 hover:text-indigo-800 hover:underline"
+                className="text-tiendaLVSecondary hover:text-tiendaLVSecondary/80 hover:underline"
               >
                 Política de Privacidad
               </Link>

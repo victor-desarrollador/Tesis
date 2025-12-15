@@ -77,12 +77,12 @@ const ProfilePage = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <Card className="hover:shadow-md transition-shadow cursor-pointer onClick={() => handleTabChange('orders')}">
               <CardContent className="p-6 flex flex-col items-center text-center gap-4">
-                <div className="p-4 rounded-full bg-blue-50 text-blue-600">
+                <div className="p-4 rounded-full bg-tiendaLVSoft text-tiendaLVSecondary">
                   <Package size={32} />
                 </div>
                 <div>
                   <h3 className="font-semibold text-lg">Pedidos Recientes</h3>
-                  <Link href="/user/orders" className="text-sm text-blue-600 hover:underline mt-2 block">
+                  <Link href="/user/orders" className="text-sm text-tiendaLVSecondary hover:underline mt-2 block">
                     Ver historial completo
                   </Link>
                 </div>
@@ -91,12 +91,12 @@ const ProfilePage = () => {
 
             <Card className="hover:shadow-md transition-shadow">
               <CardContent className="p-6 flex flex-col items-center text-center gap-4">
-                <div className="p-4 rounded-full bg-pink-50 text-pink-600">
+                <div className="p-4 rounded-full bg-tiendaLVSoft text-tiendaLVPrimary">
                   <Heart size={32} />
                 </div>
                 <div>
                   <h3 className="font-semibold text-lg">Lista de Deseos</h3>
-                  <Link href="/user/wishlist" className="text-sm text-pink-600 hover:underline mt-2 block">
+                  <Link href="/user/wishlist" className="text-sm text-tiendaLVPrimary hover:underline mt-2 block">
                     Ver tus favoritos
                   </Link>
                 </div>
@@ -105,7 +105,7 @@ const ProfilePage = () => {
 
             <Card className="hover:shadow-md transition-shadow">
               <CardContent className="p-6 flex flex-col items-center text-center gap-4">
-                <div className="p-4 rounded-full bg-green-50 text-green-600">
+                <div className="p-4 rounded-full bg-gray-50 text-tiendaLVAccent">
                   <MapPin size={32} />
                 </div>
                 <div>
