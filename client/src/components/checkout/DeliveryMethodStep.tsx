@@ -46,7 +46,7 @@ const DeliveryMethodStep = ({
                         <div>
                             <h3 className="text-lg font-bold text-gray-900 mb-1">Envío a Domicilio</h3>
                             <p className="text-sm text-gray-500 leading-relaxed">
-                                Recíbelo en la comodidad de tu casa. Envíos gratis en compras superiores a $100.
+                                Recíbelo en la comodidad de tu casa. Envíos gratis en compras superiores a $100 mil.
                             </p>
                         </div>
                     </div>

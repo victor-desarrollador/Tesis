@@ -1,6 +1,8 @@
 import { Address } from "@/types/type";
 import AddressSelection from "../pages/AddressSelection";
 import { Clock, MapPin } from "lucide-react";
+import Image from "next/image";
+import mapImage from "@/assets/images/map.png";
 
 interface DeliveryDetailsStepProps {
     deliveryMethod: "shipping" | "pickup";
@@ -33,16 +35,19 @@ const DeliveryDetailsStep = ({
 
                 <div className="bg-white rounded-3xl border border-gray-100 p-8 shadow-sm">
                     <div className="flex flex-col md:flex-row gap-8 items-center md:items-start">
-                        {/* Map Placeholder */}
-                        <div className="w-full md:w-1/2 aspect-video bg-gray-100 rounded-2xl flex items-center justify-center relative overflow-hidden group hover:shadow-md transition-shadow">
-                            {/* Replace with actual map iframe or image later */}
-                            <MapPin className="w-12 h-12 text-gray-400 group-hover:text-black transition-colors" />
-                            <p className="sr-only">Mapa de ubicación</p>
+                        {/* Map Image */}
+                        <div className="w-full md:w-1/2 aspect-video bg-gray-100 rounded-2xl overflow-hidden relative group hover:shadow-md transition-shadow">
+                            <Image
+                                src={mapImage}
+                                alt="Ubicación de Tienda L&V"
+                                fill
+                                className="object-cover"
+                            />
                         </div>
 
                         <div className="flex-1 space-y-6">
                             <div>
-                                <h3 className="text-xl font-bold text-gray-900 mb-2">L&V Tienda Bebé</h3>
+                                <h3 className="text-xl font-bold text-gray-900 mb-2">Tienda L&V Belleza y Accesorios </h3>
                                 <p className="text-gray-600 flex items-start gap-2">
                                     <MapPin className="w-5 h-5 shrink-0 mt-0.5" />
                                     <span>Av. Principal 1234, Centro<br />Ciudad de Corrientes, Corrientes</span>
