@@ -48,7 +48,7 @@ const userSchema = mongoose.Schema(
     password: { type: String, required: true, minlength: 8 },
     role: {
       type: String,
-      enum: ["cliente", "admin", "deliveryman"],
+      enum: ["cliente", "admin"],
       default: "cliente",
     },
     // Avatar del usuario (base64 o URL)

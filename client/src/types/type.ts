@@ -3,6 +3,7 @@ export interface Category {
   name: string;
   image: string;
   categoryType: string;
+  parent?: string;
 }
 
 export interface Brand {
@@ -57,4 +58,5 @@ export type Banners = {
   bannerType: string;
   createdAt: string;
   updatedAt: string;
+  isAdmin?: boolean;
 };

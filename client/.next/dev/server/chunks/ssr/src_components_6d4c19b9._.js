@@ -483,7 +483,7 @@ const SignUpForm = ()=>{
                                                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Input"], {
                                                                         placeholder: "Nombre",
                                                                         disabled: isLoading,
-                                                                        className: "border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200",
+                                                                        className: "border-gray-300 focus:ring-2 focus:ring-tiendaLVSecondary focus:border-tiendaLVSecondary transition-all duration-200",
                                                                         ...field
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
@@ -823,7 +823,7 @@ const SignUpForm = ()=>{
                                                             checked: field.value,
                                                             onCheckedChange: field.onChange,
                                                             disabled: isLoading,
-                                                            className: "border-gray-300 data-[state=checked]:bg-indigo-600 data-[state=checked]:border-indigo-600"
+                                                            className: "border-gray-300 data-[state=checked]:bg-tiendaLVSecondary data-[state=checked]:border-tiendaLVSecondary"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
                                                             lineNumber: 264,
@@ -841,7 +841,7 @@ const SignUpForm = ()=>{
                                                             " ",
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                                                                 href: "/privacy",
-                                                                className: "text-indigo-600 hover:text-indigo-800 hover:underline",
+                                                                className: "text-tiendaLVSecondary hover:text-tiendaLVSecondary/80 hover:underline",
                                                                 children: "Política de Privacidad"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
@@ -853,7 +853,7 @@ const SignUpForm = ()=>{
                                                             " ",
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                                                                 href: "/terms",
-                                                                className: "text-indigo-600 hover:text-indigo-800 hover:underline",
+                                                                className: "text-tiendaLVSecondary hover:text-tiendaLVSecondary/80 hover:underline",
                                                                 children: "Términos de Uso"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",
@@ -896,7 +896,7 @@ const SignUpForm = ()=>{
                                         },
                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
                                             type: "submit",
-                                            className: "w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold h-12 rounded-lg transition-all duration-200",
+                                            className: "w-full bg-tiendaLVAccent hover:bg-tiendaLVAccent/90 text-tiendaLVLight font-semibold h-12 rounded-lg transition-all duration-200",
                                             disabled: isLoading || !form.watch("termsAccepted"),
                                             children: isLoading ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                 className: "flex items-center gap-2",
@@ -964,7 +964,7 @@ const SignUpForm = ()=>{
                                 " ",
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                                     href: "/auth/signin",
-                                    className: "text-indigo-600 hover:text-indigo-800 hover:underline transition-all duration-200",
+                                    className: "text-tiendaLVSecondary hover:text-tiendaLVSecondary/80 hover:underline transition-all duration-200",
                                     children: "Iniciar sesión"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/common/pages/auth/SignUpForm.tsx",

@@ -1,11 +1,16 @@
+"use client";
+
 import { fetchData } from "@/lib/api";
 import { Banners } from "@/types/type";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
-const Banner = async () => {
-  let banners: Banners[] = [];
+const Banner = () => {
+  const [banners, setBanners] = useState<Banners[]>([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
 
   // Helper function to extract image URL
   const getImageUrl = (image: string | { url: string; publicId: string } | undefined): string | null => {
@@ -14,94 +19,145 @@ const Banner = async () => {
     return image.url || null;
   };
 
-  try {
-    // Disable cache to always get fresh data from database
-    const data = await fetchData<Banners[]>("/banners", {
-      cache: 'no-store',
-      next: { revalidate: 0 }
-    });
-    banners = data;
-  } catch (error) {
-    console.error("error", error);
-  }
-  const imageOne = banners[0];
-  const imageTwo = banners[1];
+  useEffect(() => {
+    const loadBanners = async () => {
+      try {
+        const data = await fetchData<Banners[]>("/banners");
+        setBanners(data || []);
+      } catch (error) {
+        console.error("Error loading banners:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    loadBanners();
+  }, []);
 
-  if (banners?.length === 0) {
-    return null;
+  // Auto-rotate banners every 5 seconds
+  useEffect(() => {
+    if (banners.length <= 1) return;
+
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % banners.length);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [banners.length]);
+
+  const goToNext = () => {
+    setCurrentIndex((prev) => (prev + 1) % banners.length);
+  };
+
+  const goToPrev = () => {
+    setCurrentIndex((prev) => (prev - 1 + banners.length) % banners.length);
+  };
+
+  const goToSlide = (index: number) => {
+    setCurrentIndex(index);
+  };
+
+  if (isLoading) {
+    return (
+      <div className="relative w-full h-[500px] md:h-[600px] bg-gradient-to-r from-pink-100 to-purple-100 animate-pulse">
+        <div className="absolute inset-0 flex items-center justify-center">
+          <span className="text-9xl opacity-20">🛍️</span>
+        </div>
+      </div>
+    );
   }
+
+  if (!banners || banners.length === 0) {
+    return (
+      <div className="relative w-full h-[500px] md:h-[600px] bg-gradient-to-r from-pink-100 to-purple-100">
+        <div className="absolute inset-0 flex items-center justify-center">
+          <span className="text-9xl opacity-20">🛍️</span>
+        </div>
+      </div>
+    );
+  }
+
+  const currentBanner = banners[currentIndex];
+
   return (
-    <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
-      {/* Banner Principal (Izquierda) */}
-      <div className="md:col-span-3 relative group overflow-hidden rounded-lg bg-gray-100 shadow-sm">
-        {getImageUrl(imageOne?.image) ? (
-          <Image
-            src={getImageUrl(imageOne?.image)!}
-            alt={imageOne?.title || "banner"}
-            width={800}
-            height={500}
-            priority
-            className="w-full h-72 md:h-[400px] object-cover group-hover:scale-105 transition-transform duration-500"
-          />
-        ) : (
-          <div className="w-full h-72 md:h-[400px] bg-gradient-to-br from-pink-100 to-purple-100 flex items-center justify-center">
-            <span className="text-6xl">🛍️</span>
-          </div>
-        )}
-        {/* Overlay con gradiente para mejor legibilidad */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+    <div className="relative w-full h-[500px] md:h-[600px] bg-gray-100 overflow-hidden group">
+      {/* Banner Image */}
+      {getImageUrl(currentBanner?.image) ? (
+        <Image
+          src={getImageUrl(currentBanner?.image)!}
+          alt={currentBanner?.title || "banner"}
+          fill
+          priority
+          className="object-cover object-center transition-transform duration-1000"
+          key={currentIndex}
+        />
+      ) : (
+        <div className="w-full h-full bg-gradient-to-r from-pink-100 to-purple-100 flex items-center justify-center">
+          <span className="text-9xl opacity-20">🛍️</span>
+        </div>
+      )}
 
-        {/* Contenido del banner */}
-        <div className="absolute inset-0 flex flex-col gap-3 items-center justify-center text-white px-4">
-          <p className="font-bold text-sm md:text-base uppercase tracking-wider">
-            {imageOne?.name}
-          </p>
-          <h2 className="text-3xl md:text-5xl font-bold max-w-2xl text-center capitalize leading-tight">
-            {imageOne?.title}
-          </h2>
-          <Link
-            href={"/shop"}
-            className="mt-4 capitalize bg-white rounded-full font-semibold text-gray-900 hover:bg-pink-500 hover:text-white px-8 py-3 text-base transition-all duration-300 shadow-lg hover:shadow-xl"
-          >
-            Comprar Ahora
-          </Link>
+      {/* Gradient Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-transparent md:from-black/40"></div>
+
+      {/* Content */}
+      <div className="absolute inset-0 flex items-center">
+        <div className="max-w-7xl mx-auto px-4 w-full">
+          <div className="max-w-xl text-white space-y-6">
+            <p className="text-sm md:text-base font-medium tracking-[0.2em] uppercase text-pink-200">
+              {currentBanner?.name || "Nueva Colección"}
+            </p>
+            <h2 className="text-4xl md:text-6xl font-bold leading-tight drop-shadow-lg">
+              {currentBanner?.title || "Descubre tu belleza única"}
+            </h2>
+
+            <div className="pt-4">
+              <Link
+                href={"/shop"}
+                className="inline-flex items-center justify-center bg-white text-black px-8 py-4 rounded-full font-semibold hover:bg-pink-600 hover:text-white transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-105"
+              >
+                Comprar Ahora
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Banner Secundario (Derecha) */}
-      <div className="relative group overflow-hidden rounded-lg bg-gray-100 shadow-sm">
-        {getImageUrl(imageTwo?.image) ? (
-          <Image
-            src={getImageUrl(imageTwo?.image)!}
-            alt={imageTwo?.title || "banner"}
-            width={400}
-            height={500}
-            className="w-full h-72 md:h-[400px] object-cover group-hover:scale-105 transition-transform duration-500"
-          />
-        ) : (
-          <div className="w-full h-72 md:h-[400px] bg-gradient-to-br from-purple-100 to-pink-100 flex items-center justify-center">
-            <span className="text-6xl">💄</span>
-          </div>
-        )}
-        {/* Overlay con gradiente */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
-
-        {/* Contenido del banner - CENTRADO */}
-        <div className="absolute inset-0 flex flex-col gap-2 items-center justify-center text-white px-4">
-          <p className="font-bold text-xs md:text-sm uppercase tracking-wider">
-            {imageTwo?.name}
-          </p>
-          <h2 className="text-2xl md:text-3xl font-bold max-w-xs text-center capitalize leading-tight">
-            {imageTwo?.title}
-          </h2>
-          <Link
-            href={"/shop"}
-            className="mt-3 capitalize bg-white rounded-full font-semibold text-gray-900 hover:bg-purple-500 hover:text-white px-6 py-2 text-sm transition-all duration-300 shadow-lg hover:shadow-xl"
+      {/* Navigation Arrows - Only show if more than 1 banner */}
+      {banners.length > 1 && (
+        <>
+          <button
+            onClick={goToPrev}
+            className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white p-3 rounded-full transition-all opacity-0 group-hover:opacity-100"
+            aria-label="Previous banner"
           >
-            Ver Más
-          </Link>
+            <ChevronLeft className="w-6 h-6" />
+          </button>
+          <button
+            onClick={goToNext}
+            className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white p-3 rounded-full transition-all opacity-0 group-hover:opacity-100"
+            aria-label="Next banner"
+          >
+            <ChevronRight className="w-6 h-6" />
+          </button>
+        </>
+      )}
+
+      {/* Dots Indicator - Only show if more than 1 banner */}
+      {banners.length > 1 && (
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2">
+          {banners.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => goToSlide(index)}
+              className={`w-3 h-3 rounded-full transition-all ${index === currentIndex
+                ? "bg-white w-8"
+                : "bg-white/50 hover:bg-white/75"
+                }`}
+              aria-label={`Go to banner ${index + 1}`}
+            />
+          ))}
         </div>
-      </div>
+      )}
     </div>
   );
 };

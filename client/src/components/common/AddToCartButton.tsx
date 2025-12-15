@@ -50,13 +50,13 @@ const AddToCartButton = ({ product, className }: Props) => {
     >
       {localLoading ? (
         <>
-          <Loader2 className="w-4 h-4 animate-spin mr-2" />
-          Agregando...
+          <Loader2 className="w-4 h-4 animate-spin" />
+          <span className="hidden sm:inline ml-2">Agregando...</span>
         </>
       ) : (
         <>
-          <ShoppingCart className="w-4 h-4 mr-2" />
-          Agregar al carrito
+          <ShoppingCart className="w-4 h-4" />
+          <span className="hidden sm:inline ml-2">Agregar al carrito</span>
         </>
       )}
     </Button>

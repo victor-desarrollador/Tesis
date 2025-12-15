@@ -47,31 +47,24 @@ const getStats = asyncHandler(async (req, res) => {
     },
     {
       $group: {
-        _id: "$categoryInfo.name",
+        _id: "$categoryInfo.categoryType",
         count: { $sum: 1 },
       },
     },
   ]);
 
-  // Get brand distribution
-  const brandData = await Product.aggregate([
-    {
-      $lookup: {
-        from: "brands",
-        localField: "brand",
-        foreignField: "_id",
-        as: "brandInfo",
-      },
-    },
-    {
-      $unwind: "$brandInfo",
-    },
+  // Get top 15 selling products
+  const topProductsData = await Order.aggregate([
+    { $match: { status: { $in: ["paid", "completed", "delivered"] } } },
+    { $unwind: "$items" },
     {
       $group: {
-        _id: "$brandInfo.name",
-        count: { $sum: 1 },
+        _id: "$items.name",
+        totalSold: { $sum: "$items.quantity" },
       },
     },
+    { $sort: { totalSold: -1 } },
+    { $limit: 15 },
   ]);
 
   res.json({
@@ -91,9 +84,9 @@ const getStats = asyncHandler(async (req, res) => {
       name: category._id,
       value: category.count,
     })),
-    brands: brandData.map((brand) => ({
-      name: brand._id,
-      value: brand.count,
+    topProducts: topProductsData.map((product) => ({
+      name: product._id,
+      value: product.totalSold,
     })),
   });
 });

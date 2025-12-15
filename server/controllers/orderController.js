@@ -1,6 +1,7 @@
 import asyncHandler from "express-async-handler";
 import Order from "../models/orderModel.js";
 import Cart from "../models/cartModel.js";
+import Product from "../models/productModel.js";
 
 // @desc    Get all orders for a user
 // @route   GET /api/orders
@@ -56,20 +57,39 @@ export const createOrderFromCart = asyncHandler(async (req, res) => {
     );
   }
 
-  // Validate each item structure
-  const validItems = items.map((item) => {
+  // Validate each item structure and check stock availability
+  const validItems = [];
+
+  for (const item of items) {
     if (!item._id || !item.name || !item.price || !item.quantity) {
       res.status(400);
       throw new Error("Invalid item structure");
     }
-    return {
+
+    // Fetch product from database to verify stock
+    const product = await Product.findById(item._id);
+
+    if (!product) {
+      res.status(404);
+      throw new Error(`Product not found: ${item.name}`);
+    }
+
+    // Check if requested quantity exceeds available stock
+    if (product.stock < item.quantity) {
+      res.status(400);
+      throw new Error(
+        `Stock insuficiente para "${product.name}". Disponible: ${product.stock}, Solicitado: ${item.quantity}`
+      );
+    }
+
+    validItems.push({
       productId: item._id,
       name: item.name,
       price: item.price,
       quantity: item.quantity,
       image: item.image,
-    };
-  });
+    });
+  }
 
   // Calculate total
   const total = validItems.reduce((acc, item) => {

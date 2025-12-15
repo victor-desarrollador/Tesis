@@ -19,18 +19,23 @@ function App() {
     return <Navigate to={"/acceso-denegado"} />;
   }
 
+  // Close sidebar on mobile route change
+  if (window.innerWidth < 768 && sidebarOpen) {
+    // Logic to close sidebar would go here but we need useEffect
+  }
+
   return (
-    <div className="h-screen flex bg-background">
+    <div className="flex h-screen bg-background overflow-hidden">
       <Sidebar open={sidebarOpen} setOpen={setSidebarOpen} />
 
       <div
         className={cn(
-          "flex flex-col flex-1 max-w-[--breakpoint-2xl]",
+          "flex flex-col flex-1 w-full transition-all duration-300",
           sidebarOpen ? "md:ml-64" : "md:ml-20"
         )}
       >
-        <Header />
-        <main>
+        <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+        <main className="flex-1 overflow-y-auto p-4 md:p-6 bg-background">
           <Outlet />
         </main>
       </div>

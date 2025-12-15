@@ -74,10 +74,11 @@ const loginUser = asyncHandler(async (req, res) => {
 
     if (user && (await user.matchPassword(password))) {
         // Verificar si el email está confirmado
-        if (!user.isVerified) {
-            res.status(401);
-            throw new Error("Por favor verifica tu email antes de iniciar sesión");
-        }
+        // NOTA: Comentado temporalmente para desarrollo
+        // if (!user.isVerified) {
+        //     res.status(401);
+        //     throw new Error("Por favor verifica tu email antes de iniciar sesión");
+        // }
 
         res.status(200).json({
             _id: user._id,

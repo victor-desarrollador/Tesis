@@ -1,10 +1,9 @@
-[00:00:02.201] Server  LOG      ✓ Ready in 1460ms
-[00:00:54.177] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:54.611] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765604612/ecommerce/products/pzg8udtdiwq1nhlqtr9a.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[00:00:54.611] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765604699/ecommerce/products/stj5orx3jcer7yber4pl.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[00:00:54.611] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765604802/ecommerce/products/kpcfpvtzk9oonjdezwpl.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[00:01:12.122] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:01:12.374] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+[00:00:01.821] Server  LOG      ✓ Ready in 1171ms
+[00:00:05.386] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:06.071] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765560108/ecommerce/brands/buungvgpspz8gnfzzaqa.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:00:06.071] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765560090/ecommerce/brands/crzsrnxovfy5g62ayefd.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:00:33.718] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:33.917] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
 
 - A server/client branch `if (typeof window !== 'undefined')`.
 - Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
@@ -52,211 +51,20 @@ It can also happen if the client has a browser extension installed which messes 
             ...
       ...
 
-[00:01:12.374] Browser LOG     authApi: GET /cart Token: true
-[00:01:12.643] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765604612/ecommerce/products/pzg8udtdiwq1nhlqtr9a.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[00:01:12.643] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765604699/ecommerce/products/stj5orx3jcer7yber4pl.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[00:01:12.643] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765604802/ecommerce/products/kpcfpvtzk9oonjdezwpl.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[00:01:40.343] Browser LOG     authApi: DELETE /cart Token: true
-[00:02:10.847] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:02:17.535] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765604612/ecommerce/products/pzg8udtdiwq1nhlqtr9a.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[00:02:17.535] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765604699/ecommerce/products/stj5orx3jcer7yber4pl.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[00:02:17.535] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765604802/ecommerce/products/kpcfpvtzk9oonjdezwpl.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[00:02:55.613] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:03:38.862] Server  ERROR   C:\Users\victo\OneDrive\Desktop\Tesis\client\.next\dev\server\chunks\ssr\[root-of-the-server]__7657c5f8._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
-[00:03:38.863] Server  ERROR   C:\Users\victo\OneDrive\Desktop\Tesis\client\.next\dev\server\chunks\ssr\[root-of-the-server]__2709afac._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
-[00:03:38.866] Server  ERROR   Failed to fetch /banners: TypeError: fetch failed
-[00:03:38.867] Server  ERROR   C:\Users\victo\OneDrive\Desktop\Tesis\client\.next\dev\server\chunks\ssr\[root-of-the-server]__7657c5f8._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
-[00:03:38.867] Server  ERROR   C:\Users\victo\OneDrive\Desktop\Tesis\client\.next\dev\server\chunks\ssr\[root-of-the-server]__2709afac._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
-[00:03:38.868] Server  ERROR   error TypeError: fetch failed
-[00:03:43.431] Server  ERROR   C:\Users\victo\OneDrive\Desktop\Tesis\client\.next\dev\server\chunks\ssr\[root-of-the-server]__7657c5f8._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
-[00:03:43.431] Server  ERROR   C:\Users\victo\OneDrive\Desktop\Tesis\client\.next\dev\server\chunks\ssr\[root-of-the-server]__2709afac._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
-[00:03:43.432] Server  ERROR   Failed to fetch /banners: TypeError: fetch failed
-[00:03:43.433] Server  ERROR   C:\Users\victo\OneDrive\Desktop\Tesis\client\.next\dev\server\chunks\ssr\[root-of-the-server]__7657c5f8._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
-[00:03:43.433] Server  ERROR   C:\Users\victo\OneDrive\Desktop\Tesis\client\.next\dev\server\chunks\ssr\[root-of-the-server]__2709afac._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
-[00:03:43.434] Server  ERROR   error TypeError: fetch failed
-[00:04:23.953] Browser ERROR   Failed to fetch RSC payload for http://localhost:3000/. Falling back to browser navigation. {}
-[00:04:27.105] Server  ERROR   TypeError: fetch failed
-[00:04:27.106] Server  ERROR   C:\Users\victo\OneDrive\Desktop\Tesis\client\.next\dev\server\chunks\ssr\[root-of-the-server]__7657c5f8._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
-[00:04:27.107] Server  ERROR   C:\Users\victo\OneDrive\Desktop\Tesis\client\.next\dev\server\chunks\ssr\[root-of-the-server]__2709afac._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
-[00:04:27.108] Server  ERROR   Failed to fetch /banners: TypeError: fetch failed
-[00:04:27.108] Server  ERROR   C:\Users\victo\OneDrive\Desktop\Tesis\client\.next\dev\server\chunks\ssr\[root-of-the-server]__7657c5f8._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
-[00:04:27.109] Server  ERROR   C:\Users\victo\OneDrive\Desktop\Tesis\client\.next\dev\server\chunks\ssr\[root-of-the-server]__2709afac._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
-[00:04:27.110] Server  ERROR   error TypeError: fetch failed
-[00:04:27.112] Server  ERROR   TypeError: fetch failed
-[00:06:01.159] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:06:31.094] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765604612/ecommerce/products/pzg8udtdiwq1nhlqtr9a.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[00:06:31.094] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765604699/ecommerce/products/stj5orx3jcer7yber4pl.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[00:06:31.095] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765604802/ecommerce/products/kpcfpvtzk9oonjdezwpl.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[00:09:06.943] Browser LOG     authApi: GET /cart Token: true
-[00:09:06.943] Browser LOG     authApi: GET /cart Token: true
-[00:09:20.876] Browser LOG     authApi: GET /cart Token: true
-[00:09:20.876] Browser LOG     authApi: GET /cart Token: true
-[00:09:21.541] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765605140/ecommerce/products/ttburypbca0dnr5qstzu.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[00:09:21.541] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765604996/ecommerce/products/fhu8wcl0fbqy5z6nlexv.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[00:09:21.541] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765605733/ecommerce/products/iwp63kweq2cv4sosm7p2.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[00:12:51.164] Server  LOG      ✓ Compiled in 199ms
-[00:12:51.577] Browser LOG     authApi: GET /auth/profile Token: true
-[00:14:23.833] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:14:24.317] Browser LOG     authApi: GET /auth/profile Token: true
-[00:14:24.618] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765605733/ecommerce/products/iwp63kweq2cv4sosm7p2.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[00:14:24.618] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765605140/ecommerce/products/ttburypbca0dnr5qstzu.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[00:14:24.618] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765604996/ecommerce/products/fhu8wcl0fbqy5z6nlexv.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[00:34:26.622] Server  LOG      ✓ Compiled in 100ms
-[00:42:25.655] Server  LOG      ✓ Compiled in 239ms
-[00:42:55.963] Server  LOG      ✓ Compiled in 178ms
-[00:42:56.566] Server  LOG      ✓ Compiled in 247ms
-[00:43:09.586] Server  LOG      ✓ Compiled in 236ms
-[00:44:25.414] Server  LOG      ✓ Compiled in 178ms
-[00:44:26.351] Browser LOG     authApi: GET /auth/profile Token: true
-[00:45:46.428] Browser LOG     authApi: GET /cart Token: true
-[00:45:46.429] Browser LOG     authApi: GET /cart Token: true
-[00:45:49.081] Browser LOG     authApi: DELETE /cart Token: true
-[00:46:43.926] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765604612/ecommerce/products/pzg8udtdiwq1nhlqtr9a.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[00:46:43.926] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765604699/ecommerce/products/stj5orx3jcer7yber4pl.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[00:46:43.926] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765604802/ecommerce/products/kpcfpvtzk9oonjdezwpl.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[00:46:53.201] Browser WARN    Image with src "/_next/static/media/payment.682e08dd.webp" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
-[00:47:03.018] Browser LOG     authApi: GET /auth/profile Token: true
-[00:47:21.103] Browser LOG     authApi: GET /auth/profile Token: true
-[00:47:25.941] Browser LOG     authApi: GET /cart Token: true
-[00:47:25.941] Browser LOG     authApi: GET /cart Token: true
-[00:47:29.875] Browser LOG     authApi: DELETE /cart Token: true
-[00:47:36.983] Browser LOG     authApi: GET /auth/profile Token: true
-[00:48:03.503] Browser LOG     authApi: DELETE /cart Token: true
-[00:51:07.565] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:51:08.443] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765604699/ecommerce/products/stj5orx3jcer7yber4pl.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[00:51:08.443] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765604612/ecommerce/products/pzg8udtdiwq1nhlqtr9a.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[00:51:08.443] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765604802/ecommerce/products/kpcfpvtzk9oonjdezwpl.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[00:52:21.036] Server  LOG      ✓ Compiled in 160ms
-[00:52:24.449] Server  LOG      ✓ Compiled in 111ms
-[00:54:14.362] Browser LOG     authApi: GET /cart Token: true
-[00:54:14.362] Browser LOG     authApi: GET /cart Token: true
-[00:54:20.810] Browser LOG     authApi: GET /cart Token: true
-[00:54:20.810] Browser LOG     authApi: GET /cart Token: true
-[00:54:21.091] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765604996/ecommerce/products/fhu8wcl0fbqy5z6nlexv.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[00:54:21.091] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765605140/ecommerce/products/ttburypbca0dnr5qstzu.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[00:54:24.296] Browser LOG     authApi: GET /auth/profile Token: true
-[00:54:43.333] Browser ERROR   Order error: {}
-[00:55:03.374] Server  LOG      ✓ Compiled in 127ms
-[00:55:04.558] Server  LOG      ✓ Compiled in 107ms
-[00:55:24.238] Browser LOG     authApi: GET /cart Token: true
-[00:55:24.238] Browser LOG     authApi: GET /cart Token: true
-[00:56:58.569] Server  LOG      ✓ Compiled in 128ms
-[00:57:08.767] Server  LOG      ✓ Compiled in 92ms
-[00:58:32.176] Server  LOG      ✓ Compiled in 140ms
-[00:59:29.237] Server  LOG      ✓ Compiled in 165ms
-[01:04:42.307] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[01:06:12.707] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765604699/ecommerce/products/stj5orx3jcer7yber4pl.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[01:06:12.707] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765604612/ecommerce/products/pzg8udtdiwq1nhlqtr9a.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[01:06:12.708] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765604802/ecommerce/products/kpcfpvtzk9oonjdezwpl.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[01:06:19.901] Browser LOG     authApi: GET /cart Token: true
-[01:06:19.901] Browser LOG     authApi: GET /cart Token: true
-[01:06:20.186] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765604996/ecommerce/products/fhu8wcl0fbqy5z6nlexv.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[01:06:20.186] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765605140/ecommerce/products/ttburypbca0dnr5qstzu.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[01:06:25.862] Browser LOG     authApi: GET /auth/profile Token: true
-[01:06:49.486] Browser ERROR   Order error: {}
-[01:07:27.127] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[01:07:27.637] Browser LOG     authApi: GET /auth/profile Token: true
-[01:07:34.090] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765604996/ecommerce/products/fhu8wcl0fbqy5z6nlexv.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[01:07:34.090] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765605140/ecommerce/products/ttburypbca0dnr5qstzu.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[01:07:43.227] Browser ERROR   Order error: {}
-[01:09:52.735] Server  LOG      ✓ Compiled in 151ms
-[01:09:53.172] Browser LOG     authApi: DELETE /users/693c49b49bc714734bb7302d/addresses/693e5aba689f0b22a9718050 Token: true
-[01:10:01.916] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765604699/ecommerce/products/stj5orx3jcer7yber4pl.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[01:10:01.916] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765604612/ecommerce/products/pzg8udtdiwq1nhlqtr9a.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[01:10:01.916] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765604802/ecommerce/products/kpcfpvtzk9oonjdezwpl.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[01:10:31.524] Browser LOG     authApi: GET /cart Token: true
-[01:10:31.524] Browser LOG     authApi: GET /cart Token: true
-[01:10:35.672] Browser LOG     authApi: GET /auth/profile Token: true
-[01:10:45.125] Browser LOG     authApi: DELETE /cart Token: true
-[01:10:45.420] Browser LOG     authApi: GET /cart Token: true
-[01:10:45.420] Browser LOG     authApi: GET /cart Token: true
-[01:12:09.502] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[01:12:10.105] Browser LOG     authApi: GET /cart Token: true
-[01:12:14.244] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765604996/ecommerce/products/fhu8wcl0fbqy5z6nlexv.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[01:12:14.244] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765605140/ecommerce/products/ttburypbca0dnr5qstzu.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[01:12:14.244] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765604699/ecommerce/products/stj5orx3jcer7yber4pl.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[01:12:14.244] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765604612/ecommerce/products/pzg8udtdiwq1nhlqtr9a.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[01:12:14.244] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765604802/ecommerce/products/kpcfpvtzk9oonjdezwpl.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[01:12:42.514] Server  LOG      ✓ Compiled in 176ms
-[01:14:04.747] Browser LOG     authApi: GET /cart Token: true
-[01:14:04.748] Browser LOG     authApi: GET /cart Token: true
-[01:14:05.257] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765605237/ecommerce/products/pgbq9lloc0ilh52alyol.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[01:14:09.031] Browser LOG     authApi: PUT /cart/update Token: true
-[01:14:09.991] Browser LOG     authApi: PUT /cart/update Token: true
-[01:14:11.686] Browser LOG     authApi: GET /auth/profile Token: true
-[01:14:35.360] Browser LOG     authApi: DELETE /cart Token: true
-[01:14:35.615] Browser LOG     authApi: GET /cart Token: true
-[01:14:35.615] Browser LOG     authApi: GET /cart Token: true
-[01:14:36.141] Browser ERROR   Order error: {}
-[01:17:47.157] Browser LOG     authApi: GET /cart Token: true
-[01:17:47.157] Browser LOG     authApi: GET /cart Token: true
-[01:19:00.991] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[01:19:01.725] Browser LOG     authApi: GET /cart Token: true
-[01:19:08.210] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765605237/ecommerce/products/pgbq9lloc0ilh52alyol.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[01:19:08.210] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765605140/ecommerce/products/ttburypbca0dnr5qstzu.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[01:19:08.210] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765604996/ecommerce/products/fhu8wcl0fbqy5z6nlexv.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[01:19:08.210] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765604802/ecommerce/products/kpcfpvtzk9oonjdezwpl.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[01:19:08.210] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765604699/ecommerce/products/stj5orx3jcer7yber4pl.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[01:19:08.210] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765604612/ecommerce/products/pzg8udtdiwq1nhlqtr9a.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[01:20:45.903] Browser LOG     authApi: GET /cart Token: true
-[01:20:45.903] Browser LOG     authApi: GET /cart Token: true
-[01:20:51.794] Browser LOG     authApi: GET /cart Token: true
-[01:20:51.794] Browser LOG     authApi: GET /cart Token: true
-[01:20:52.093] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765605733/ecommerce/products/iwp63kweq2cv4sosm7p2.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[01:20:54.871] Browser LOG     authApi: GET /auth/profile Token: true
-[01:21:10.411] Browser LOG     authApi: DELETE /cart Token: true
-[01:21:10.698] Browser LOG     authApi: GET /cart Token: true
-[01:21:10.698] Browser LOG     authApi: GET /cart Token: true
-[01:21:12.359] Browser LOG     authApi: DELETE /cart Token: true
-[01:22:40.077] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[01:22:40.921] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765605237/ecommerce/products/pgbq9lloc0ilh52alyol.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[01:22:40.921] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765605733/ecommerce/products/iwp63kweq2cv4sosm7p2.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[01:22:40.921] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765604699/ecommerce/products/stj5orx3jcer7yber4pl.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[01:22:40.921] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765604802/ecommerce/products/kpcfpvtzk9oonjdezwpl.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[01:22:40.921] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765604612/ecommerce/products/pzg8udtdiwq1nhlqtr9a.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[01:37:27.075] Server  LOG      ✓ Compiled in 281ms
-[01:38:10.515] Server  LOG      ✓ Compiled in 170ms
-[01:38:11.647] Server  LOG      ✓ Compiled in 171ms
-[01:38:43.652] Server  LOG      ✓ Compiled in 123ms
-[01:39:01.855] Server  LOG      ✓ Compiled in 146ms
-[01:39:05.526] Server  LOG      ✓ Compiled in 77ms
-[01:39:07.930] Server  LOG      ✓ Compiled in 102ms
-[01:39:09.951] Server  LOG      ✓ Compiled in 199ms
-[01:39:48.908] Server  LOG      ✓ Compiled in 155ms
-[01:39:51.535] Server  LOG      ✓ Compiled in 149ms
-[01:40:26.586] Server  LOG      ✓ Compiled in 141ms
-[01:40:32.833] Server  LOG      ✓ Compiled in 94ms
-[01:41:01.108] Server  LOG      ✓ Compiled in 129ms
-[01:41:02.568] Server  LOG      ✓ Compiled in 112ms
-[01:42:19.924] Server  LOG      ✓ Compiled in 182ms
-[01:42:20.824] Server  LOG      ✓ Compiled in 147ms
-[01:43:00.714] Server  LOG      ✓ Compiled in 93ms
-[01:43:34.060] Server  LOG      ✓ Compiled in 177ms
-[01:44:24.233] Server  LOG      ✓ Compiled in 104ms
-[01:48:15.621] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[01:48:16.538] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765605237/ecommerce/products/pgbq9lloc0ilh52alyol.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[01:48:16.538] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765604699/ecommerce/products/stj5orx3jcer7yber4pl.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[01:48:16.538] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765605733/ecommerce/products/iwp63kweq2cv4sosm7p2.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[01:48:16.538] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765604612/ecommerce/products/pzg8udtdiwq1nhlqtr9a.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[01:48:16.538] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765604802/ecommerce/products/kpcfpvtzk9oonjdezwpl.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[01:48:43.275] Browser LOG     authApi: GET /cart Token: true
-[01:48:43.275] Browser LOG     authApi: GET /cart Token: true
-[01:48:46.919] Browser LOG     authApi: GET /auth/profile Token: true
-[01:49:03.894] Browser LOG     authApi: DELETE /cart Token: true
-[01:50:18.700] Browser LOG     authApi: GET /cart Token: true
-[01:50:18.700] Browser LOG     authApi: GET /cart Token: true
-[01:50:24.781] Browser LOG     authApi: GET /auth/profile Token: true
-[01:50:54.271] Browser LOG     authApi: DELETE /cart Token: true
-[01:55:53.871] Server  LOG      ✓ Compiled in 165ms
-[01:58:43.351] Browser LOG     authApi: GET /cart Token: true
-[01:58:43.351] Browser LOG     authApi: GET /cart Token: true
-[01:58:43.573] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765605140/ecommerce/products/ttburypbca0dnr5qstzu.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
-[01:58:45.885] Browser LOG     authApi: GET /auth/profile Token: true
-[01:59:11.335] Browser LOG     authApi: DELETE /cart Token: true
-[01:59:49.227] Server  LOG      ✓ Compiled in 81ms
-[01:59:50.619] Server  LOG      ✓ Compiled in 98ms
-[02:00:00.865] Server  LOG      ✓ Compiled in 97ms
-[02:00:04.516] Server  LOG      ✓ Compiled in 125ms
-[02:00:17.802] Browser LOG     authApi: GET /auth/profile Token: true
-[02:00:17.802] Browser LOG     authApi: GET /cart Token: true
-[02:00:17.802] Browser LOG     authApi: GET /cart Token: true
+[00:01:34.354] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765560090/ecommerce/brands/crzsrnxovfy5g62ayefd.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:01:34.354] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765560108/ecommerce/brands/buungvgpspz8gnfzzaqa.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:02:40.764] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:04:51.365] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:04:51.515] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:04:53.540] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765560108/ecommerce/brands/buungvgpspz8gnfzzaqa.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:04:53.540] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765560090/ecommerce/brands/crzsrnxovfy5g62ayefd.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:08:27.332] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:08:38.554] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765560108/ecommerce/brands/buungvgpspz8gnfzzaqa.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:08:38.554] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765560090/ecommerce/brands/crzsrnxovfy5g62ayefd.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:11:23.106] Server  LOG      ✓ Compiled in 224ms
+[00:15:03.931] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:16:42.520] Server  LOG      ✓ Compiled in 105ms
+[00:18:43.252] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:20:57.431] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:21:26.483] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765560108/ecommerce/brands/buungvgpspz8gnfzzaqa.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes
+[00:21:26.483] Browser WARN    Image with src "https://res.cloudinary.com/dacgitch6/image/upload/v1765560090/ecommerce/brands/crzsrnxovfy5g62ayefd.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes

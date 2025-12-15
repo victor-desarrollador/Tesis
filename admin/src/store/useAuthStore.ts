@@ -41,6 +41,9 @@ const useAuthStore = create<AuthState>()(
           // { _id, name, email, avatar, role, addresses, token }
           if (response.data.token) {
             const { token, ...userData } = response.data;
+            if (userData.role !== "admin") {
+              throw new Error("Acceso denegado: Solo administradores pueden ingresar.");
+            }
             set({
               user: userData,
               token: token,

@@ -143,7 +143,7 @@ const getProducts = asyncHandler(async (req, res) => {
 
     const filter = {}; // Remover filtro isActive por defecto
 
-    console.log("DEBUG: Parameters received:", req.query);
+    // console.log("DEBUG: Parameters received:", req.query);
 
     // Enhanced Search: Includes Text, Category (Name/Type), and Brand lookup
     if (req.query.search) {
@@ -264,7 +264,7 @@ const getProducts = asyncHandler(async (req, res) => {
             sort = { createdAt: -1 };
     }
 
-    console.log("DEBUG: Final Mongo Filter:", JSON.stringify(filter, null, 2));
+    // console.log("DEBUG: Final Mongo Filter:", JSON.stringify(filter, null, 2));
 
     const products = await Product.find(filter)
         .populate("category", "name slug")

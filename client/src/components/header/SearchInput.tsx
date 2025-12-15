@@ -9,58 +9,46 @@ import AddToCartButton from "../common/AddToCartButton";
 import Link from "next/link";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 
 interface ProductsResponse {
   success: boolean;
   data: Product[];
-  pagination: {
-    total: number;
-    pages: number;
-    page: number;
-    limit: number;
-  };
 }
 
 const SearchInput = () => {
   const [search, setSearch] = useState("");
   const [debouncedSearch] = useDebounce(search, 300);
   const [products, setProducts] = useState<Product[]>([]);
-  const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   const [showResults, setShowResults] = useState(false);
-  const [showSearch, setShowSearch] = useState(false);
+  const [showMobileSearch, setShowMobileSearch] = useState(false);
+
   const searchRef = useRef<HTMLDivElement>(null);
   const mobileInputRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
 
-  const fetchFeaturedProducts = async () => {
-    try {
-      const response = await fetchData<ProductsResponse>("/products");
-      setFeaturedProducts(response.data);
-    } catch (error) {
-      console.error("Error al obtener productos destacados:", error);
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (search.trim()) {
+      router.push(`/shop?search=${encodeURIComponent(search.trim())}`);
+      setShowResults(false);
+      setShowMobileSearch(false);
     }
   };
 
-  useEffect(() => {
-    fetchFeaturedProducts();
-  }, []);
-
-  const featchProducts = async (searchTerm: string) => {
+  const fetchProducts = async (searchTerm: string) => {
     if (!searchTerm.trim()) {
       setProducts([]);
       return;
     }
     setLoading(true);
-    setError(null);
-
     try {
       const response = await fetchData<ProductsResponse>(
-        `/products?page=1&limit=10&search=${encodeURIComponent(searchTerm)}`
+        `/products?page=1&limit=6&search=${encodeURIComponent(searchTerm)}`
       );
       setProducts(response.data);
     } catch (error) {
-      setError("Error al buscar productos. Inténtelo nuevamente.");
       console.error("Error buscando productos:", error);
     } finally {
       setLoading(false);
@@ -68,350 +56,180 @@ const SearchInput = () => {
   };
 
   useEffect(() => {
-    featchProducts(debouncedSearch);
+    if (debouncedSearch) {
+      fetchProducts(debouncedSearch);
+    } else {
+      setProducts([]);
+    }
   }, [debouncedSearch]);
 
+  // Close dropdown on click outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (
-        searchRef.current &&
-        !searchRef.current.contains(event.target as Node)
-      ) {
+      if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
         setShowResults(false);
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // Focus mobile input when opened
   useEffect(() => {
-    if (showSearch && mobileInputRef.current) {
+    if (showMobileSearch && mobileInputRef.current) {
       mobileInputRef.current.focus();
     }
-  }, [showSearch]);
+  }, [showMobileSearch]);
 
-  const toggleMobileSearch = () => {
-    setShowSearch(!showSearch);
-    if (!showSearch) {
-      setSearch("");
-      setShowResults(true);
-    }
-  };
+  const clearSearch = () => {
+    setSearch("");
+    setProducts([]);
+    setShowResults(false);
+  }
 
   return (
-    <div ref={searchRef} className="relative lg:w-full">
-      {/* Botón buscar en pantallas pequeñas */}
+    <div ref={searchRef} className="relative w-full">
+      {/* Mobile Search Toggle */}
       <button
-        onClick={toggleMobileSearch}
-        className="lg:hidden mt-1.5 border p-2 rounded-full hover:border-tiendaLVPrimary hover:bg-tiendaLVPrimary/10 group hoverEffect"
+        onClick={() => setShowMobileSearch(!showMobileSearch)}
+        className="lg:hidden p-2 rounded-full hover:bg-tiendaLVSoft transition-colors"
       >
-        {showSearch ? (
-          <X className="w-5 h-5 text-tiendaLVAccent group-hover:text-tiendaLVSecondary hoverEffect" />
-        ) : (
-          <Search className="w-5 h-5 text-tiendaLVAccent group-hover:text-tiendaLVSecondary hoverEffect" />
-        )}
+        <Search className="w-5 h-5 text-tiendaLVText" />
       </button>
 
-      {/* Buscador escritorio */}
+      {/* Desktop Search Bar */}
       <form
-        className="relative hidden lg:flex items-center"
-        onSubmit={(e) => e.preventDefault()}
+        onSubmit={handleSearch}
+        className="hidden lg:flex items-center relative w-full group"
       >
-        <Input
-          placeholder="Buscar productos..."
-          className="flex-1 rounded-md py-5 focus-visible:ring-0 focus-visible:border-tiendaLVSecondary bg-white text-tiendaLVText placeholder:font-semibold placeholder:tracking-wide pr-16"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          onFocus={() => setShowResults(true)}
-        />
-        {search ? (
-          <X
-            onClick={() => setSearch("")}
-            className="w-5 h-5 absolute right-3 top-2.5 text-tiendaLVText hover:text-tiendaLVSecondary hoverEffect cursor-pointer"
+        <div className="relative w-full flex items-center">
+          <Input
+            placeholder="Buscar en Tienda L&V..."
+            className="w-full bg-gray-50/50 border-gray-200 focus-visible:border-tiendaLVSecondary/50 focus-visible:ring-tiendaLVSecondary/20 rounded-full py-5 pl-5 pr-12 transition-all duration-300"
+            value={search}
+            onChange={(e) => {
+              setSearch(e.target.value);
+              setShowResults(true);
+            }}
+            onFocus={() => setShowResults(true)}
           />
-        ) : (
-          <Search className="absolute right-3 top-3 w-5 h-5 text-tiendaLVText" />
-        )}
+          {search && (
+            <button
+              type="button"
+              onClick={clearSearch}
+              className="absolute right-12 text-gray-400 hover:text-tiendaLVAccent transition-colors p-1"
+            >
+              <X size={16} />
+            </button>
+          )}
+          <button
+            type="submit"
+            className="absolute right-2 p-2 bg-tiendaLVSecondary text-white rounded-full hover:bg-yellow-600 transition-all shadow-sm active:scale-95"
+          >
+            <Search size={18} />
+          </button>
+        </div>
       </form>
 
-      {/* Buscador móvil */}
+      {/* Mobile Search Overlay */}
       <AnimatePresence>
-        {showSearch && (
+        {showMobileSearch && (
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 20 }}
-            transition={{ duration: 0.2 }}
-            className="fixed lg:hidden left-0 top-24 w-full px-1 py-1 md:px-5 md:py-2 bg-white"
+            exit={{ opacity: 0, y: -10 }}
+            className="fixed inset-x-0 top-[70px] z-50 bg-white border-b border-gray-100 shadow-lg lg:hidden p-4"
           >
-            <div className="bg-white p-4 shadow-lg rounded-md">
-              <div className="relative flex items-center">
-                <Input
-                  ref={mobileInputRef}
-                  placeholder="Buscar productos..."
-                  className="w-full pr-16 py-5 rounded-md focus-visible:ring-0 focus-visible:border-tiendaLVSecondary bg-white text-tiendaLVText placeholder:font-semibold"
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                  onFocus={() => setShowResults(true)}
-                />
-                {search ? (
-                  <X
-                    onClick={() => setSearch("")}
-                    className="absolute right-4 w-5 h-5 text-tiendaLVText hover:text-tiendaLVSecondary hoverEffect cursor-pointer"
-                  />
-                ) : (
-                  <Search className="absolute right-4 w-5 h-5 text-tiendaLVText" />
-                )}
-              </div>
-
-              {/* Resultados en móvil */}
-              {showResults && (
-                <div className="mt-2 bg-white rounded-md shadow-lg overflow-y-auto border border-gray-200 max-h-[50vh]">
-                  {loading ? (
-                    <div className="flex items-center justify-center px-6 gap-2 py-4 text-center">
-                      <Loader2 className="w-5 h-5 animate-spin text-tiendaLVSecondary" />
-                      <span className="font-medium text-gray-600">
-                        Buscando...
-                      </span>
-                    </div>
-                  ) : products?.length > 0 ? (
-                    <div className="py-2">
-                      <div className="px-4 py-2 bg-gray-50 border-b border-gray-200">
-                        <p className="text-sm font-medium text-gray-700">
-                          Resultados ({products.length})
-                        </p>
-                      </div>
-                      {products.map((product) => (
-                        <div
-                          key={product._id}
-                          onClick={() => {
-                            setShowResults(false);
-                            setSearch("");
-                            setShowSearch(false);
-                          }}
-                          className="border-b border-gray-100 last:border-b-0 hover:bg-gray-50 px-4 py-3 cursor-pointer"
-                        >
-                          <Link
-                            href={`/product/${product._id}`}
-                            className="flex items-center gap-3"
-                          >
-                            {product.image && (
-                              <div className="w-12 h-12 bg-gray-50 rounded shrink-0 overflow-hidden">
-                                <Image
-                                  height={200}
-                                  width={200}
-                                  src={product.image}
-                                  alt={product.name}
-                                  className="object-contain w-full h-full"
-                                />
-                              </div>
-                            )}
-                            <div>
-                              <h3 className="text-sm font-medium text-gray-800 line-clamp-1">
-                                {product.name}
-                              </h3>
-                              {product.price && (
-                                <p className="text-sm font-semibold text-tiendaLVPrimary mt-0.5">
-                                  ${product.price}
-                                </p>
-                              )}
-                              {(product.category?.name ||
-                                product.brand?.name) && (
-                                  <p className="text-sm text-tiendaLVText">
-                                    {product.category?.name || "Sin categoría"} -{" "}
-                                    {product.brand?.name || "Sin marca"}
-                                  </p>
-                                )}
-                            </div>
-                          </Link>
-                        </div>
-                      ))}
-                      <div className="px-4 py-2 bg-gray-50 border-t border-gray-200">
-                        <Link
-                          href={`/shop?search=${encodeURIComponent(search)}`}
-                          onClick={() => {
-                            setShowResults(false);
-                            setShowSearch(false);
-                          }}
-                          className="text-sm text-tiendaLVPrimary font-medium hover:underline"
-                        >
-                          Ver todos los resultados
-                        </Link>
-                      </div>
-                    </div>
-                  ) : (
-                    <>
-                      <div className="px-4 py-3 bg-gray-50 border-b border-gray-200">
-                        {!search ? (
-                          <p className="text-sm font-medium text-gray-700">
-                            Productos populares
-                          </p>
-                        ) : (
-                          <p className="text-sm font-medium text-gray-700">
-                            No hay resultados para "
-                            <span className="text-tiendaLVSecondary">{search}</span>"
-                          </p>
-                        )}
-                      </div>
-
-                      <div>
-                        {featuredProducts?.length > 0 &&
-                          featuredProducts.map((item) => (
-                            <div
-                              key={item._id}
-                              className="border-b border-gray-100 last:border-b-0 hover:bg-gray-50"
-                            >
-                              <button
-                                onClick={() => {
-                                  setSearch(item.name);
-                                  setShowResults(true);
-                                }}
-                                className="flex items-center gap-3 w-full text-left px-4 py-3 hover:cursor-pointer"
-                              >
-                                <Search className="text-tiendaLVText w-5 h-5" />
-                                <div>
-                                  <h3 className="text-sm font-medium text-gray-800 line-clamp-1">
-                                    {item.name}
-                                  </h3>
-                                </div>
-                              </button>
-                            </div>
-                          ))}
-                      </div>
-                    </>
-                  )}
-                </div>
-              )}
-            </div>
+            <form onSubmit={handleSearch} className="flex gap-2">
+              <Input
+                ref={mobileInputRef}
+                placeholder="Buscar productos..."
+                className="flex-1 bg-gray-50 border-transparent focus:border-tiendaLVSecondary rounded-full"
+                value={search}
+                onChange={(e) => {
+                  setSearch(e.target.value);
+                  setShowResults(true);
+                }}
+              />
+              <button
+                type="submit"
+                className="bg-tiendaLVSecondary text-white p-2.5 rounded-full"
+              >
+                <Search size={20} />
+              </button>
+              <button
+                type="button"
+                onClick={() => setShowMobileSearch(false)}
+                className="p-2.5 text-gray-500"
+              >
+                <X size={24} />
+              </button>
+            </form>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Dropdown escritorio */}
-      {showResults && !showSearch && (
-        <div className="absolute top-full mt-1 left-0 right-0 bg-white rounded-md shadow-lg z-50 max-h-[70vh] overflow-y-auto border border-gray-200 hidden lg:block">
-          {loading ? (
-            <div className="flex items-center justify-center px-6 gap-2 py-4 text-center">
-              <Loader2 className="w-5 h-5 animate-spin text-tiendaLVSecondary" />
-              <span className="font-medium text-gray-600">Buscando...</span>
-            </div>
-          ) : products?.length > 0 ? (
-            <div className="py-0">
-              <div className="px-4 py-2 bg-gray-50 border-b border-gray-200">
-                <p className="text-sm font-medium text-gray-700">
-                  Resultados ({products.length})
-                </p>
-                {error && (
-                  <p className="text-sm font-medium text-tiendaLVSecondary">
-                    {error}
-                  </p>
-                )}
+      {/* Results Dropdown */}
+      <AnimatePresence>
+        {showResults && (search.length > 2) && (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 10 }}
+            className="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden z-60"
+          >
+            {loading ? (
+              <div className="p-8 flex justify-center text-tiendaLVSecondary">
+                <Loader2 className="animate-spin" />
               </div>
-
-              {products.map((product) => (
-                <div
-                  key={product._id}
-                  className="border-b border-gray-100 last:border-b-0 hover:bg-gray-50 px-4 py-3 flex items-center gap-5 justify-between"
-                >
-                  <div
-                    className="flex-1"
-                    onClick={() => {
-                      setShowResults(false);
-                      setSearch("");
-                    }}
-                  >
-                    <Link
-                      href={`/product/${product._id}`}
-                      className="flex items-center gap-3"
-                    >
-                      {product.image && (
-                        <div className="w-12 h-12 bg-gray-50 rounded flex-shrink-0 overflow-hidden">
+            ) : products.length > 0 ? (
+              <>
+                <ul className="max-h-[60vh] overflow-y-auto custom-scrollbar">
+                  {products.map((product) => (
+                    <li key={product._id} className="border-b border-gray-50 last:border-0 hover:bg-pink-50/30 transition-colors">
+                      <Link
+                        href={`/product/${product._id}`}
+                        onClick={() => setShowResults(false)}
+                        className="flex items-center gap-4 p-3"
+                      >
+                        <div className="w-12 h-12 rounded-lg bg-white border border-gray-100 overflow-hidden shrink-0 relative">
                           <Image
-                            width={200}
-                            height={200}
-                            src={product.image}
+                            src={product.image || "/placeholder.png"}
                             alt={product.name}
-                            className="object-contain w-full h-full"
+                            fill
+                            className="object-contain p-1"
                           />
                         </div>
-                      )}
-                      <div>
-                        <h3 className="text-sm font-medium text-gray-800 line-clamp-1">
-                          {product.name}
-                        </h3>
-                        {product.price && (
-                          <p className="text-sm font-semibold text-tiendaLVPrimary mt-0.5">
-                            ${product.price}
-                          </p>
-                        )}
-                        {(product.category?.name || product.brand?.name) && (
-                          <p className="text-sm text-tiendaLVText">
-                            {product.category?.name || "Sin categoría"} -{" "}
-                            {product.brand?.name || "Sin marca"}
-                          </p>
-                        )}
-                      </div>
-                    </Link>
-                  </div>
-
-                  <AddToCartButton product={product} />
-                </div>
-              ))}
-
-              <div className="px-4 py-2 bg-gray-50 border-t border-gray-200">
-                <Link
-                  href={`/shop?search=${encodeURIComponent(search)}`}
-                  onClick={() => {
-                    setShowResults(false);
-                  }}
-                  className="text-sm text-tiendaLVPrimary font-medium hover:underline"
-                >
-                  Ver todos los resultados
-                </Link>
-              </div>
-            </div>
-          ) : (
-            <>
-              <div className="px-4 py-3 bg-gray-50 border-b border-gray-200">
-                {!search ? (
-                  <p className="text-sm font-medium text-gray-700">
-                    Productos populares
-                  </p>
-                ) : (
-                  <p className="text-sm font-medium text-gray-700">
-                    No hay resultados para "
-                    <span className="text-tiendaLVSecondary">{search}</span>"
-                  </p>
-                )}
-              </div>
-
-              <div>
-                {featuredProducts?.length > 0 &&
-                  featuredProducts?.map((item) => (
-                    <div
-                      key={item._id}
-                      className="border-b border-gray-100 last:border-b-0 hover:bg-gray-50"
-                    >
-                      <button
-                        onClick={() => {
-                          setSearch(item.name);
-                          setShowResults(true);
-                        }}
-                        className="flex items-center gap-3 text-left px-4 py-3 hover:cursor-pointer"
-                      >
-                        <Search className="text-tiendaLVAccent/60 w-5 h-5" />
-                        <h3 className="text-sm font-medium text-gray-800 line-clamp-1">
-                          {item.name}
-                        </h3>
-                      </button>
-                    </div>
+                        <div className="flex-1 min-w-0">
+                          <h4 className="font-medium text-gray-900 truncate">{product.name}</h4>
+                          <div className="flex items-center gap-2 text-xs text-gray-500">
+                            <span>{product.brand?.name}</span>
+                            {product.price > 0 && (
+                              <span className="font-bold text-tiendaLVText">${product.price.toLocaleString()}</span>
+                            )}
+                          </div>
+                        </div>
+                      </Link>
+                    </li>
                   ))}
+                </ul>
+                <div className="p-3 bg-gray-50 text-center border-t border-gray-100">
+                  <button
+                    onClick={handleSearch}
+                    className="text-sm font-semibold text-tiendaLVSecondary hover:underline"
+                  >
+                    Ver todos los resultados ({products.length}+)
+                  </button>
+                </div>
+              </>
+            ) : (
+              <div className="p-6 text-center text-gray-500">
+                <p>No se encontraron productos para "{search}"</p>
               </div>
-            </>
-          )}
-        </div>
-      )}
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

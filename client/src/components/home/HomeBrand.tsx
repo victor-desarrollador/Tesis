@@ -25,36 +25,23 @@ const HomeBrand = ({ brands }: Props) => {
 
   return (
     <div className='mt-5 border bg-white p-5 rounded-lg shadow-sm'>
-      <SectionHeader
-        icon={Tag}
-        badgeText="Marcas Premium"
-        title="🏷️ Marcas que Amamos"
-        description="Descubrí las mejores marcas de cosmética y accesorios"
-        href="/shop"
-        buttonText="Ver Todas"
-      />
-
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-5">
-        {brands?.map((brand) => (
-          <Link key={brand?._id} href={{
-            pathname: "/shop", query: { brand: brand?._id }
-          }} className='flex flex-col items-center justify-center group hover:bg-pink-50 p-3 rounded-lg transition-all'>
-            {getImageUrl(brand?.image) ? (
-              <Image
-                src={getImageUrl(brand?.image)!}
-                alt={brand?.name || 'marca'}
-                width={250}
-                height={250}
-                className='w-32 h-32 object-contain group-hover:scale-110 transition-transform'
-              />
-            ) : (
-              <div className="w-32 h-32 bg-gradient-to-br from-pink-100 to-purple-100 rounded-lg flex items-center justify-center">
-                <span className="text-4xl">🏷️</span>
+      <div className="max-w-7xl mx-auto px-4">
+        <h2 className="text-2xl font-bold text-center text-tiendaLVText mb-8">Nuestras Marcas</h2>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 items-center justify-items-center opacity-70 grayscale hover:grayscale-0 transition-all duration-500">
+          {brands.map((brand) => (
+            <Link key={brand._id} href={{ pathname: "/shop", query: { brand: brand?._id } }} className="flex flex-col items-center group">
+              <div className="relative w-24 h-24 hover:scale-110 transition-transform">
+                <Image
+                  src={brand.image?.url || "/placeholder.png"}
+                  alt={brand.name || 'marca'}
+                  fill
+                  className="object-contain"
+                />
               </div>
-            )}
-            <p className='text-sm font-medium text-center line-clamp-1 mt-2 text-gray-700 group-hover:text-pink-600'>{brand?.name}</p>
-          </Link>
-        ))}
+              <p className='text-sm font-medium text-center line-clamp-1 mt-2 text-gray-700 group-hover:text-pink-600'>{brand?.name}</p>
+            </Link>
+          ))}
+        </div>
       </div>
     </div>
   )

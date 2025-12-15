@@ -15,8 +15,10 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
-import { Loader2, Save, User, Lock, KeyRound, Mail, ShieldCheck, CheckCircle2 } from "lucide-react";
+import { Loader2, Save, User, Lock, KeyRound, Mail, ShieldCheck, CheckCircle2, Camera, AlertTriangle } from "lucide-react";
 import ImageUpload from "@/components/ui/image.upload";
+import { Separator } from "@/components/ui/separator";
+import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 // Schema for Profile Update
@@ -42,7 +44,7 @@ const Account = () => {
     const { user, setUser } = useAuthStore();
     const axiosPrivate = useAxiosPrivate();
     const [loading, setLoading] = useState(false);
-    const [activeSection, setActiveSection] = useState<"profile" | "security">("profile");
+    const [activeTab, setActiveTab] = useState<"profile" | "security">("profile");
 
     const formProfile = useForm<ProfileFormValues>({
         resolver: zodResolver(profileSchema),
@@ -115,187 +117,166 @@ const Account = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/40 pb-16">
-            {/* Header / Cover con diseño mejorado */}
-            <div className="h-56 bg-gradient-to-br from-indigo-600 via-purple-600 to-indigo-700 relative overflow-hidden">
-                {/* Efectos visuales de fondo */}
-                <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-30"></div>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+        <div className="space-y-8 pb-10">
+            {/* Professional Header Banner */}
+            <div className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-sidebar to-sidebar-accent border border-sidebar-border shadow-2xl">
+                <div className="absolute inset-0 bg-grid-white/5 mask-image-gradient-b"></div>
 
-                {/* Elementos decorativos */}
-                <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
-                <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"></div>
-
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex flex-col justify-end pb-8 relative z-10">
-                    <div className="flex items-end gap-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
-                        <div className="relative group">
-                            {/* Avatar con efectos mejorados */}
-                            <div className="absolute inset-0 bg-gradient-to-br from-indigo-400 to-purple-500 rounded-full blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
-                            <div className="w-36 h-36 rounded-full border-4 border-white shadow-2xl overflow-hidden bg-white relative z-10 transform transition-transform group-hover:scale-105">
-                                {user?.avatar ? (
-                                    <img src={user.avatar} alt={user.name} className="w-full h-full object-cover" />
-                                ) : (
-                                    <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-indigo-100 to-purple-100 text-indigo-400">
-                                        <User size={56} strokeWidth={1.5} />
-                                    </div>
-                                )}
-                            </div>
+                <div className="relative z-10 px-8 py-10 md:py-14 flex flex-col md:flex-row items-center md:items-end gap-6 md:gap-8">
+                    <div className="relative group">
+                        <div className="absolute -inset-0.5 bg-gradient-to-r from-primary to-purple-600 rounded-full blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
+                        <div className="relative h-32 w-32 md:h-40 md:w-40 rounded-full border-4 border-sidebar bg-sidebar overflow-hidden shadow-xl">
+                            {user?.avatar ? (
+                                <img src={user.avatar} alt={user.name} className="h-full w-full object-cover" />
+                            ) : (
+                                <div className="h-full w-full flex items-center justify-center bg-sidebar-accent text-sidebar-foreground">
+                                    <User size={64} />
+                                </div>
+                            )}
                         </div>
-                        <div className="pb-3 text-white z-10 flex-1">
-                            <h1 className="text-4xl font-bold mb-1 tracking-tight">{user?.name}</h1>
-                            <p className="text-indigo-100 flex items-center gap-2 mb-3 text-sm">
-                                <Mail size={16} strokeWidth={2} /> 
-                                <span>{user?.email}</span>
-                            </p>
-                            <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-white/20 text-white border border-white/30 backdrop-blur-md shadow-lg">
-                                <CheckCircle2 size={14} className="mr-1.5" />
-                                {user?.role === 'admin' ? 'Administrador' : 'Usuario'}
+                        <div className="absolute bottom-2 right-2 p-2 bg-primary text-white rounded-full shadow-lg border-2 border-sidebar cursor-pointer hover:bg-primary/90 transition-colors">
+                            <Camera size={16} />
+                        </div>
+                    </div>
+
+                    <div className="text-center md:text-left flex-1 mb-2">
+                        <motion.h1
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="text-3xl md:text-4xl font-bold text-white tracking-tight"
+                        >
+                            {user?.name}
+                        </motion.h1>
+                        <motion.div
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.1 }}
+                            className="flex items-center justify-center md:justify-start gap-3 mt-2 text-sidebar-foreground"
+                        >
+                            <Mail size={16} />
+                            <span className="text-lg">{user?.email}</span>
+                            <span className="hidden md:inline-block mx-2 text-sidebar-border">|</span>
+                            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/20 text-primary border border-primary/20 capitalize">
+                                {user?.role}
                             </span>
-                        </div>
+                        </motion.div>
+                    </div>
+
+                    <div className="flex bg-sidebar-accent/50 p-1 rounded-xl border border-sidebar-border/50 backdrop-blur-sm">
+                        <button
+                            onClick={() => setActiveTab("profile")}
+                            className={cn(
+                                "px-6 py-2.5 rounded-lg text-sm font-medium transition-all duration-300 flex items-center gap-2",
+                                activeTab === "profile"
+                                    ? "bg-primary text-white shadow-lg shadow-primary/25"
+                                    : "text-sidebar-foreground hover:bg-white/5 hover:text-white"
+                            )}
+                        >
+                            <User size={16} />
+                            <span>Perfil</span>
+                        </button>
+                        <button
+                            onClick={() => setActiveTab("security")}
+                            className={cn(
+                                "px-6 py-2.5 rounded-lg text-sm font-medium transition-all duration-300 flex items-center gap-2",
+                                activeTab === "security"
+                                    ? "bg-primary text-white shadow-lg shadow-primary/25"
+                                    : "text-sidebar-foreground hover:bg-white/5 hover:text-white"
+                            )}
+                        >
+                            <ShieldCheck size={16} />
+                            <span>Seguridad</span>
+                        </button>
                     </div>
                 </div>
             </div>
 
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-12 relative z-20">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                    {/* Sidebar Nav mejorado */}
-                    <div className="lg:col-span-3">
-                        <nav className="space-y-2 bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/50 p-3">
-                            <button
-                                onClick={() => setActiveSection("profile")}
-                                className={cn(
-                                    "w-full flex items-center gap-3 px-5 py-3.5 text-sm font-semibold rounded-xl transition-all duration-200",
-                                    activeSection === "profile"
-                                        ? "bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg shadow-indigo-500/30 scale-[1.02]"
-                                        : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
-                                )}
-                            >
-                                <div className={cn(
-                                    "p-1.5 rounded-lg",
-                                    activeSection === "profile" ? "bg-white/20" : "bg-slate-100"
-                                )}>
-                                    <User size={18} strokeWidth={2.5} />
-                                </div>
-                                Información Personal
-                            </button>
-                            <button
-                                onClick={() => setActiveSection("security")}
-                                className={cn(
-                                    "w-full flex items-center gap-3 px-5 py-3.5 text-sm font-semibold rounded-xl transition-all duration-200",
-                                    activeSection === "security"
-                                        ? "bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg shadow-indigo-500/30 scale-[1.02]"
-                                        : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
-                                )}
-                            >
-                                <div className={cn(
-                                    "p-1.5 rounded-lg",
-                                    activeSection === "security" ? "bg-white/20" : "bg-slate-100"
-                                )}>
-                                    <ShieldCheck size={18} strokeWidth={2.5} />
-                                </div>
-                                Seguridad y Contraseña
-                            </button>
-                        </nav>
-
-                        {/* Info Card adicional */}
-                        <div className="mt-6 bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl p-5 border border-indigo-100">
-                            <div className="flex items-center gap-3 mb-2">
-                                <div className="p-2 bg-indigo-100 rounded-lg">
-                                    <ShieldCheck size={20} className="text-indigo-600" />
-                                </div>
-                                <h3 className="font-semibold text-slate-800">Cuenta Verificada</h3>
-                            </div>
-                            <p className="text-sm text-slate-600 leading-relaxed">
-                                Tu cuenta está protegida y verificada. Mantén tu información actualizada.
-                            </p>
-                        </div>
-                    </div>
-
-                    {/* Content Area mejorado */}
-                    <div className="lg:col-span-9 space-y-6">
-                        {activeSection === "profile" && (
-                            <Card className="border-none shadow-2xl bg-white/80 backdrop-blur-xl overflow-hidden">
-                                <CardHeader className="border-b bg-gradient-to-r from-indigo-50/50 to-purple-50/50 pb-6">
-                                    <div className="flex items-center gap-3">
-                                        <div className="p-2.5 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-xl shadow-lg">
-                                            <User size={24} className="text-white" strokeWidth={2.5} />
-                                        </div>
+            {/* Main Content Area */}
+            <div className="max-w-4xl mx-auto">
+                <AnimatePresence mode="wait">
+                    {activeTab === "profile" && (
+                        <motion.div
+                            key="profile"
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.95 }}
+                            transition={{ duration: 0.2 }}
+                        >
+                            <Card className="border-border/50 shadow-xl shadow-black/5 bg-card/50 backdrop-blur-sm overflow-hidden">
+                                <CardHeader className="bg-muted/30 border-b border-border/50 pb-8 pt-8 px-8">
+                                    <div className="flex items-center justify-between">
                                         <div>
-                                            <CardTitle className="text-2xl">Editar Perfil</CardTitle>
-                                            <CardDescription className="text-base">Actualiza tu foto y datos personales</CardDescription>
+                                            <CardTitle className="text-2xl font-bold">Información Personal</CardTitle>
+                                            <CardDescription className="text-base mt-2">
+                                                Actualiza tu imagen de perfil y detalles de la cuenta.
+                                            </CardDescription>
+                                        </div>
+                                        <div className="h-12 w-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
+                                            <User size={24} />
                                         </div>
                                     </div>
                                 </CardHeader>
-                                <CardContent className="p-8">
+                                <CardContent className="p-8 md:p-10">
                                     <form onSubmit={formProfile.handleSubmit(onProfileSubmit)} className="space-y-8">
-                                        <div className="flex flex-col md:flex-row gap-10 items-start">
-                                            <div className="space-y-4">
-                                                <Label className="text-base font-semibold text-slate-700">Foto de Perfil</Label>
-                                                <div className="w-44">
-                                                    <Controller
-                                                        control={formProfile.control}
-                                                        name="avatar"
-                                                        render={({ field }) => (
-                                                            <ImageUpload
-                                                                value={field.value}
-                                                                onChange={(val) => field.onChange(val)}
-                                                            />
-                                                        )}
-                                                    />
+                                        <div className="flex flex-col md:flex-row gap-10">
+                                            <div className="w-full md:w-1/3 flex flex-col items-center text-center space-y-4">
+                                                <div className="relative group cursor-pointer w-full">
+                                                    <div className="aspect-square rounded-2xl overflow-hidden border-2 border-dashed border-muted-foreground/25 hover:border-primary/50 transition-colors bg-muted/10 flex flex-col items-center justify-center">
+                                                        <Controller
+                                                            control={formProfile.control}
+                                                            name="avatar"
+                                                            render={({ field }) => (
+                                                                <ImageUpload
+                                                                    value={field.value}
+                                                                    onChange={(val) => field.onChange(val)}
+                                                                />
+                                                            )}
+                                                        />
+                                                    </div>
                                                 </div>
-                                                <p className="text-xs text-slate-500 leading-relaxed">
-                                                    JPG, PNG o GIF. Máx 5MB.
+                                                <p className="text-xs text-muted-foreground">
+                                                    Formatos permitidos: JPG, PNG. <br /> Máximo 5MB.
                                                 </p>
                                             </div>
 
-                                            <div className="flex-1 space-y-6 w-full">
-                                                <div className="grid gap-3">
-                                                    <Label htmlFor="name" className="text-base font-semibold text-slate-700">
-                                                        Nombre Completo
-                                                    </Label>
-                                                    <div className="relative">
-                                                        <User className="absolute left-4 top-3.5 h-5 w-5 text-indigo-400" strokeWidth={2} />
-                                                        <Input 
-                                                            id="name" 
-                                                            className="pl-12 h-12 border-slate-200 focus:border-indigo-400 focus:ring-indigo-400/20 rounded-xl text-base" 
-                                                            {...formProfile.register("name")} 
+                                            <div className="w-full md:w-2/3 space-y-6">
+                                                <div className="space-y-2">
+                                                    <Label className="text-sm font-semibold text-foreground/80">Nombre Completo</Label>
+                                                    <div className="relative group">
+                                                        <User className="absolute left-3 top-3 h-5 w-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
+                                                        <Input
+                                                            className="pl-10 h-11 bg-background/50 border-input group-focus-within:ring-2 group-focus-within:ring-primary/20 group-focus-within:border-primary transition-all duration-300"
+                                                            {...formProfile.register("name")}
                                                         />
                                                     </div>
                                                     {formProfile.formState.errors.name && (
-                                                        <p className="text-sm text-red-500 flex items-center gap-1.5">
-                                                            <span className="text-xs">⚠</span>
-                                                            {formProfile.formState.errors.name.message}
-                                                        </p>
+                                                        <p className="text-sm text-destructive font-medium">{formProfile.formState.errors.name.message}</p>
                                                     )}
                                                 </div>
 
-                                                <div className="grid gap-3">
-                                                    <Label htmlFor="email" className="text-base font-semibold text-slate-700">
-                                                        Correo Electrónico
-                                                    </Label>
-                                                    <div className="relative">
-                                                        <Mail className="absolute left-4 top-3.5 h-5 w-5 text-indigo-400" strokeWidth={2} />
-                                                        <Input 
-                                                            id="email" 
-                                                            className="pl-12 h-12 border-slate-200 focus:border-indigo-400 focus:ring-indigo-400/20 rounded-xl text-base" 
-                                                            {...formProfile.register("email")} 
+                                                <div className="space-y-2">
+                                                    <Label className="text-sm font-semibold text-foreground/80">Correo Electrónico</Label>
+                                                    <div className="relative group">
+                                                        <Mail className="absolute left-3 top-3 h-5 w-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
+                                                        <Input
+                                                            className="pl-10 h-11 bg-background/50 border-input group-focus-within:ring-2 group-focus-within:ring-primary/20 group-focus-within:border-primary transition-all duration-300"
+                                                            {...formProfile.register("email")}
                                                         />
                                                     </div>
                                                     {formProfile.formState.errors.email && (
-                                                        <p className="text-sm text-red-500 flex items-center gap-1.5">
-                                                            <span className="text-xs">⚠</span>
-                                                            {formProfile.formState.errors.email.message}
-                                                        </p>
+                                                        <p className="text-sm text-destructive font-medium">{formProfile.formState.errors.email.message}</p>
                                                     )}
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <div className="flex justify-end pt-6 border-t border-slate-100">
-                                            <Button 
-                                                type="submit" 
-                                                disabled={loading} 
-                                                className="bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white shadow-lg shadow-indigo-500/30 h-12 px-8 rounded-xl font-semibold transition-all hover:scale-105"
+                                        <Separator className="bg-border/60" />
+
+                                        <div className="flex justify-end pt-2">
+                                            <Button
+                                                type="submit"
+                                                disabled={loading}
+                                                className="bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/25 px-8 h-11 rounded-xl font-medium transition-all hover:-translate-y-0.5"
                                             >
                                                 {loading ? (
                                                     <>
@@ -313,86 +294,84 @@ const Account = () => {
                                     </form>
                                 </CardContent>
                             </Card>
-                        )}
+                        </motion.div>
+                    )}
 
-                        {activeSection === "security" && (
-                            <Card className="border-none shadow-2xl bg-white/80 backdrop-blur-xl overflow-hidden">
-                                <CardHeader className="border-b bg-gradient-to-r from-indigo-50/50 to-purple-50/50 pb-6">
-                                    <div className="flex items-center gap-3">
-                                        <div className="p-2.5 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-xl shadow-lg">
-                                            <ShieldCheck size={24} className="text-white" strokeWidth={2.5} />
-                                        </div>
+                    {activeTab === "security" && (
+                        <motion.div
+                            key="security"
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.95 }}
+                            transition={{ duration: 0.2 }}
+                        >
+                            <Card className="border-border/50 shadow-xl shadow-black/5 bg-card/50 backdrop-blur-sm overflow-hidden">
+                                <CardHeader className="bg-muted/30 border-b border-border/50 pb-8 pt-8 px-8">
+                                    <div className="flex items-center justify-between">
                                         <div>
-                                            <CardTitle className="text-2xl">Seguridad</CardTitle>
-                                            <CardDescription className="text-base">Gestiona tu contraseña y acceso a la cuenta</CardDescription>
+                                            <CardTitle className="text-2xl font-bold">Seguridad de la Cuenta</CardTitle>
+                                            <CardDescription className="text-base mt-2">
+                                                Protege tu cuenta con una contraseña segura.
+                                            </CardDescription>
+                                        </div>
+                                        <div className="h-12 w-12 rounded-2xl bg-amber-500/10 flex items-center justify-center text-amber-600">
+                                            <Lock size={24} />
                                         </div>
                                     </div>
                                 </CardHeader>
-                                <CardContent className="p-8">
-                                    <form onSubmit={formPassword.handleSubmit(onPasswordSubmit)} className="space-y-6 max-w-2xl">
-                                        <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-6">
-                                            <div className="flex gap-3">
-                                                <div className="flex-shrink-0">
-                                                    <ShieldCheck className="h-5 w-5 text-amber-600" />
-                                                </div>
-                                                <div>
-                                                    <h4 className="text-sm font-semibold text-amber-900 mb-1">Recomendación de Seguridad</h4>
-                                                    <p className="text-sm text-amber-800">
-                                                        Usa una contraseña fuerte con al menos 8 caracteres, mayúsculas, minúsculas y números.
-                                                    </p>
-                                                </div>
-                                            </div>
+                                <CardContent className="p-8 md:p-10">
+                                    <div className="mb-8 p-4 rounded-xl bg-amber-50 border border-amber-200/60 flex items-start gap-3">
+                                        <div className="p-2 bg-amber-100 rounded-lg text-amber-600 mt-0.5">
+                                            <AlertTriangle size={18} />
                                         </div>
+                                        <div>
+                                            <h4 className="font-semibold text-amber-900">Recomendación de Seguridad</h4>
+                                            <p className="text-sm text-amber-800 mt-1 leading-relaxed">
+                                                Para mayor seguridad, utiliza una contraseña de al menos 12 caracteres que incluya mayúsculas, minúsculas, números y símbolos especiales.
+                                            </p>
+                                        </div>
+                                    </div>
 
-                                        <div className="space-y-3">
-                                            <Label htmlFor="password" className="text-base font-semibold text-slate-700">
-                                                Nueva Contraseña
-                                            </Label>
-                                            <div className="relative">
-                                                <KeyRound className="absolute left-4 top-3.5 h-5 w-5 text-indigo-400" strokeWidth={2} />
+                                    <form onSubmit={formPassword.handleSubmit(onPasswordSubmit)} className="space-y-6 max-w-2xl mx-auto">
+                                        <div className="space-y-2">
+                                            <Label className="text-sm font-semibold text-foreground/80">Nueva Contraseña</Label>
+                                            <div className="relative group">
+                                                <KeyRound className="absolute left-3 top-3 h-5 w-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
                                                 <Input
-                                                    id="password"
                                                     type="password"
-                                                    className="pl-12 h-12 border-slate-200 focus:border-indigo-400 focus:ring-indigo-400/20 rounded-xl text-base"
                                                     placeholder="••••••••"
+                                                    className="pl-10 h-11 bg-background/50 border-input group-focus-within:ring-2 group-focus-within:ring-primary/20 group-focus-within:border-primary transition-all duration-300"
                                                     {...formPassword.register("password")}
                                                 />
                                             </div>
                                             {formPassword.formState.errors.password && (
-                                                <p className="text-sm text-red-500 flex items-center gap-1.5">
-                                                    <span className="text-xs">⚠</span>
-                                                    {formPassword.formState.errors.password.message}
-                                                </p>
+                                                <p className="text-sm text-destructive font-medium">{formPassword.formState.errors.password.message}</p>
                                             )}
                                         </div>
 
-                                        <div className="space-y-3">
-                                            <Label htmlFor="confirmPassword" className="text-base font-semibold text-slate-700">
-                                                Confirmar Contraseña
-                                            </Label>
-                                            <div className="relative">
-                                                <Lock className="absolute left-4 top-3.5 h-5 w-5 text-indigo-400" strokeWidth={2} />
+                                        <div className="space-y-2">
+                                            <Label className="text-sm font-semibold text-foreground/80">Confirmar Contraseña</Label>
+                                            <div className="relative group">
+                                                <ShieldCheck className="absolute left-3 top-3 h-5 w-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
                                                 <Input
-                                                    id="confirmPassword"
                                                     type="password"
-                                                    className="pl-12 h-12 border-slate-200 focus:border-indigo-400 focus:ring-indigo-400/20 rounded-xl text-base"
                                                     placeholder="••••••••"
+                                                    className="pl-10 h-11 bg-background/50 border-input group-focus-within:ring-2 group-focus-within:ring-primary/20 group-focus-within:border-primary transition-all duration-300"
                                                     {...formPassword.register("confirmPassword")}
                                                 />
                                             </div>
                                             {formPassword.formState.errors.confirmPassword && (
-                                                <p className="text-sm text-red-500 flex items-center gap-1.5">
-                                                    <span className="text-xs">⚠</span>
-                                                    {formPassword.formState.errors.confirmPassword.message}
-                                                </p>
+                                                <p className="text-sm text-destructive font-medium">{formPassword.formState.errors.confirmPassword.message}</p>
                                             )}
                                         </div>
 
-                                        <div className="flex justify-end pt-6 border-t border-slate-100">
+                                        <Separator className="bg-border/60 my-6" />
+
+                                        <div className="flex justify-end">
                                             <Button
                                                 type="submit"
                                                 disabled={loading}
-                                                className="bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white shadow-lg shadow-indigo-500/30 h-12 px-8 rounded-xl font-semibold transition-all hover:scale-105"
+                                                className="bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/25 px-8 h-11 rounded-xl font-medium transition-all hover:-translate-y-0.5 w-full md:w-auto"
                                             >
                                                 {loading ? (
                                                     <>
@@ -410,9 +389,9 @@ const Account = () => {
                                     </form>
                                 </CardContent>
                             </Card>
-                        )}
-                    </div>
-                </div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
             </div>
         </div>
     );

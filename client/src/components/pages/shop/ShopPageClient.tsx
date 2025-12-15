@@ -68,12 +68,19 @@ const ShopPageClient = ({ categories, brands }: Props) => {
           (cat) =>
             cat.name.toLocaleLowerCase() === cotegoryFromUrl.toLocaleLowerCase()
         );
-
         if (categoryName) {
           setCategory(categoryName._id);
         } else {
-          setInvalidCategory(cotegoryFromUrl);
-          setCategory("");
+          // Check if it matches a categoryType
+          const typeExists = categories.some(
+            (cat) => cat.categoryType === cotegoryFromUrl
+          );
+          if (typeExists) {
+            setCategory(cotegoryFromUrl);
+          } else {
+            setInvalidCategory(cotegoryFromUrl);
+            setCategory("");
+          }
         }
       } else {
         setCategory(cotegoryFromUrl);
@@ -367,6 +374,9 @@ const ShopPageClient = ({ categories, brands }: Props) => {
                       <SelectLabel className="font-bold text-gray-900 bg-gray-50 px-2 py-1">
                         {type}
                       </SelectLabel>
+                      <SelectItem value={type} className="pl-6 font-semibold text-gray-500">
+                        Todo {type}
+                      </SelectItem>
                       {cats.map((cat) => (
                         <SelectItem key={cat?._id} value={cat?._id} className="pl-6">
                           {cat?.name}

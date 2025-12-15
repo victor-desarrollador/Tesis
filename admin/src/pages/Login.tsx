@@ -47,67 +47,73 @@ export default function LoginPage() {
     try {
       await login(data);
       toast.success("¡Bienvenido al panel de control!");
-      navigate("/dashboard");
+      // Delay navigation to avoid conflict with framer-motion
+      setTimeout(() => {
+        navigate("/dashboard");
+      }, 100);
     } catch (error) {
       console.log("Error al iniciar sesión", error);
-      toast.error("Credenciales inválidas. Por favor, intente nuevamente.");
-    } finally {
+      // @ts-ignore
+      const errorMessage = error.message || "Credenciales inválidas. Por favor, intente nuevamente.";
+      toast.error(errorMessage);
       setIsLoading(false);
     }
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen w-full bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500">
+    <div className="flex items-center justify-center min-h-screen w-full bg-gray-900">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
         className="w-full max-w-md px-4"
       >
-        <Card className="w-full bg-white/95 backdrop-blur-sm shadow-xl rounded-xl border border-gray-200">
-          <CardHeader className="text-center space-y-2">
+        <Card className="w-full bg-white shadow-2xl rounded-2xl border-0 overflow-hidden">
+          <div className="h-2 bg-gradient-to-r from-indigo-500 to-purple-600 w-full" />
+          <CardHeader className="text-center space-y-4 pt-8 pb-2">
             <motion.div
               initial={{ scale: 0.8 }}
               animate={{ scale: 1 }}
               transition={{ duration: 0.3 }}
+              className="flex justify-center"
             >
-              <CardTitle className="text-3xl font-bold text-gray-800">
-                Iniciar sesión
-              </CardTitle>
-              <CardDescription className="text-gray-500">
-                Ingrese sus credenciales para iniciar sesión
-              </CardDescription>
+              <div className="p-3 bg-indigo-50 rounded-full">
+                <LogIn className="w-8 h-8 text-indigo-600" />
+              </div>
             </motion.div>
+            <div>
+              <CardTitle className="text-2xl font-bold text-gray-900">
+                Panel de Administración
+              </CardTitle>
+              <CardDescription className="text-gray-500 mt-2">
+                Acceso exclusivo para administradores
+              </CardDescription>
+            </div>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-6 pb-8 px-8">
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
-                className="space-y-6"
+                className="space-y-5"
               >
                 <FormField
                   control={form.control}
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-sm font-medium text-gray-700">
-                        Correo Electronico
+                      <FormLabel className="text-sm font-semibold text-gray-700">
+                        Correo Electrónico
                       </FormLabel>
                       <FormControl>
-                        <motion.div
-                          whileFocus={{ scale: 1.02 }}
-                          transition={{ duration: 0.2 }}
-                        >
-                          <Input
-                            placeholder="ejemplo@correo.com"
-                            type="email"
-                            disabled={isLoading}
-                            className="border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200"
-                            {...field}
-                          />
-                        </motion.div>
+                        <Input
+                          placeholder="admin@ejemplo.com"
+                          type="email"
+                          disabled={isLoading}
+                          className="h-11 bg-gray-50 border-gray-200 focus:bg-white focus:ring-2 focus:ring-indigo-100 focus:border-indigo-500 transition-all duration-200"
+                          {...field}
+                        />
                       </FormControl>
-                      <FormMessage className="text-red-500 text-xs" />
+                      <FormMessage className="text-red-500 text-xs mt-1.5" />
                     </FormItem>
                   )}
                 />
@@ -116,43 +122,32 @@ export default function LoginPage() {
                   name="password"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-sm font-medium text-gray-700">
+                      <FormLabel className="text-sm font-semibold text-gray-700">
                         Contraseña
                       </FormLabel>
                       <FormControl>
-                        <motion.div
-                          whileFocus={{ scale: 1.02 }}
-                          transition={{ duration: 0.2 }}
-                        >
-                          <Input
-                            placeholder="••••••••"
-                            type="password"
-                            disabled={isLoading}
-                            className="border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200"
-                            {...field}
-                          />
-                        </motion.div>
+                        <Input
+                          placeholder="••••••••"
+                          type="password"
+                          disabled={isLoading}
+                          className="h-11 bg-gray-50 border-gray-200 focus:bg-white focus:ring-2 focus:ring-indigo-100 focus:border-indigo-500 transition-all duration-200"
+                          {...field}
+                        />
                       </FormControl>
-                      <FormMessage className="text-red-500 text-xs" />
+                      <FormMessage className="text-red-500 text-xs mt-1.5" />
                     </FormItem>
                   )}
                 />
-                <div className="flex justify-end">
-                  <Link
-                    to="/forgot-password"
-                    className="text-sm text-indigo-600 hover:text-indigo-800 hover:underline transition-all duration-200"
-                  >
-                    ¿Olvidaste tu contraseña?
-                  </Link>
-                </div>
+
                 <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
                   transition={{ duration: 0.2 }}
+                  className="pt-2"
                 >
                   <Button
                     type="submit"
-                    className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 rounded-lg transition-all duration-200"
+                    className="w-full h-11 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl shadow-lg shadow-indigo-200 transition-all duration-200"
                     disabled={isLoading}
                   >
                     {isLoading ? (
@@ -177,12 +172,11 @@ export default function LoginPage() {
                             d="M4 12a8 8 0 018-8v8H4z"
                           />
                         </svg>
-                        Iniciando sesión...
+                        Verificando...
                       </span>
                     ) : (
                       <span className="flex items-center gap-2">
-                        <LogIn size={16} />
-                        Iniciar sesión
+                        Ingresar al Panel
                       </span>
                     )}
                   </Button>
@@ -190,15 +184,9 @@ export default function LoginPage() {
               </form>
             </Form>
           </CardContent>
-          <CardFooter className="justify-center">
-            <p className="text-sm text-gray-500">
-              No tienes una cuenta?{" "}
-              <Link
-                to="/register"
-                className="text-indigo-600 hover:text-indigo-800 hover:underline transition-all duration-200"
-              >
-                Registrarse
-              </Link>
+          <CardFooter className="justify-center bg-gray-50 py-4 border-t border-gray-100">
+            <p className="text-xs text-gray-400 font-medium">
+              &copy; {new Date().getFullYear()} Sistema de Gestión
             </p>
           </CardFooter>
         </Card>

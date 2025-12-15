@@ -80,7 +80,8 @@ interface User {
   name: string;
   email: string;
   avatar?: string;
-  role: string;
+  isAdmin?: boolean;
+  role: "admin" | "cliente";
   addresses?: Array<{
     _id: string;
     street: string;
@@ -348,6 +349,19 @@ export const useCartStore = create<CartState>()(
           throw new Error("Autenticación requerida");
         }
 
+        // Check if product has sufficient stock
+        if (product.stock < quantity) {
+          throw new Error(`Stock insuficiente. Disponible: ${product.stock}`);
+        }
+
+        // Check if adding this quantity would exceed stock
+        const currentQuantity = get().getCartItemQuantity(product._id);
+        const totalQuantity = currentQuantity + quantity;
+
+        if (totalQuantity > product.stock) {
+          throw new Error(`No puedes agregar más de ${product.stock} unidades. Ya tienes ${currentQuantity} en el carrito.`);
+        }
+
         set({ isLoading: true });
         try {
           const { addToCart } = await import("./cartApi");
@@ -402,6 +416,15 @@ export const useCartStore = create<CartState>()(
         const { auth_token } = useUserStore.getState();
         if (!auth_token) {
           throw new Error("Autenticación requerida");
+        }
+
+        // Find the product in cart to check stock
+        const cartItem = get().cartItemsWithQuantities.find(
+          item => item.product._id === productId
+        );
+
+        if (cartItem && cartItem.product.stock < quantity) {
+          throw new Error(`Stock insuficiente. Disponible: ${cartItem.product.stock}`);
         }
 
         set({ isLoading: true });

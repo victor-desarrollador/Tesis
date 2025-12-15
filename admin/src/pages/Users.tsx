@@ -210,8 +210,6 @@ const UsersPage = () => {
         switch (role) {
             case "admin":
                 return "bg-purple-100 text-purple-700 border-purple-200";
-            case "deliveryman":
-                return "bg-blue-100 text-blue-700 border-blue-200";
             case "cliente":
                 return "bg-green-100 text-green-700 border-green-200";
             default:
@@ -223,8 +221,6 @@ const UsersPage = () => {
         switch (role) {
             case "admin":
                 return "Administrador";
-            case "deliveryman":
-                return "Repartidor";
             case "cliente":
                 return "Cliente";
             default:
@@ -298,7 +294,6 @@ const UsersPage = () => {
                                 <SelectItem value="all">Todos los Roles</SelectItem>
                                 <SelectItem value="admin">Administrador</SelectItem>
                                 <SelectItem value="cliente">Cliente</SelectItem>
-                                <SelectItem value="deliveryman">Repartidor</SelectItem>
                             </SelectContent>
                         </Select>
                     </div>
@@ -464,7 +459,6 @@ const UsersPage = () => {
                                                         <SelectContent>
                                                             <SelectItem value="cliente">Cliente</SelectItem>
                                                             <SelectItem value="admin">Administrador</SelectItem>
-                                                            <SelectItem value="deliveryman">Repartidor</SelectItem>
                                                         </SelectContent>
                                                     </Select>
                                                     <FormMessage />
@@ -590,7 +584,6 @@ const UsersPage = () => {
                                                         <SelectContent>
                                                             <SelectItem value="cliente">Cliente</SelectItem>
                                                             <SelectItem value="admin">Administrador</SelectItem>
-                                                            <SelectItem value="deliveryman">Repartidor</SelectItem>
                                                         </SelectContent>
                                                     </Select>
                                                     <FormMessage />

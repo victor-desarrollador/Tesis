@@ -173,7 +173,7 @@ const Dashboard = () => {
                                     <Card className="bg-white/95 shadow-lg rounded-xl hover:shadow-xl transition-shadow duration-300">
                                         <CardHeader>
                                             <CardTitle className="text-lg font-semibold text-gray-800">
-                                                Distribución de Categorías
+                                                Distribución por Tipo de Categoría
                                             </CardTitle>
                                         </CardHeader>
                                         <CardContent className="p-4">
@@ -274,14 +274,14 @@ const Dashboard = () => {
                                     <Card className="bg-white/95 shadow-lg rounded-xl hover:shadow-xl transition-shadow duration-300">
                                         <CardHeader>
                                             <CardTitle className="text-lg font-semibold text-gray-800">
-                                                Distribución de Marcas
+                                                Top 15 Productos Más Vendidos
                                             </CardTitle>
                                         </CardHeader>
                                         <CardContent className="p-4">
                                             {chartsReady ? (
                                                 <ResponsiveContainer width="100%" height={350}>
                                                     <BarChart
-                                                        data={stats.brands}
+                                                        data={stats.topProducts}
                                                         margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
                                                     >
                                                         <CartesianGrid
@@ -300,11 +300,11 @@ const Dashboard = () => {
                                                         <Legend />
                                                         <Bar
                                                             dataKey="value"
-                                                            name="Productos"
+                                                            name="Ventas"
                                                             radius={[4, 4, 0, 0]}
                                                             animationDuration={1000}
                                                         >
-                                                            {stats.brands.map((_, index) => (
+                                                            {stats.topProducts.map((_, index) => (
                                                                 <Cell
                                                                     key={`cell-${index}`}
                                                                     fill={COLORS[index % COLORS.length]}

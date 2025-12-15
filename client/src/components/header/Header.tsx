@@ -33,6 +33,33 @@ const Header = () => {
           <SearchInput />
         </div>
         <div className="hidden md:inline-flex items-center gap-5">
+          {/* Admin Button */}
+          {useUserStore.getState().authUser?.role === 'admin' && (
+            <a
+              href={`${process.env.NEXT_PUBLIC_ADMIN_URL || "http://localhost:5173/login"}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden md:inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold text-white bg-tiendaLVSecondary rounded-full hover:bg-yellow-600 transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <rect width="7" height="9" x="3" y="3" rx="1" />
+                <rect width="7" height="5" x="14" y="3" rx="1" />
+                <rect width="7" height="9" x="14" y="12" rx="1" />
+                <rect width="7" height="5" x="3" y="16" rx="1" />
+              </svg>
+              Panel Admin
+            </a>
+          )}
           <OrdersIcon />
           <WishlistIcon />
           <UserButton />

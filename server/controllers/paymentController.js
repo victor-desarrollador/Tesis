@@ -1,6 +1,7 @@
 import { MercadoPagoConfig, Preference, Payment } from "mercadopago";
 import asyncHandler from "express-async-handler";
 import Order from "../models/orderModel.js";
+import Product from "../models/productModel.js";
 
 /**
  * Inicializar cliente de Mercado Pago
@@ -61,6 +62,26 @@ export const createPaymentPreference = asyncHandler(async (req, res) => {
         success: false,
         message: "Esta orden ya ha sido pagada",
       });
+    }
+
+    // Re-validate stock availability before creating payment preference
+    // This prevents race conditions where stock might have changed since order creation
+    for (const item of order.items) {
+      const product = await item.productId;
+
+      if (!product) {
+        return res.status(404).json({
+          success: false,
+          message: `Producto no encontrado: ${item.name}`,
+        });
+      }
+
+      if (product.stock < item.quantity) {
+        return res.status(400).json({
+          success: false,
+          message: `Stock insuficiente para "${product.name}". Disponible: ${product.stock}, Solicitado: ${item.quantity}`,
+        });
+      }
     }
 
     // Construir items para Mercado Pago
@@ -222,6 +243,30 @@ export const handleMercadoPagoWebhook = asyncHandler(async (req, res) => {
             order.paidAt = new Date();
             order.paymentIntentId = paymentId.toString();
             order.stripeSessionId = paymentInfo.id.toString();
+
+            // Decrement stock for each item in the order
+            try {
+              const populatedOrder = await Order.findById(orderId).populate("items.productId");
+
+              for (const item of populatedOrder.items) {
+                if (item.productId) {
+                  const product = await Product.findById(item.productId._id);
+
+                  if (product) {
+                    // Decrement stock
+                    product.stock = Math.max(0, product.stock - item.quantity);
+                    await product.save();
+                    console.log(`📦 Stock actualizado para ${product.name}: ${product.stock + item.quantity} → ${product.stock}`);
+                  } else {
+                    console.error(`⚠️ Producto no encontrado para decrementar stock: ${item.productId._id}`);
+                  }
+                }
+              }
+            } catch (stockError) {
+              console.error("❌ Error decrementando stock:", stockError);
+              // Continue with order update even if stock decrement fails
+            }
+
             await order.save();
             console.log(`✅ Orden actualizada a 'paid': ${orderId}`);
             break;

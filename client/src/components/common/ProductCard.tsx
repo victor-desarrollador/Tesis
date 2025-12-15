@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import DiscountBadge from "./DiscountBadge";
-import PriceContainer from "./PriceContainer";
+import PriceFormatter from "./PriceFormatter";
 import AddToCartButton from "./AddToCartButton";
 
 const ProductCard = ({ product }: { product: Product }) => {
@@ -63,19 +63,26 @@ const ProductCard = ({ product }: { product: Product }) => {
       </Link>
       {/* Wishlist button */}
       <hr className="border-gray-100" />
-      <div className="p-4 space-y-2">
-        <p className="uppercase text-xs font-semibold text-gray-500 tracking-wider">
-          {product?.category?.name}
-        </p>
-        <p className="line-clamp-2 text-base font-medium text-gray-900 h-10 leading-snug group-hover:text-black transition-colors">
+      <div className="p-4 bg-white flex flex-col flex-1 gap-2"> {/* Added flex-1 to push footer down */}
+        <h2 className="font-semibold text-gray-800 line-clamp-2 text-sm min-h-[40px] leading-tight"> {/* Fixed height for 2 lines */}
           {product?.name}
-        </p>
-        <PriceContainer
-          price={product?.price}
-          comparePrice={product?.comparePrice}
-          discountPercentage={product?.discountPercentage}
-        />
-        <div className="pt-2">
+        </h2>
+
+        <div className="flex items-center justify-between mt-auto"> {/* mt-auto to push price to bottom of content area */}
+          <div className="flex flex-col">
+            <p className="text-xs text-gray-500 truncate max-w-[100px]">
+              {product?.brand?.name || product?.category?.name}
+            </p>
+            <div className="flex items-baseline gap-2">
+              <p className="font-bold text-lg text-tiendaLVPrimary">
+                <PriceFormatter amount={product?.price} />
+              </p>
+              {/* Optional: Add compare price if needed */}
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-3 pt-3 border-t border-gray-100">
           <AddToCartButton product={product} />
         </div>
       </div>

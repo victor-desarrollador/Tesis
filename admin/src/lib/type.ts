@@ -3,7 +3,7 @@ export interface User {
   name: string;
   email: string;
   avatar: string;
-  role: "admin" | "cliente" | "deliveryman";
+  role: "admin" | "cliente";
   createdAt: string;
   updatedAt: string;
 }
@@ -120,5 +120,5 @@ export interface StatsData {
   };
   roles: { name: string; value: number }[];
   categories: { name: string; value: number }[];
-  brands: { name: string; value: number }[];
+  topProducts: { name: string; value: number }[];
 }

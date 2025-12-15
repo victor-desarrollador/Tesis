@@ -36,20 +36,20 @@ const FeaturedProducts = async () => {
     }
 
     return (
-        <div className="w-full bg-white border mt-3 rounded-lg shadow-sm p-5">
-            <SectionHeader
-                icon={Star}
-                badgeText="Destacados"
-                title="⭐ Productos Destacados"
-                description={`${products.length} ${products.length === 1 ? 'producto seleccionado' : 'productos seleccionados'} especialmente para ti`}
-                href="/shop?featured=true"
-                buttonText="Ver Todos"
-            />
+        <div className="w-full py-12 bg-tiendaLVSoft/30">
+            <div className="max-w-7xl mx-auto px-4">
+                <div className="mb-8 flex items-end justify-between">
+                    <div>
+                        <h2 className="text-3xl font-bold text-tiendaLVText mb-2">Productos Destacados</h2>
+                        <p className="text-gray-500">Selección especial para ti</p>
+                    </div>
+                </div>
 
-            <div className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                {products.map((product) => (
-                    <ProductCard key={product?._id} product={product} />
-                ))}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    {products.map((product) => (
+                        <ProductCard key={product?._id} product={product} />
+                    ))}
+                </div>
             </div>
         </div>
     );
