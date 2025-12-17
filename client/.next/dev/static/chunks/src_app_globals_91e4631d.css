@@ -2194,16 +2194,6 @@
     background-color: var(--color-black);
   }
 
-  .bg-black\/30 {
-    background-color: #0000004d;
-  }
-
-  @supports (color: color-mix(in lab, red, red)) {
-    .bg-black\/30 {
-      background-color: color-mix(in oklab, var(--color-black) 30%, transparent);
-    }
-  }
-
   .bg-black\/40 {
     background-color: #0006;
   }
@@ -3722,10 +3712,6 @@
     user-select: none;
   }
 
-  .slide-in-from-left-10 {
-    --tw-enter-translate-x: calc(.1 * -100%);
-  }
-
   .zoom-in-95 {
     --tw-enter-scale: .95;
   }
@@ -3806,12 +3792,6 @@
   @media (hover: hover) {
     .group-hover\:text-amber-600:is(:where(.group):hover *) {
       color: var(--color-amber-600);
-    }
-  }
-
-  @media (hover: hover) {
-    .group-hover\:text-black:is(:where(.group):hover *) {
-      color: var(--color-black);
     }
   }
 
