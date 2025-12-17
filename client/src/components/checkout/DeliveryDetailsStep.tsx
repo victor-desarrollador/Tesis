@@ -50,7 +50,7 @@ const DeliveryDetailsStep = ({
                                 <h3 className="text-xl font-bold text-gray-900 mb-2">Tienda L&V Belleza y Accesorios </h3>
                                 <p className="text-gray-600 flex items-start gap-2">
                                     <MapPin className="w-5 h-5 shrink-0 mt-0.5" />
-                                    <span>Av. Principal 1234, Centro<br />Ciudad de Corrientes, Corrientes</span>
+                                    <span>📍Pasaje Luis Sáenz Peña 2955, San Miguel de Tucumán, Argentina</span>
                                 </p>
                             </div>
 

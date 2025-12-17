@@ -1,14 +1,1 @@
-{
-  "/_not-found/page": "app/_not-found/page.js",
-  "/about/page": "app/about/page.js",
-  "/help/page": "app/help/page.js",
-  "/page": "app/page.js",
-  "/privacy/page": "app/privacy/page.js",
-  "/product/[id]/page": "app/product/[id]/page.js",
-  "/shop/page": "app/shop/page.js",
-  "/terms/page": "app/terms/page.js",
-  "/user/cart/page": "app/user/cart/page.js",
-  "/user/checkout/page": "app/user/checkout/page.js",
-  "/user/orders/page": "app/user/orders/page.js",
-  "/user/profile/page": "app/user/profile/page.js"
-}
+{}
