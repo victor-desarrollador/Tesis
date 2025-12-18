@@ -12,9 +12,11 @@ import CartIcon from "./CartIcon";
 import Sidebar from "./Sidebar";
 
 const Header = () => {
-  const { verifyAuth } = useUserStore();
+  const { verifyAuth, authUser } = useUserStore();
+  const [isMounted, setIsMounted] = React.useState(false);
 
   React.useEffect(() => {
+    setIsMounted(true);
     verifyAuth();
   }, [verifyAuth]);
 
@@ -34,7 +36,7 @@ const Header = () => {
         </div>
         <div className="hidden md:inline-flex items-center gap-5">
           {/* Admin Button */}
-          {useUserStore.getState().authUser?.role === 'admin' && (
+          {isMounted && authUser?.role === "admin" && (
             <a
               href={`${process.env.NEXT_PUBLIC_ADMIN_URL || "http://localhost:5173/login"}`}
               target="_blank"
